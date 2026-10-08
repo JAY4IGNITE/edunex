@@ -1,9 +1,4 @@
 services:
-  - type: redis
-    name: edunex-redis
-    plan: free
-    ipAllowList: []
-
   - type: web
     name: edunex-backend
     env: python
@@ -16,10 +11,7 @@ services:
           name: edunex-db
           property: connectionString
       - key: REDIS_URL
-        fromService:
-          type: redis
-          name: edunex-redis
-          property: connectionString
+        value: "redis://red-db429rmb7d7c73a3pmq0:6379"
       - key: FRONTEND_ORIGIN
         value: "https://edunex.onrender.com"
 
