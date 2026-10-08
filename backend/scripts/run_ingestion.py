@@ -95,6 +95,15 @@ def run():
             
         print("Database ingestion successful.")
         db.close()
+        
+        # Invalidate all main tags because underlying data completely changed
+        from backend.app.services.cache import CacheService
+        from backend.app.services.pubsub import PubSubService
+        
+        CacheService.invalidate_tags(["analytics", "segments", "insights"])
+        PubSubService.publish("analytics_updated")
+        
+        print("Caches invalidated and events published successfully.")
     except OperationalError as e:
         print("Database connection failed. Ensure PostgreSQL is running. Data saved to processed directory.")
     except Exception as e:

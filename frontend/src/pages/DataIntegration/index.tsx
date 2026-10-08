@@ -1,6 +1,14 @@
 import { readableSourceText } from "@/utils/text";
 import { useQuery } from "@tanstack/react-query";
-import { Database, FileCheck2, Layers3, ArrowRight } from "lucide-react";
+import {
+  Database,
+  FileCheck2,
+  ArrowRight,
+  Workflow,
+  CircleCheck,
+  CircleAlert,
+  ShieldCheck,
+} from "lucide-react";
 import { api } from "@/services/api";
 import {
   PageHeading,
@@ -15,6 +23,7 @@ import {
 } from "@/components/skeletons";
 import { Badge } from "@/components/ui/badge";
 import { humanize, number } from "@/utils/data";
+import { DomainIcon } from "@/components/analytics/DomainIcon";
 const domainKeys: Record<string, string> = {
   Academic: "academic_records",
   Attendance: "attendance_records",
@@ -58,7 +67,7 @@ export default function DataIntegration() {
         message="Unable to load data provenance."
       >
         {(data) => (
-          <section className="panel provenance-hero">
+          <section className="panel provenance-hero data-pipeline-hero">
             <span className="data-hero-icon">
               <Database size={25} />
             </span>
@@ -68,10 +77,21 @@ export default function DataIntegration() {
               <p>{readableSourceText(data.authenticity)}</p>
               <div className="domain-flow">
                 {data.domains.map((domain) => (
-                  <span key={domain}>{domain}</span>
+                  <span key={domain}>
+                    <DomainIcon domain={domain} size={14} />
+                    {humanize(domain)}
+                  </span>
                 ))}
                 <ArrowRight size={15} />
-                <strong>Student 360</strong>
+                <strong>
+                  <Workflow size={15} aria-hidden="true" />
+                  Student 360
+                </strong>
+              </div>
+              <div className="provenance-status">
+                <ShieldCheck size={14} aria-hidden="true" />
+                <span>{data.verification_status}</span>
+                <span>Dataset: {data.dataset_id}</span>
               </div>
             </div>
           </section>
@@ -95,21 +115,49 @@ export default function DataIntegration() {
         >
           {(data) => (
             <div className="coverage-grid">
-              {Object.entries(domainKeys).map(([label, key]) => (
-                <article className="panel coverage-card" key={key}>
-                  <Layers3 size={17} />
-                  <h3>{label}</h3>
-                  <strong>
-                    {number(data.domains[key]?.records_accepted, 0)}
-                  </strong>
-                  <p>accepted records</p>
-                  {data.domains[key] && (
-                    <small>
-                      {number(data.domains[key].records_processed, 0)} processed
-                    </small>
-                  )}
-                </article>
-              ))}
+              {Object.entries(domainKeys).map(([label, key]) => {
+                const stats = data.domains[key];
+                return (
+                  <article
+                    className="panel coverage-card domain-coverage-card"
+                    key={key}
+                  >
+                    <span className="coverage-domain-icon">
+                      <DomainIcon domain={label} />
+                    </span>
+                    <h3>{label}</h3>
+                    <strong>{number(stats?.records_accepted, 0)}</strong>
+                    <p>accepted records</p>
+                    {stats && (
+                      <>
+                        <small>
+                          {number(stats.records_processed, 0)} processed
+                        </small>
+                        <div
+                          className="coverage-record-track"
+                          aria-hidden="true"
+                        >
+                          <span
+                            style={{
+                              width: `${stats.records_processed ? Math.min(100, Math.max(0, (stats.records_accepted / stats.records_processed) * 100)) : 0}%`,
+                            }}
+                          />
+                        </div>
+                        <span
+                          className={`coverage-quality-status ${stats.records_rejected ? "has-rejections" : ""}`}
+                        >
+                          {stats.records_rejected ? (
+                            <CircleAlert size={13} aria-hidden="true" />
+                          ) : (
+                            <CircleCheck size={13} aria-hidden="true" />
+                          )}
+                          {number(stats.records_rejected, 0)} rejected
+                        </span>
+                      </>
+                    )}
+                  </article>
+                );
+              })}
             </div>
           )}
         </QueryState>
@@ -132,7 +180,7 @@ export default function DataIntegration() {
         >
           {(data) =>
             Object.keys(data.datasets).length ? (
-              <div className="grid-three">
+              <div className="grid-three source-grid">
                 {Object.values(data.datasets).map((dataset) => (
                   <article
                     className="panel source-card"
@@ -151,6 +199,10 @@ export default function DataIntegration() {
                     </div>
                     <MetricList
                       entries={[
+                        {
+                          label: "Source type",
+                          value: humanize(dataset.source_type),
+                        },
                         {
                           label: "Authenticity",
                           value: readableSourceText(dataset.authenticity),
@@ -196,52 +248,60 @@ export default function DataIntegration() {
           {(data) => (
             <div className="panel quality-panel">
               <p className="quality-time">
+                <Database size={15} aria-hidden="true" />
                 Dataset: {data.dataset_id} · Ingestion run: {data.run_time}
               </p>
-              <div
-                className="table-scroll"
-                tabIndex={0}
-                role="region"
-                aria-label="Data quality report"
-              >
-                <table>
-                  <caption className="sr-only">
-                    Ingestion data quality by domain
-                  </caption>
-                  <thead>
-                    <tr>
-                      <th>Domain</th>
-                      <th>Processed</th>
-                      <th>Accepted</th>
-                      <th>Rejected</th>
-                      <th>Missing values</th>
-                      <th>Duplicates</th>
-                      <th>Schema errors</th>
-                      <th>Invalid ranges</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.entries(data.domains).map(([domain, stats]) => (
-                      <tr key={domain}>
-                        <td>{humanize(domain)}</td>
-                        {(
-                          [
-                            "records_processed",
-                            "records_accepted",
-                            "records_rejected",
-                            "missing_values",
-                            "duplicate_records",
-                            "schema_errors",
-                            "invalid_ranges",
-                          ] as const
-                        ).map((key) => (
-                          <td key={key}>{number(stats[key], 0)}</td>
-                        ))}
+              {!Object.keys(data.domains).length ? (
+                <EmptyState
+                  title="No quality report available."
+                  description="No domain validation records were returned for this dataset."
+                />
+              ) : (
+                <div
+                  className="table-scroll"
+                  tabIndex={0}
+                  role="region"
+                  aria-label="Data quality report"
+                >
+                  <table>
+                    <caption className="sr-only">
+                      Ingestion data quality by domain
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th>Domain</th>
+                        <th>Processed</th>
+                        <th>Accepted</th>
+                        <th>Rejected</th>
+                        <th>Missing values</th>
+                        <th>Duplicates</th>
+                        <th>Schema errors</th>
+                        <th>Invalid ranges</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {Object.entries(data.domains).map(([domain, stats]) => (
+                        <tr key={domain}>
+                          <td>{humanize(domain)}</td>
+                          {(
+                            [
+                              "records_processed",
+                              "records_accepted",
+                              "records_rejected",
+                              "missing_values",
+                              "duplicate_records",
+                              "schema_errors",
+                              "invalid_ranges",
+                            ] as const
+                          ).map((key) => (
+                            <td key={key}>{number(stats[key], 0)}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
         </QueryState>
@@ -287,6 +347,12 @@ export default function DataIntegration() {
           >
             {(data) => (
               <>
+                {!Object.keys(data.mappings).length && (
+                  <EmptyState
+                    title="No verified mappings available."
+                    description="Source mappings will appear when they are present in the registry."
+                  />
+                )}
                 {Object.entries(data.mappings).map(([dataset, fields]) => (
                   <div key={dataset}>
                     <h3 className="subheading">{dataset}</h3>

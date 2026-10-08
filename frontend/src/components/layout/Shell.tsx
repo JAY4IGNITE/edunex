@@ -1,18 +1,18 @@
-import { Suspense, useEffect } from "react";
-import { PageSkeleton } from "@/components/skeletons";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity,
-  LayoutDashboard,
-  Users,
-  ShieldCheck,
-  Layers3,
-  Lightbulb,
-  Database,
   ArrowUpRight,
+  ChevronRight,
+  Command,
+  GraduationCap,
   Menu,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Sparkles,
 } from "lucide-react";
+import { PageSkeleton } from "@/components/skeletons";
 import { useFilters } from "@/hooks/useFilters";
 import { FilterBar } from "@/components/filters/FilterBar";
 import { api } from "@/services/api";
@@ -25,105 +25,168 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Tooltip } from "@/components/ui/tooltip";
 import { readableSourceText } from "@/utils/text";
-const destinations = [
-  { to: "/", label: "Overview", icon: LayoutDashboard },
-  { to: "/students", label: "Students", icon: Users },
-  { to: "/risks", label: "Risks", icon: ShieldCheck },
-  { to: "/segments", label: "Segments", icon: Layers3 },
-  { to: "/insights", label: "Insights", icon: Lightbulb },
-  { to: "/data", label: "Data Integration", icon: Database },
-];
+import { useRealtimeUpdates } from "@/hooks/useRealtimeUpdates";
+import { LiveIndicator } from "@/components/layout/LiveIndicator";
+import { CommandPalette } from "./CommandPalette";
+import { activeDestination, destinations } from "./navigation";
+
 export default function Shell() {
   const location = useLocation();
   const { cohortSearch } = useFilters();
+  const realtimeStatus = useRealtimeUpdates();
+  
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem("edunex-sidebar-collapsed") === "true";
+    } catch {
+      return false;
+    }
+  });
   const provenance = useQuery({
     queryKey: ["provenance"],
     queryFn: ({ signal }) => api.provenance(signal),
     staleTime: 30 * 60 * 1000,
   });
+  const title = location.pathname.startsWith("/students/")
+    ? "Student 360"
+    : (destinations.find((d) => activeDestination(location.pathname, d.to))
+        ?.label ?? "Page not found");
   useEffect(() => {
-    const path = location.pathname === "/dashboard" ? "/" : location.pathname;
-    document.title = `${destinations.find((d) => d.to === path)?.label ?? (path.startsWith("/students/") ? "Student 360" : "Page not found")} · CampusPulse AI`;
+    document.title = `${title} · EduNex`;
     document.querySelector<HTMLElement>("main")?.focus({ preventScroll: true });
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location.pathname, title]);
+  function toggleSidebar() {
+    setCollapsed((current) => {
+      try {
+        localStorage.setItem("edunex-sidebar-collapsed", String(!current));
+      } catch {
+        /* The layout also works when browser storage is unavailable. */
+      }
+      return !current;
+    });
+  }
   const nav = (mobile = false) =>
     destinations.map(({ to, label, icon: Icon }) => {
+      const active = activeDestination(location.pathname, to);
       const link = (
-        <NavLink
-          key={to}
+        <Link
           to={`${to}${cohortSearch}`}
-          end={to === "/"}
-          className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          aria-label={label}
+          aria-current={active ? "page" : undefined}
+          className={`nav-item ${active ? "active" : ""}`}
         >
           <Icon size={19} aria-hidden="true" />
           <span>{label}</span>
-        </NavLink>
+          {active && <i aria-hidden="true" />}
+        </Link>
       );
       return mobile ? (
         <DialogClose asChild key={to}>
           {link}
         </DialogClose>
+      ) : collapsed ? (
+        <Tooltip key={to} content={label}>
+          {link}
+        </Tooltip>
       ) : (
-        link
+        <div key={to}>{link}</div>
       );
     });
   return (
-    <div className="app">
+    <div className={`app ${collapsed ? "sidebar-collapsed" : ""}`}>
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <header className="topbar">
-        <NavLink
-          to={`/${cohortSearch}`}
-          className="brand"
-          aria-label="CampusPulse AI overview"
+      <aside className="workspace-sidebar" aria-label="Workspace sidebar">
+        <Link
+          to={`/dashboard${cohortSearch}`}
+          className="workspace-brand"
+          aria-label="EduNex overview"
         >
           <span className="brand-mark">
-            <Activity size={25} />
+            <GraduationCap size={25} aria-hidden="true" />
           </span>
-          <span>
-            CampusPulse <b>AI</b>
-            <small>STUDENT SUCCESS INTELLIGENCE</small>
+          <span className="brand-wordmark">
+            EduNex<span>STUDENT INTELLIGENCE</span>
           </span>
-        </NavLink>
-        <div className="topbar-right">
-          <span className="workspace-label">Institutional workspace</span>
-          <span className="evaluator-avatar" aria-label="Evaluator view">
-            E
+        </Link>
+        <div className="workspace-switcher">
+          <span className="workspace-emblem">
+            <Activity size={18} />
           </span>
-          <span className="evaluator-label">Evaluator view</span>
+          <div>
+            <strong>Institutional workspace</strong>
+            <small>Student success platform</small>
+          </div>
         </div>
-      </header>
-      <aside className="sidebar">
         <p className="nav-caption">WORKSPACE</p>
         <nav aria-label="Main navigation">{nav()}</nav>
         <div className="sidebar-note">
           <span className="sidebar-note-icon">
-            <Layers3 size={20} />
+            <Sparkles size={18} />
           </span>
           <p>
-            One campus.
+            Clarity for every
             <br />
-            <strong>A connected perspective.</strong>
+            <strong>student journey.</strong>
           </p>
-          <span>
-            Smart Campus Analytics: Predict, Understand &amp; Improve Student
-            Success
-          </span>
-          <NavLink className="sidebar-data-link" to={`/data${cohortSearch}`}>
-            Data &amp; provenance <ArrowUpRight size={15} />
-          </NavLink>
+          <span>Predict, understand &amp; improve student success.</span>
+          <Link to={`/data${cohortSearch}`} className="sidebar-data-link">
+            Explore your data <ArrowUpRight size={14} />
+          </Link>
         </div>
-        <div className="sidebar-footer">
-          <span className="small-mark">
-            <Activity size={13} />
+        <div className="workspace-sidebar-bottom">
+          <span className="sidebar-brand-note">
+            EDUNEX <span>INTELLIGENCE</span>
           </span>
-          CampusPulse AI <span>Phase 13</span>
+          <Tooltip content={collapsed ? "Expand sidebar" : "Collapse sidebar"}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSidebar}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-expanded={!collapsed}
+            >
+              {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
+            </Button>
+          </Tooltip>
         </div>
       </aside>
-      <main id="main-content" tabIndex={-1}>
+      <header className="workspace-header">
+        <Link
+          className="mobile-brand"
+          to={`/dashboard${cohortSearch}`}
+          aria-label="EduNex overview"
+        >
+          <GraduationCap size={23} />
+          <strong>EduNex</strong>
+        </Link>
+        <div className="workspace-breadcrumb">
+          <span>Workspace</span>
+          <ChevronRight size={13} aria-hidden="true" />
+          <strong>{title}</strong>
+        </div>
+        <div className="workspace-header-actions">
+          <LiveIndicator status={realtimeStatus} />
+          <span className="workspace-divider" />
+          <CommandPalette />
+          <span className="workspace-divider" />
+          <Tooltip content="Institutional analytics workspace">
+            <span
+              className="workspace-avatar"
+              role="img"
+              tabIndex={0}
+              aria-label="Institutional analytics workspace"
+            >
+              <GraduationCap size={19} />
+            </span>
+          </Tooltip>
+        </div>
+      </header>
+      <main className="app-main" id="main-content" tabIndex={-1}>
         <div className="content-wrap">
           <FilterBar
             key={cohortSearch}
@@ -135,36 +198,42 @@ export default function Shell() {
                   : "cohort"
             }
           />
-          <Suspense fallback={<PageSkeleton />}>
-            <Outlet />
-          </Suspense>
+          <div className="route-content" key={location.pathname}>
+            <Suspense fallback={<PageSkeleton />}>
+              <Outlet />
+            </Suspense>
+          </div>
           <footer className="page-footer">
             <span>
               {readableSourceText(
                 provenance.data?.authenticity ?? "Data provenance unavailable",
               )}
             </span>
-            <NavLink to={`/data${cohortSearch}`}>
+            <Link to={`/data${cohortSearch}`}>
               View data provenance <ArrowUpRight size={13} />
-            </NavLink>
+            </Link>
           </footer>
         </div>
       </main>
       <nav className="mobile-nav" aria-label="Mobile navigation">
         {destinations
           .filter((d) =>
-            ["/", "/students", "/risks", "/insights"].includes(d.to),
+            ["/dashboard", "/students", "/risks", "/insights"].includes(d.to),
           )
           .map(({ to, label, icon: Icon }) => (
-            <NavLink
+            <Link
               key={to}
               to={`${to}${cohortSearch}`}
-              end={to === "/"}
-              className={({ isActive }) => (isActive ? "active" : "")}
+              aria-current={
+                activeDestination(location.pathname, to) ? "page" : undefined
+              }
+              className={
+                activeDestination(location.pathname, to) ? "active" : ""
+              }
             >
-              <Icon size={20} />
+              <Icon size={20} aria-hidden="true" />
               <span>{label}</span>
-            </NavLink>
+            </Link>
           ))}
         <Dialog>
           <DialogTrigger asChild>
@@ -174,11 +243,14 @@ export default function Shell() {
             </Button>
           </DialogTrigger>
           <DialogContent className="navigation-dialog">
-            <DialogTitle>Explore CampusPulse</DialogTitle>
+            <DialogTitle>Explore EduNex</DialogTitle>
             <DialogDescription>
               Student success intelligence, in one place.
             </DialogDescription>
             <nav aria-label="All destinations">{nav(true)}</nav>
+            <p className="menu-shortcut">
+              <Command size={14} /> Find your next destination with Ctrl+K
+            </p>
           </DialogContent>
         </Dialog>
       </nav>

@@ -5,6 +5,12 @@ class Settings(BaseSettings):
     app_name: str = "CampusPulse AI"
     environment: str = "development"
     database_url: str = "postgresql+psycopg://campuspulse:campuspulse@localhost:5432/campuspulse"
+    redis_url: str | None = None
+    
+    @property
+    def clean_database_url(self) -> str:
+        return self.database_url.replace("?pgbouncer=true", "")
+
     frontend_origin: str = "http://localhost:3000,http://localhost:5173"
 
     class Config:

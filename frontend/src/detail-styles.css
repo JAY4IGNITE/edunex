@@ -1,5 +1,5 @@
 .muted {
-  color: #516677;
+  color: var(--text-secondary);
 }
 .paragraph-small {
   font-size: 12px;
@@ -25,18 +25,18 @@
   gap: 10px;
 }
 .table-heading svg {
-  color: #516677;
+  color: var(--text-secondary);
 }
 .table-heading > span {
-  font-size: 10px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 .table-heading h2 {
   font-size: 15px;
 }
 .table-scope {
   font-size: 11px;
-  color: #516677;
+  color: var(--text-secondary);
   padding: 0 24px 20px;
   line-height: 1.8;
 }
@@ -56,10 +56,10 @@
   cursor: pointer;
 }
 .student-table-panel tbody tr:hover {
-  background: #f6f9fb;
+  background: var(--surface-hover);
 }
 .student-id {
-  color: #3a5e77;
+  color: var(--accent);
   font-weight: 550;
 }
 .student-id:hover {
@@ -73,20 +73,20 @@
 }
 .table-score-band {
   display: block;
-  font-size: 9px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
   margin-top: 4px;
   white-space: nowrap;
 }
 .segment-cell {
   max-width: 215px;
   min-width: 145px;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.6;
 }
 .inline-retry {
-  color: #516677;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: 11px;
   text-decoration: underline;
   background: none;
   border: none;
@@ -98,20 +98,20 @@
   justify-content: space-between;
   gap: 16px;
   padding: 18px 24px;
-  border-top: 1px solid #e9eef2;
+  border-top: 1px solid var(--border);
   font-size: 11px;
-  color: #516677;
+  color: var(--text-secondary);
 }
 .table-pagination > div {
   display: flex;
   gap: 8px;
 }
 .table-pagination button {
-  font-size: 10px;
+  font-size: 11px;
   border-radius: 9px;
 }
 .table-pagination p > span {
-  color: #516677;
+  color: var(--text-secondary);
 }
 .table-note {
   margin-top: 20px;
@@ -123,7 +123,11 @@
   margin-bottom: 26px;
 }
 .profile-score {
-  background: linear-gradient(135deg, #eef3f6, #fff);
+  background: linear-gradient(
+    135deg,
+    var(--accent-surface),
+    var(--surface-elevated)
+  );
 }
 .profile-score > div:not(.missing-signals) {
   display: flex;
@@ -138,20 +142,20 @@
 }
 .profile-score > div > span {
   font-size: 14px;
-  color: #516677;
+  color: var(--text-secondary);
 }
 .score-band {
   display: inline-flex;
   padding: 6px 12px;
-  background: #e4ecf2;
-  color: #3c5b72;
-  border: 1px solid #dbe6ed;
+  background: var(--surface-active);
+  color: var(--accent);
+  border: 1px solid var(--border);
   font-size: 11px;
   border-radius: 8px;
   margin: 14px 0;
 }
 .profile-score > p:last-of-type {
-  color: #516677;
+  color: var(--text-secondary);
   font-size: 11px;
   line-height: 1.8;
 }
@@ -180,23 +184,23 @@
 .profile-risk-value small {
   font-size: 11px;
   letter-spacing: 0;
-  color: #516677;
+  color: var(--text-secondary);
   margin-left: 4px;
   font-weight: 400;
 }
 .profile-risk-stack .paragraph-small {
-  font-size: 10px;
+  font-size: 11px;
 }
 .segment-icon {
   display: inline-flex;
   padding: 12px;
   border-radius: 14px;
-  border: 1px solid #e1e9ef;
-  background: #eff4f7;
-  color: #516677;
+  border: 1px solid var(--border);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
 }
 .profile-segment .eyebrow {
-  font-size: 8px;
+  font-size: 11px;
   margin-top: 22px;
 }
 .profile-segment h2 {
@@ -206,12 +210,12 @@
 .profile-segment > p:not(.eyebrow) {
   font-size: 11px;
   line-height: 1.8;
-  color: #516677;
+  color: var(--text-secondary);
   margin-top: 10px;
 }
 .profile-segment .text-link {
   margin-top: 22px;
-  font-size: 10px;
+  font-size: 11px;
 }
 .explanation-panel {
   margin-bottom: 24px;
@@ -222,7 +226,7 @@
 .domain-bar {
   width: 100px;
   height: 4px;
-  background: #ecf1f5;
+  background: var(--surface-hover);
   margin-top: 8px;
   border-radius: 4px;
 }
@@ -230,20 +234,20 @@
   display: block;
   height: 100%;
   border-radius: 4px;
-  background: #7695a8;
+  background: var(--accent);
 }
 .missing-signals {
   margin-top: 20px;
   padding-top: 14px;
-  border-top: 1px solid #e4ebf0;
+  border-top: 1px solid var(--border);
 }
 .missing-signals h3 {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
 }
 .missing-signals p {
-  font-size: 10px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
   margin-top: 7px;
   line-height: 1.7;
 }
@@ -254,21 +258,21 @@
   margin-top: 8px;
 }
 .missing-signals span {
-  background: #f1f4f6;
-  color: #516677;
+  background: var(--surface-hover);
+  color: var(--text-secondary);
   border-radius: 5px;
   padding: 4px 7px;
-  font-size: 9px;
+  font-size: 11px;
 }
 .subheading {
   font-size: 11px;
-  color: #516677;
+  color: var(--text-secondary);
   font-weight: 550;
   margin: 16px 0 8px;
 }
 .protective-heading {
   margin-top: 24px;
-  color: #46735e;
+  color: var(--success);
 }
 .driver-list {
   list-style: none;
@@ -280,7 +284,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid #edf1f4;
+  border-bottom: 1px solid var(--border);
   padding: 12px 0;
 }
 .driver-list span {
@@ -288,8 +292,8 @@
 }
 .driver-list small {
   display: block;
-  font-size: 9px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
   margin-top: 4px;
 }
 .driver-list strong {
@@ -301,7 +305,7 @@
   font-weight: 400;
 }
 .domain-history details {
-  border-top: 1px solid #e5edf2;
+  border-top: 1px solid var(--border);
   padding: 15px 0;
 }
 .domain-history summary {
@@ -309,11 +313,11 @@
   gap: 16px;
   align-items: center;
   font-size: 12px;
-  color: #45647b;
+  color: var(--accent);
 }
 .domain-history summary::before {
   content: "+";
-  color: #516677;
+  color: var(--text-secondary);
   font-size: 17px;
 }
 .domain-history details[open] summary::before {
@@ -321,8 +325,8 @@
 }
 .domain-history summary small {
   margin-left: auto;
-  font-size: 10px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 .domain-history details .table-scroll {
   margin-top: 15px;
@@ -345,11 +349,11 @@
   margin-bottom: 23px;
 }
 .segment-index {
-  color: #516677;
+  color: var(--text-secondary);
   font-size: 11px;
 }
 .segment-card .eyebrow {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 1.4px;
   margin-bottom: 9px;
 }
@@ -360,7 +364,7 @@
 .segment-card > p:not(.eyebrow) {
   font-size: 11px;
   line-height: 1.8;
-  color: #516677;
+  color: var(--text-secondary);
   margin-top: 12px;
 }
 .segment-population {
@@ -378,23 +382,23 @@
 .segment-population span,
 .segment-population small {
   display: block;
-  font-size: 10px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 .segment-population small {
-  font-size: 9px;
+  font-size: 11px;
   margin-top: 5px;
 }
 .segment-card .segment-criteria {
-  font-size: 9px !important;
+  font-size: 11px !important;
   padding-top: 13px;
-  border-top: 1px solid #e8eef2;
+  border-top: 1px solid var(--border);
 }
 .segment-detail-button {
   margin-top: 18px;
   justify-content: space-between;
   border-radius: 10px;
-  font-size: 10px;
+  font-size: 11px;
 }
 .segment-dialog {
   max-width: min(640px, calc(100vw - 32px)) !important;
@@ -402,7 +406,7 @@
   overflow-y: auto;
   border-radius: 24px;
   padding: 28px;
-  background: #fff;
+  background: var(--surface-elevated);
 }
 .segment-dialog [data-slot="dialog-title"] {
   padding-right: 20px;
@@ -426,12 +430,12 @@
   gap: 6px;
   padding: 9px;
   border-radius: 8px;
-  background: #f1f5f8;
-  font-size: 10px;
-  color: #42657f;
+  background: var(--surface);
+  font-size: 11px;
+  color: var(--accent);
 }
 .member-link:hover {
-  background: #e8eff4;
+  background: var(--surface-hover);
 }
 .insight-group {
   margin-top: 30px;
@@ -440,25 +444,29 @@
   display: flex;
   align-items: start;
   gap: 23px;
-  background: linear-gradient(115deg, #eef3f6, #fff);
+  background: linear-gradient(
+    115deg,
+    var(--accent-surface),
+    var(--surface-elevated)
+  );
   margin-bottom: 30px;
   padding: 28px;
 }
 .data-hero-icon {
   display: inline-flex;
   padding: 18px;
-  background: #ffffffb8;
-  border: 1px solid #e2ebf1;
-  color: #516677;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
   border-radius: 20px;
 }
 .provenance-hero h2 {
   font-size: 24px;
 }
 .provenance-hero > div > p:not(.eyebrow) {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 10px;
-  color: #516677;
+  color: var(--text-secondary);
 }
 .domain-flow {
   display: flex;
@@ -469,16 +477,16 @@
 }
 .domain-flow span,
 .domain-flow strong {
-  font-size: 10px;
+  font-size: 11px;
   padding: 6px 10px;
   border-radius: 8px;
-  border: 1px solid #dde7ee;
-  background: #fff9;
+  border: 1px solid var(--border);
+  background: var(--surface);
   font-weight: 400;
 }
 .domain-flow strong {
-  background: #dfe9f1;
-  color: #385b75;
+  background: var(--surface-active);
+  color: var(--accent);
 }
 .data-section {
   margin: 30px 0;
@@ -492,7 +500,7 @@
   padding: 18px 14px;
 }
 .coverage-card > svg {
-  color: #516677;
+  color: var(--text-secondary);
   margin-bottom: 14px;
 }
 .coverage-card h3 {
@@ -508,35 +516,35 @@
 }
 .coverage-card p,
 .coverage-card small {
-  font-size: 9px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 .coverage-card small {
-  font-size: 8px;
+  font-size: 11px;
 }
 .source-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #516677;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 .source-card h3 {
   font-size: 17px;
 }
 .source-card > p {
-  color: #516677;
+  color: var(--text-secondary);
   font-size: 11px;
   line-height: 1.8;
   margin: 12px 0 18px;
 }
 .source-card .metric-list > div {
-  font-size: 10px;
+  font-size: 11px;
 }
 .source-card .metric-list dd {
   max-width: 65%;
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.6;
 }
 .domain-chips {
@@ -547,15 +555,15 @@
 }
 .domain-chips span {
   padding: 4px 8px;
-  font-size: 9px;
+  font-size: 11px;
   border-radius: 6px;
-  background: #edf3f7;
-  color: #516677;
+  background: var(--surface-hover);
+  color: var(--text-secondary);
 }
 .source-notes {
   margin-top: 18px;
-  font-size: 10px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
   line-height: 1.8;
   overflow-wrap: anywhere;
 }
@@ -576,16 +584,16 @@
 }
 .quality-time {
   padding: 18px 22px;
-  font-size: 10px;
-  color: #516677;
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 .quality-panel table {
-  font-size: 10px;
+  font-size: 11px;
 }
 .mapping-row {
   margin: 16px 0;
   padding: 14px;
-  background: #f4f7f9;
+  background: var(--surface);
   border-radius: 10px;
 }
 .mapping-row > div {
@@ -598,15 +606,15 @@
   font-weight: 500;
 }
 .mapping-row p {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.8;
-  color: #516677;
+  color: var(--text-secondary);
   margin-top: 6px;
 }
 .mapping-row small {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.5px;
-  color: #45765c;
+  color: var(--success);
 }
 @media (max-width: 1279px) {
   .profile-top {
@@ -640,7 +648,7 @@
     padding: 20px;
   }
   .table-heading > span {
-    font-size: 9px;
+    font-size: 11px;
   }
   .table-pagination {
     padding: 16px;
@@ -686,7 +694,7 @@
     font-size: 11px;
   }
   .source-card .metric-list dd {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 @media (max-width: 479px) {

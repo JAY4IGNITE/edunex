@@ -4,7 +4,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 
 // Phase 13 UI verification only. Fault fixtures below exist solely in this browser.
-const base = "http://127.0.0.1:5173";
+const base = process.env.EDUNEX_TEST_BASE_URL ?? "http://127.0.0.1:5173";
 const cohort = "?department=Computer+Science&year=2&semester=4";
 await mkdir("verification", { recursive: true });
 const report = {

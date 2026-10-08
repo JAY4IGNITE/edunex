@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from backend.app.core.database import get_db
 from backend.app.services.insight import InsightService
 from backend.app.core.scoring_config import ScoringConfig
+from backend.app.services.cache import CacheService
 
 router = APIRouter()
 
@@ -53,6 +54,11 @@ def get_analytics_overview(
     semester: Optional[int] = Query(None),
     db: Session = Depends(get_db)
 ):
+    cache_key = f"edunex:v1:analytics:overview:dept={department}:yr={year}:sem={semester}"
+    cached = CacheService.get(cache_key)
+    if cached:
+        return AnalyticsOverview(**cached)
+
     service = InsightService(db)
     metrics = service._gather_metrics(department, year, semester)
     
@@ -71,7 +77,7 @@ def get_analytics_overview(
 
     ss_dist, acad_dist, place_dist, seg_dist = _calculate_distributions(metrics)
 
-    return AnalyticsOverview(
+    result = AnalyticsOverview(
         total_students=metrics["population_size"],
         average_success_score=avg_score,
         average_attendance=avg_att,
@@ -82,6 +88,8 @@ def get_analytics_overview(
         segment_distribution=seg_dist,
         applied_filters=metrics["applied_filters"]
     )
+    CacheService.set(cache_key, result, ttl=300, tags=["analytics"])
+    return result
 
 @router.get("/trends", response_model=AnalyticsTrends, summary="Get Analytics Trends")
 def get_analytics_trends(
@@ -90,6 +98,11 @@ def get_analytics_trends(
     semester: Optional[int] = Query(None),
     db: Session = Depends(get_db)
 ):
+    cache_key = f"edunex:v1:analytics:trends:dept={department}:yr={year}:sem={semester}"
+    cached = CacheService.get(cache_key)
+    if cached:
+        return AnalyticsTrends(**cached)
+
     service = InsightService(db)
     metrics = service._gather_metrics(department, year, semester)
     
@@ -108,11 +121,13 @@ def get_analytics_trends(
         if len(engs) >= 10:
             eng_trends[sem] = round(sum(engs) / len(engs), 1)
 
-    return AnalyticsTrends(
+    result = AnalyticsTrends(
         success_score_trends=ss_trends,
         attendance_trends=att_trends,
         engagement_trends=eng_trends
     )
+    CacheService.set(cache_key, result, ttl=300, tags=["analytics"])
+    return result
 
 @router.get("/distribution", response_model=AnalyticsDistribution, summary="Get Analytics Distribution")
 def get_analytics_distribution(
@@ -121,14 +136,21 @@ def get_analytics_distribution(
     semester: Optional[int] = Query(None),
     db: Session = Depends(get_db)
 ):
+    cache_key = f"edunex:v1:analytics:distribution:dept={department}:yr={year}:sem={semester}"
+    cached = CacheService.get(cache_key)
+    if cached:
+        return AnalyticsDistribution(**cached)
+
     service = InsightService(db)
     metrics = service._gather_metrics(department, year, semester)
     
     ss_dist, acad_dist, place_dist, seg_dist = _calculate_distributions(metrics)
 
-    return AnalyticsDistribution(
+    result = AnalyticsDistribution(
         success_score_distribution=ss_dist,
         academic_risk_distribution=acad_dist,
         placement_risk_distribution=place_dist,
         segment_distribution=seg_dist
     )
+    CacheService.set(cache_key, result, ttl=300)
+    return result

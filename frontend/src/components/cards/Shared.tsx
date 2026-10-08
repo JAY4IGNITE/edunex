@@ -1,13 +1,21 @@
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { number } from "@/utils/data";
+import { ShieldAlert, ShieldCheck, ShieldQuestion } from "lucide-react";
+import { GlassCard } from "@/components/ui/glass-card";
 export function RiskBadge({ level }: { level?: string | null }) {
+  const Icon =
+    level === "LOW"
+      ? ShieldCheck
+      : level === "HIGH" || level === "MEDIUM"
+        ? ShieldAlert
+        : ShieldQuestion;
   return (
     <Badge
       variant="outline"
       className={`risk-badge risk-${level?.toLowerCase() ?? "unavailable"}`}
     >
-      <span className="status-dot" />
+      <Icon size={12} aria-hidden="true" />
       {level ?? "Unavailable"}
     </Badge>
   );
@@ -67,7 +75,7 @@ export function Metric({
   icon: ReactNode;
 }) {
   return (
-    <div className="panel kpi" data-reveal>
+    <GlassCard className="kpi" variant="interactive" data-reveal>
       <div className="kpi-top">
         <span>{label}</span>
         {icon}
@@ -77,7 +85,7 @@ export function Metric({
         {value != null && <span>{suffix}</span>}
       </div>
       <p>{context}</p>
-    </div>
+    </GlassCard>
   );
 }
 export function MetricList({

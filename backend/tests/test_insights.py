@@ -15,14 +15,26 @@ class MockStudent:
         self.semester = 1
 
 def test_get_insights_valid(monkeypatch):
-    monkeypatch.setattr("backend.app.services.insight.Session.query", lambda self, *args: type("MockQuery", (), {
-        "all": lambda self: [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)],
-        "filter": lambda self, *a: self,
-        "options": lambda self, *a: self
-    })())
-    
-    monkeypatch.setattr("backend.app.services.academic_risk.AcademicRiskService.get_or_calculate_academic_risk", 
-                        lambda self, sid: type("MockAR", (), {"risk_level": "HIGH"})())
+    def _mock_query(self, *args):
+        is_student_id = False
+        if args and len(args) == 1 and hasattr(args[0], "name") and args[0].name == "student_id":
+            is_student_id = True
+            
+        class MockQuery:
+            def filter(self, *a): return self
+            def options(self, *a): return self
+            def all(self):
+                if is_student_id:
+                    return [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
+                else:
+                    val = "HIGH_ACADEMIC_LOW_PLACEMENT"
+                    if len(args) > 1 and hasattr(args[1], "name"):
+                        if args[1].name == "risk_level": val = "HIGH"
+                        elif args[1].name == "score": val = 85.0
+                    return [(f"STU{i}", val) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
+        return MockQuery()
+
+    monkeypatch.setattr("backend.app.services.insight.Session.query", _mock_query)
     
     monkeypatch.setattr("backend.app.services.placement_risk.PlacementRiskService.get_or_calculate_placement_risk", 
                         lambda self, sid: type("MockPR", (), {"risk_level": "LOW"})())
@@ -95,11 +107,26 @@ def test_get_insights_insufficient_sample(monkeypatch):
     assert data["insights"][0]["insufficient_sample"] is True
 
 def test_get_insights_filtered_comparative(monkeypatch):
-    monkeypatch.setattr("backend.app.services.insight.Session.query", lambda self, *args: type("MockQuery", (), {
-        "all": lambda self: [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)],
-        "filter": lambda self, *a: self,
-        "options": lambda self, *a: self
-    })())
+    def _mock_query(self, *args):
+        is_student_id = False
+        if args and len(args) == 1 and hasattr(args[0], "name") and args[0].name == "student_id":
+            is_student_id = True
+            
+        class MockQuery:
+            def filter(self, *a): return self
+            def options(self, *a): return self
+            def all(self):
+                if is_student_id:
+                    return [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
+                else:
+                    val = "HIGH_ACADEMIC_LOW_PLACEMENT"
+                    if len(args) > 1 and hasattr(args[1], "name"):
+                        if args[1].name == "risk_level": val = "HIGH"
+                        elif args[1].name == "score": val = 85.0
+                    return [(f"STU{i}", val) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
+        return MockQuery()
+
+    monkeypatch.setattr("backend.app.services.insight.Session.query", _mock_query)
     
     monkeypatch.setattr("backend.app.services.academic_risk.AcademicRiskService.get_or_calculate_academic_risk", 
                         lambda self, sid: type("MockAR", (), {"risk_level": "HIGH"})())

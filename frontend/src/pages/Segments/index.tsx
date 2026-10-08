@@ -1,7 +1,16 @@
 import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { Layers3, ArrowUpRight } from "lucide-react";
+import {
+  Layers3,
+  ArrowUpRight,
+  GraduationCap,
+  BookOpen,
+  BriefcaseBusiness,
+  ShieldAlert,
+  Activity,
+  CircleDashed,
+} from "lucide-react";
 import { api } from "@/services/api";
 import { useFilters } from "@/hooks/useFilters";
 import {
@@ -19,6 +28,16 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { humanize, number } from "@/utils/data";
+import "@/analytics.css";
+
+const segmentIcons: Record<string, typeof Layers3> = {
+  HIGH_ACADEMIC_HIGH_PLACEMENT: GraduationCap,
+  HIGH_ACADEMIC_LOW_PLACEMENT: BookOpen,
+  LOW_ACADEMIC_HIGH_PLACEMENT: BriefcaseBusiness,
+  LOW_ACADEMIC_LOW_PLACEMENT: ShieldAlert,
+  HIGH_ENGAGEMENT_LOW_ACADEMIC: Activity,
+  LOW_ENGAGEMENT_LOW_ACADEMIC: CircleDashed,
+};
 
 export default function Segments() {
   const { filters, filtered, cohortSearch } = useFilters();
@@ -60,6 +79,7 @@ export default function Segments() {
     return (
       <div className="grid-three segment-grid">
         {summary.data.segments.map((segment, index) => {
+          const SegmentIcon = segmentIcons[segment.segment_id] ?? Layers3;
           const count = filtered
             ? available
               ? (counts?.[segment.segment_id] ?? 0)
@@ -73,10 +93,13 @@ export default function Segments() {
                 : null
             : segment.percentage_of_population;
           return (
-            <article className="panel segment-card" key={segment.segment_id}>
+            <article
+              className={`panel segment-card segment-tone-${(index % 6) + 1}`}
+              key={segment.segment_id}
+            >
               <div className="segment-card-top">
                 <span className="segment-icon">
-                  <Layers3 size={21} />
+                  <SegmentIcon size={21} aria-hidden="true" />
                 </span>
                 <span className="segment-index">0{index + 1}</span>
               </div>
@@ -93,7 +116,22 @@ export default function Segments() {
                   </small>
                 </div>
               </div>
-              <p className="segment-criteria">{segment.criteria}</p>
+              {percentage != null && (
+                <div
+                  className="segment-meter segment-population-meter"
+                  aria-hidden="true"
+                >
+                  <span
+                    style={{
+                      width: `${Math.min(100, Math.max(0, percentage))}%`,
+                    }}
+                  />
+                </div>
+              )}
+              <p className="segment-criteria">
+                <span className="criteria-label">Selection criteria</span>
+                {segment.criteria}
+              </p>
               <Button
                 variant="outline"
                 className="segment-detail-button"

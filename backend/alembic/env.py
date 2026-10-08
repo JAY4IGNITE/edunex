@@ -24,7 +24,7 @@ from backend.app.models import canonical # ensures all models are registered
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
-config.set_main_option("sqlalchemy.url", settings.database_url)
+config.set_main_option("sqlalchemy.url", settings.clean_database_url.replace('%', '%%'))
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

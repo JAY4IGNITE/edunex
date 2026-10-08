@@ -104,6 +104,13 @@ class AcademicRiskService:
         self.db.commit()
         self.db.refresh(score_record)
 
+        # Invalidate related caches AFTER successful transaction
+        from backend.app.services.cache import CacheService
+        from backend.app.services.pubsub import PubSubService
+        
+        CacheService.invalidate_tags(["analytics", "segments", "insights", f"student:{student_id}"])
+        PubSubService.publish("student_updated", {"student_id": student_id})
+
         return AcademicRiskResponse(
             student_id=student_id,
             academic_risk_score=final_risk_score,

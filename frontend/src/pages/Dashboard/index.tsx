@@ -4,9 +4,7 @@ import {
   ArrowRight,
   CalendarCheck,
   GraduationCap,
-  ShieldAlert,
   Users,
-  BriefcaseBusiness,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { api } from "@/services/api";
@@ -26,6 +24,7 @@ import {
 } from "@/components/charts/Charts";
 import { InsightCard } from "@/components/cards/InsightCard";
 import { SpotlightCard } from "@/components/cards/SpotlightCard";
+import { SegmentDistribution } from "@/components/charts/SegmentDistribution";
 export default function Dashboard() {
   const { filters, cohortSearch } = useFilters();
   const overview = useQuery({
@@ -69,7 +68,7 @@ export default function Dashboard() {
         message="Unable to load analytics."
         skeleton={
           <div className="kpi-grid">
-            {Array.from({ length: 6 }, (_, i) => (
+            {Array.from({ length: 4 }, (_, i) => (
               <KPISkeleton key={i} />
             ))}
           </div>
@@ -90,26 +89,6 @@ export default function Dashboard() {
                 suffix="/100"
                 context="Average across assessed students"
                 icon={<GraduationCap />}
-              />
-              <Metric
-                label="Academic Risk"
-                value={
-                  Object.keys(data.academic_risk_distribution).length
-                    ? (data.academic_risk_distribution.HIGH ?? 0)
-                    : null
-                }
-                context="Students with HIGH risk"
-                icon={<ShieldAlert />}
-              />
-              <Metric
-                label="Placement Risk"
-                value={
-                  Object.keys(data.placement_risk_distribution).length
-                    ? (data.placement_risk_distribution.HIGH ?? 0)
-                    : null
-                }
-                context="Students with HIGH risk"
-                icon={<BriefcaseBusiness />}
               />
               <Metric
                 label="Attendance"
@@ -189,13 +168,24 @@ export default function Dashboard() {
               </QueryState>
             </div>
           </div>
-          <QueryState
-            query={trends}
-            message="Unable to load historical performance."
-            skeleton={<ChartSkeleton />}
-          >
-            {(data) => <HistoricalChart data={data} />}
-          </QueryState>
+          <div className="analytics-lower-grid">
+            <QueryState
+              query={trends}
+              message="Unable to load historical performance."
+              skeleton={<ChartSkeleton />}
+            >
+              {(data) => <HistoricalChart data={data} />}
+            </QueryState>
+            <QueryState
+              query={distribution}
+              message="Unable to load cohort segments."
+              skeleton={<ChartSkeleton />}
+            >
+              {(data) => (
+                <SegmentDistribution distribution={data.segment_distribution} />
+              )}
+            </QueryState>
+          </div>
           <section className="insight-preview">
             <SectionHeading
               title="Signals worth a closer look"

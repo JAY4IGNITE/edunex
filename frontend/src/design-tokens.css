@@ -1,0 +1,81 @@
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--text-primary);
+  --color-card: var(--surface-elevated);
+  --color-card-foreground: var(--text-primary);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--background);
+  --color-secondary: var(--surface-hover);
+  --color-secondary-foreground: var(--text-primary);
+  --color-muted: var(--surface-hover);
+  --color-muted-foreground: var(--text-secondary);
+  --color-accent: var(--surface-active);
+  --color-accent-foreground: var(--text-primary);
+  --color-destructive: var(--danger);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--border-hover);
+  --color-ring: var(--accent);
+  --color-popover: var(--surface-elevated);
+  --color-popover-foreground: var(--text-primary);
+}
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter,
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text-primary);
+  background: var(--background);
+  --background: #0b0d11;
+  --sidebar-background: #0e1015;
+  --scrollbar-thumb: #454956;
+  --scrollbar-hover: #686d7f;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-elevated: #191c24;
+  --surface-hover: rgba(255, 255, 255, 0.065);
+  --surface-active: rgba(158, 154, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.085);
+  --border-hover: rgba(255, 255, 255, 0.17);
+  --text-primary: #f2f3f7;
+  --text-secondary: #a7aeba;
+  --text-muted: #939ba9;
+  --accent: #a39dff;
+  --accent-blue: #7bb2fa;
+  --success: #69d5b1;
+  --warning: #e5be72;
+  --danger: #f08b9d;
+  --accent-surface: rgba(158, 154, 255, 0.08);
+  --success-surface: rgba(105, 213, 177, 0.09);
+  --warning-surface: rgba(229, 190, 114, 0.09);
+  --danger-surface: rgba(240, 139, 157, 0.09);
+  --chart-1: var(--accent);
+  --chart-2: var(--accent-blue);
+  --chart-3: var(--success);
+  --chart-4: var(--warning);
+  --chart-5: #c69ee8;
+  --chart-6: var(--danger);
+  --chart-grid: rgba(255, 255, 255, 0.065);
+  --glass-blur: 12px;
+  --shadow-soft:
+    0 8px 32px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --duration-fast: 160ms;
+  --duration-normal: 240ms;
+  --duration-complex: 380ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --sidebar-width: 256px;
+  --foreground: var(--text-primary);
+  --card: var(--surface-elevated);
+  --primary: var(--accent);
+  --muted-text: var(--text-secondary);
+  --border-soft: var(--border);
+  --radius: var(--radius-lg);
+}

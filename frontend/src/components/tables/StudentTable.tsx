@@ -151,19 +151,19 @@ function StudentRows({
     );
   return (
     <div
-      className="table-scroll"
+      className="table-scroll student-records"
       role="region"
       aria-label={
         highRisk ? "High risk students on current page" : "Student records"
       }
       tabIndex={0}
     >
-      <table>
+      <table role="table">
         <caption className="sr-only">
           Student identities and backend analytical assessments
         </caption>
-        <thead>
-          <tr>
+        <thead role="rowgroup">
+          <tr role="row">
             <th>Student ID</th>
             <th>Department</th>
             <th>Year</th>
@@ -177,9 +177,10 @@ function StudentRows({
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody role="rowgroup">
           {visible.map(({ student, explanation, membership }) => (
             <tr
+              role="row"
               key={student.student_id}
               onClick={(event) => {
                 if (
@@ -191,19 +192,32 @@ function StudentRows({
                     ?.click();
               }}
             >
-              <td>
+              <td
+                data-label="Student ID"
+                className="student-identity-cell"
+                role="cell"
+              >
                 <Link
-                  className="student-id"
+                  className="student-identity-link"
                   to={`/students/${encodeURIComponent(student.student_id)}${cohortSearch}`}
                 >
-                  {student.student_id}
+                  <span className="student-monogram" aria-hidden="true">
+                    {student.student_id.slice(-2)}
+                  </span>
+                  <span className="student-id">{student.student_id}</span>
                 </Link>
               </td>
-              <td>{student.department}</td>
-              <td>{student.year}</td>
-              <td>{student.semester}</td>
+              <td data-label="Department" role="cell">
+                {student.department}
+              </td>
+              <td data-label="Year" role="cell">
+                {student.year}
+              </td>
+              <td data-label="Semester" role="cell">
+                {student.semester}
+              </td>
               {explanation.isPending ? (
-                <td colSpan={3}>
+                <td colSpan={3} data-label="Assessments" role="cell">
                   <Skeleton
                     className="h-5 w-full"
                     role="status"
@@ -212,7 +226,7 @@ function StudentRows({
                   />
                 </td>
               ) : explanation.isError ? (
-                <td colSpan={3}>
+                <td colSpan={3} data-label="Assessments" role="cell">
                   <button
                     className="inline-retry"
                     onClick={() => {
@@ -224,20 +238,32 @@ function StudentRows({
                 </td>
               ) : (
                 <>
-                  <td>
-                    <span className="table-score">
-                      {number(explanation.data.success_score.score)}
-                    </span>
-                    <span className="table-score-band">
-                      {explanation.data.success_score.band}
-                    </span>
+                  <td data-label="Success Score" role="cell">
+                    <div
+                      className="student-score-cell"
+                      data-score-band={explanation.data.success_score.band}
+                    >
+                      <span className="table-score">
+                        {number(explanation.data.success_score.score)}
+                      </span>
+                      <span className="table-score-band">
+                        {explanation.data.success_score.band}
+                      </span>
+                      <div className="student-score-track" aria-hidden="true">
+                        <span
+                          style={{
+                            width: `${Math.min(100, Math.max(0, explanation.data.success_score.score))}%`,
+                          }}
+                        />
+                      </div>
+                    </div>
                   </td>
-                  <td>
+                  <td data-label="Academic Risk" role="cell">
                     <RiskBadge
                       level={explanation.data.academic_risk.risk_level}
                     />
                   </td>
-                  <td>
+                  <td data-label="Placement Risk" role="cell">
                     <RiskBadge
                       level={explanation.data.placement_risk.risk_level}
                     />
@@ -245,7 +271,7 @@ function StudentRows({
                 </>
               )}
               {!highRisk && (
-                <td className="segment-cell">
+                <td className="segment-cell" data-label="Segment" role="cell">
                   {membership?.isPending ? (
                     <Skeleton
                       className="h-4 w-28"
@@ -269,7 +295,7 @@ function StudentRows({
                   )}
                 </td>
               )}
-              <td>
+              <td className="student-row-arrow" role="cell">
                 <ArrowUpRight size={15} aria-hidden="true" className="muted" />
               </td>
             </tr>

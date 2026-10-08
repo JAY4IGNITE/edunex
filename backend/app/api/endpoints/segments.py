@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from backend.app.core.database import get_db
 from backend.app.schemas.segment import SegmentListResponse, SegmentDetailResponse, SegmentMembershipResponse
 from backend.app.services.segmentation import SegmentationService
+from backend.app.services.cache import CacheService
 
 router = APIRouter()
 
@@ -12,8 +13,15 @@ def get_all_segments(db: Session = Depends(get_db)):
     Returns a dynamic computation of all segments over the current student population.
     This calculates sizes and percentages dynamically using configured thresholds.
     """
+    cache_key = "edunex:v1:segments:list"
+    cached = CacheService.get(cache_key)
+    if cached:
+        return SegmentListResponse(**cached)
+
     service = SegmentationService(db)
-    return service.get_segments_summary()
+    result = service.get_segments_summary()
+    CacheService.set(cache_key, result, ttl=300, tags=["segments"])
+    return result
 
 @router.get("/{segment_id}", response_model=SegmentDetailResponse, summary="Get Segment Detail")
 def get_segment_detail(segment_id: str, db: Session = Depends(get_db)):

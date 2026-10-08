@@ -5,6 +5,8 @@ import {
   Layers3,
   ShieldCheck,
   BriefcaseBusiness,
+  Fingerprint,
+  ArrowUpRight,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { ApiError } from "@/services/api/client";
@@ -26,6 +28,7 @@ import {
 import { number, segmentName } from "@/utils/data";
 import { ExplanationPanels, MissingSignals } from "./ExplanationPanels";
 import { DomainHistory } from "./DomainHistory";
+import { ScoreRing } from "@/components/analytics/ScoreRing";
 export default function StudentProfile() {
   const id = useParams().studentId ?? "";
   const { cohortSearch } = useFilters();
@@ -97,7 +100,16 @@ export default function StudentProfile() {
         eyebrow="Student 360"
         title={identity.student_id}
         description={`${identity.department} · Year ${identity.year} · Semester ${identity.semester} · Section ${identity.section} · ${identity.academic_year}`}
+        action={
+          <span className="student-profile-emblem" aria-hidden="true">
+            <Fingerprint size={32} />
+          </span>
+        }
       />
+      <div className="profile-section-label">
+        <span>Intelligence overview</span>
+        <span>Individual student assessment</span>
+      </div>
       <div className="profile-top">
         <QueryState
           query={score}
@@ -105,13 +117,16 @@ export default function StudentProfile() {
           message="Unable to load success score."
         >
           {(data) => (
-            <section className="panel profile-score" data-reveal>
+            <section
+              className="panel profile-score profile-score-card"
+              data-reveal
+            >
               <p className="eyebrow">Student Success Score</p>
-              <div>
-                <strong>{number(data.success_score)}</strong>
-                <span>/ 100</span>
-              </div>
-              <span className="score-band">{data.band}</span>
+              <ScoreRing
+                value={data.success_score}
+                band={data.band}
+                size="lg"
+              />
               <p>
                 Calculated from {data.available_domains.length} available
                 domains.
@@ -208,7 +223,8 @@ export default function StudentProfile() {
                 />
               )}
               <Link className="text-link" to={`/segments${cohortSearch}`}>
-                Explore analytical segments
+                Explore analytical segments{" "}
+                <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
             </section>
           )}

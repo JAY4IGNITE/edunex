@@ -6,6 +6,7 @@ import { ChartSkeleton } from "@/components/skeletons";
 import { RiskDistribution } from "@/components/charts/Charts";
 import { useFilters } from "@/hooks/useFilters";
 import { api } from "@/services/api";
+import { ShieldCheck } from "lucide-react";
 export default function Risks() {
   const { filters } = useFilters();
   const query = useQuery({
@@ -42,9 +43,13 @@ export default function Risks() {
           </div>
         )}
       </QueryState>
-      <div className="scope-note">
-        Risk levels are backend assessments of available signals. Review the
-        Student 360 explanation before drawing conclusions about an individual.
+      <div className="scope-note risk-context-note">
+        <ShieldCheck size={18} aria-hidden="true" />
+        <p>
+          Risk levels are backend assessments of available signals. Review the
+          Student 360 explanation before drawing conclusions about an
+          individual.
+        </p>
       </div>
       <StudentTable highRisk />
     </>

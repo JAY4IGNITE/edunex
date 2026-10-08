@@ -1,7 +1,8 @@
-import { ArrowUpRight, Lightbulb } from "lucide-react";
+import { ChartNoAxesCombined, Lightbulb, Rows3 } from "lucide-react";
 import type { Insight } from "@/types/api";
-import { displayValue, number } from "@/utils/data";
+import { displayValue, humanize, number } from "@/utils/data";
 import { RiskBadge } from "./Shared";
+import "@/analytics.css";
 export function InsightCard({
   insight,
   compact = false,
@@ -14,7 +15,7 @@ export function InsightCard({
       <div className="insight-meta">
         <span>
           <Lightbulb size={15} aria-hidden="true" />
-          {insight.category}
+          {humanize(insight.category.toLowerCase())}
         </span>
         <RiskBadge level={insight.priority} />
       </div>
@@ -24,12 +25,13 @@ export function InsightCard({
         <div className="insight-value">
           {number(insight.metric_value)}
           <span>{insight.unit}</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
+          <ChartNoAxesCombined size={18} aria-hidden="true" />
         </div>
       )}
       {insight.comparison_value != null && (
-        <p>
-          Comparison: {number(insight.comparison_value)} {insight.unit}
+        <p className="insight-comparison">
+          <span>Comparison</span> {number(insight.comparison_value)}{" "}
+          {insight.unit}
         </p>
       )}
       {insight.supporting_metrics.length > 0 && (
@@ -48,6 +50,37 @@ export function InsightCard({
         <p className="scope-note">
           Insufficient sample for a reliable comparison.
         </p>
+      )}
+      {insight.trend_data.length > 0 && !compact && (
+        <details className="insight-evidence">
+          <summary>
+            <Rows3 size={14} aria-hidden="true" /> View supporting periods{" "}
+            <span>{insight.trend_data.length}</span>
+          </summary>
+          <div className="table-scroll">
+            <table>
+              <caption className="sr-only">
+                Reported periods for {insight.title}
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Period</th>
+                  <th scope="col">Metric</th>
+                  <th scope="col">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {insight.trend_data.map((point, index) => (
+                  <tr key={`${point.period}-${point.metric}-${index}`}>
+                    <td>{point.period}</td>
+                    <td>{humanize(point.metric)}</td>
+                    <td>{number(point.value)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
       )}
     </article>
   );

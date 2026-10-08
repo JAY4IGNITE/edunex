@@ -1,6 +1,8 @@
 import type { JsonValue, Student360 } from "@/types/api";
 import { displayValue, humanize } from "@/utils/data";
 import { SectionHeading } from "@/components/cards/Shared";
+import { DomainIcon } from "@/components/analytics/DomainIcon";
+import { ChevronDown } from "lucide-react";
 const domains = [
   ["Academic", "academic_history"],
   ["Attendance", "attendance_history"],
@@ -25,8 +27,25 @@ export function DomainHistory({ student }: { student: Student360 }) {
         return (
           <details key={key}>
             <summary>
-              <span>{label}</span>
-              <small>{records.length} records</small>
+              <span className="domain-history-icon">
+                <DomainIcon domain={label} />
+              </span>
+              <span className="domain-history-label">
+                {label}
+                <small>
+                  {records.length
+                    ? "Source records and history"
+                    : "No source records available"}
+                </small>
+              </span>
+              <span className="domain-record-count">
+                {records.length} records
+              </span>
+              <ChevronDown
+                className="domain-expand-icon"
+                size={16}
+                aria-hidden="true"
+              />
             </summary>
             {records.length ? (
               <div

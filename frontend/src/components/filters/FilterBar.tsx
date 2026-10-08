@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { SlidersHorizontal, RotateCcw } from "lucide-react";
+import { SlidersHorizontal, RotateCcw, Check } from "lucide-react";
 import { useFilters } from "@/hooks/useFilters";
 import { Button } from "@/components/ui/button";
 import { SelectNative } from "@/components/ui/select-native";
@@ -79,6 +79,7 @@ export function FilterBar({
           </SelectNative>
         </label>
         <Button type="submit" variant="secondary">
+          <Check size={14} aria-hidden="true" />
           Apply department
         </Button>
         <Button

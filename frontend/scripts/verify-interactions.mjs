@@ -77,8 +77,8 @@ try {
     .getByRole("region", { name: "Student records" })
     .evaluate((el) => ({ client: el.clientWidth, scroll: el.scrollWidth }));
   assert.ok(
-    scroll.scroll > scroll.client,
-    "Mobile table must scroll within its own container",
+    scroll.scroll <= scroll.client,
+    "Mobile student cards must fit their container without horizontal scrolling",
   );
   await page.getByRole("button", { name: "Next student page" }).click();
   await settled();

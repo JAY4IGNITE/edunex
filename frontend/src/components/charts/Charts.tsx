@@ -19,11 +19,13 @@ import { useReducedMotion } from "@/hooks/useMotion";
 import { EmptyState } from "@/components/states/States";
 import { SectionHeading, RiskBadge } from "@/components/cards/Shared";
 import { useFilters } from "@/hooks/useFilters";
+import { AnalyticsTooltip } from "./AnalyticsTooltip";
+import "@/analytics.css";
 const bandColors: Record<string, string> = {
-  Excellent: "#538977",
-  Good: "#7e9baf",
-  Moderate: "#c3a36a",
-  "Needs Attention": "#bd7874",
+  Excellent: "var(--success)",
+  Good: "var(--chart-1)",
+  Moderate: "var(--warning)",
+  "Needs Attention": "var(--danger)",
 };
 export function SuccessDistribution({
   distribution,
@@ -42,7 +44,7 @@ export function SuccessDistribution({
     <section className="panel success-panel">
       <SectionHeading
         title="Success at a glance"
-        description="A fuller picture of student performance."
+        description="Student Success Score · distribution across your cohort"
       />
       {total ? (
         <div className="score-distribution">
@@ -52,7 +54,7 @@ export function SuccessDistribution({
             aria-label={`Success score distribution. Average ${number(average)} out of 100.`}
           >
             <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-              <PieChart>
+              <PieChart accessibilityLayer>
                 <Pie
                   data={entries}
                   innerRadius="73%"
@@ -66,10 +68,11 @@ export function SuccessDistribution({
                   {entries.map((entry) => (
                     <Cell
                       key={entry.name}
-                      fill={bandColors[entry.name] ?? "#7e8a97"}
+                      fill={bandColors[entry.name] ?? "var(--text-secondary)"}
                     />
                   ))}
                 </Pie>
+                <Tooltip content={<AnalyticsTooltip unit="students" />} />
               </PieChart>
             </ResponsiveContainer>
             <div className="donut-center">
@@ -86,7 +89,12 @@ export function SuccessDistribution({
                     <i style={{ background: bandColors[name] }} />
                     {name}
                   </dt>
-                  <dd>{number(distribution[name] ?? 0, 0)}</dd>
+                  <dd>
+                    {number(distribution[name] ?? 0, 0)}
+                    <small>
+                      {number(((distribution[name] ?? 0) / total) * 100)}%
+                    </small>
+                  </dd>
                 </div>
               ),
             )}
@@ -99,7 +107,7 @@ export function SuccessDistribution({
         />
       )}
       <p className="panel-footnote">
-        Backend score bands · {number(total, 0)} assessed students
+        Reported score bands · {number(total, 0)} assessed students
       </p>
     </section>
   );
@@ -133,7 +141,10 @@ export function RiskDistribution({
             <strong>{number(distribution.HIGH ?? 0, 0)}</strong>
             <div>
               <RiskBadge level="HIGH" />
-              <p>students requiring attention</p>
+              <p>
+                students requiring attention ·{" "}
+                {number(((distribution.HIGH ?? 0) / total) * 100)}% of assessed
+              </p>
             </div>
           </div>
           <div className="risk-bar" aria-hidden="true">
@@ -179,6 +190,12 @@ export function HistoricalChart({ data }: { data: Trends }) {
       : metric === "attendance"
         ? "Attendance"
         : "Engagement";
+  const chartColor =
+    metric === "attendance"
+      ? "var(--chart-2)"
+      : metric === "engagement"
+        ? "var(--chart-3)"
+        : "var(--chart-1)";
   return (
     <section className="panel history-panel">
       <SectionHeading
@@ -225,10 +242,14 @@ export function HistoricalChart({ data }: { data: Trends }) {
               >
                 <defs>
                   <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#577d98" stopOpacity={0.2} />
+                    <stop
+                      offset="0%"
+                      stopColor={chartColor}
+                      stopOpacity={0.25}
+                    />
                     <stop
                       offset="100%"
-                      stopColor="#577d98"
+                      stopColor={chartColor}
                       stopOpacity={0.01}
                     />
                   </linearGradient>
@@ -236,41 +257,51 @@ export function HistoricalChart({ data }: { data: Trends }) {
                 <CartesianGrid
                   strokeDasharray="4 5"
                   vertical={false}
-                  stroke="#e5e9ed"
+                  stroke="var(--chart-grid)"
                 />
                 <XAxis
                   dataKey="period"
                   tickLine={false}
                   axisLine={false}
-                  tick={{ fontSize: 12, fill: "#627081" }}
+                  tick={{ fontSize: 12, fill: "var(--text-secondary)" }}
                   tickMargin={12}
                 />
                 <YAxis
                   tickLine={false}
                   axisLine={false}
-                  tick={{ fontSize: 12, fill: "#627081" }}
+                  tick={{ fontSize: 12, fill: "var(--text-secondary)" }}
                   domain={metric === "engagement" ? [0, "auto"] : [0, 100]}
                 />
                 <Tooltip
-                  contentStyle={{
-                    borderRadius: 14,
-                    border: "1px solid #e2e7ec",
-                    boxShadow: "0 8px 30px #1c263010",
+                  content={
+                    <AnalyticsTooltip
+                      unit={
+                        metric === "attendance"
+                          ? "%"
+                          : metric === "engagement"
+                            ? "index"
+                            : "/ 100"
+                      }
+                    />
+                  }
+                  cursor={{
+                    stroke: "var(--border-hover)",
+                    strokeDasharray: "4 4",
                   }}
-                  formatter={(value) => [
-                    number(typeof value === "number" ? value : Number(value)),
-                    label,
-                  ]}
                 />
                 <Area
                   type="monotone"
                   dataKey={metric}
                   name={label}
-                  stroke="#577d98"
+                  stroke={chartColor}
                   strokeWidth={2.5}
                   fill={`url(#${gradientId})`}
-                  dot={{ r: 3, strokeWidth: 2, fill: "#fff" }}
-                  activeDot={{ r: 5 }}
+                  dot={{ r: 3, strokeWidth: 2, fill: "var(--background)" }}
+                  activeDot={{
+                    r: 5,
+                    stroke: "var(--background)",
+                    strokeWidth: 3,
+                  }}
                   connectNulls={false}
                   isAnimationActive={!reduced}
                   animationDuration={450}

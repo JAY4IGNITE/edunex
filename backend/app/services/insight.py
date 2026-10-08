@@ -60,38 +60,42 @@ class InsightService:
         students_360 = self.student_360_service.get_students_360_bulk(student_ids)
         s360_map = {s.student.student_id: s for s in students_360}
 
+        # Bulk fetch pre-calculated metrics to completely eliminate N+1 queries over remote database
+        from backend.app.models.academic_risk import AcademicRiskScore
+        from backend.app.models.placement_risk import PlacementRiskScore
+        from backend.app.models.scoring import StudentSuccessScore
+        from backend.app.models.segment import StudentSegmentMembership
+        
+        # We chunk the IDs to avoid extremely large IN clauses, but 5000 is usually fine for Postgres.
+        ac_risks = {row[0]: row[1] for row in self.db.query(AcademicRiskScore.student_id, AcademicRiskScore.risk_level).filter(AcademicRiskScore.student_id.in_(student_ids)).all()}
+        pl_risks = {row[0]: row[1] for row in self.db.query(PlacementRiskScore.student_id, PlacementRiskScore.risk_level).filter(PlacementRiskScore.student_id.in_(student_ids)).all()}
+        scores = {row[0]: row[1] for row in self.db.query(StudentSuccessScore.student_id, StudentSuccessScore.score).filter(StudentSuccessScore.student_id.in_(student_ids)).all()}
+        segments = {row[0]: row[1] for row in self.db.query(StudentSegmentMembership.student_id, StudentSegmentMembership.segment_id).filter(StudentSegmentMembership.student_id.in_(student_ids), StudentSegmentMembership.membership_type == "PRIMARY").all()}
+
         for sid in student_ids:
             s360 = s360_map.get(sid)
             if not s360:
                 continue
 
-            try:
-                ar = self.academic_risk_service.get_or_calculate_academic_risk(sid)
-                metrics["academic_risks"].append(ar.risk_level)
-            except HTTPException: pass
+            ar_level = ac_risks.get(sid)
+            if ar_level:
+                metrics["academic_risks"].append(ar_level)
             
-            try:
-                pr = self.placement_risk_service.get_or_calculate_placement_risk(sid)
-                metrics["placement_risks"].append(pr.risk_level)
-            except HTTPException: pass
+            pr_level = pl_risks.get(sid)
+            if pr_level:
+                metrics["placement_risks"].append(pr_level)
             
-            try:
-                ss = self.scoring_service.get_or_calculate_success_score(sid)
-                metrics["success_scores"].append(ss.success_score)
-            except HTTPException: pass
+            ss = scores.get(sid)
+            if ss is not None:
+                metrics["success_scores"].append(ss)
             
-            seg_level = None
-            try:
-                seg = self.segmentation_service.classify_student(sid)
-                if seg.primary_segment:
-                    seg_level = seg.primary_segment
-                    metrics["segments"][seg_level] = metrics["segments"].get(seg_level, 0) + 1
-                    
-                    if seg_level == "HIGH_ENGAGEMENT_LOW_ACADEMIC":
-                        metrics["high_eng_low_acad"] += 1
-                    elif seg_level == "LOW_ENGAGEMENT_LOW_ACADEMIC":
-                        metrics["low_eng_low_acad"] += 1
-            except HTTPException: pass
+            seg_level = segments.get(sid)
+            if seg_level:
+                metrics["segments"][seg_level] = metrics["segments"].get(seg_level, 0) + 1
+                if seg_level == "HIGH_ENGAGEMENT_LOW_ACADEMIC":
+                    metrics["high_eng_low_acad"] += 1
+                elif seg_level == "LOW_ENGAGEMENT_LOW_ACADEMIC":
+                    metrics["low_eng_low_acad"] += 1
 
             if s360.engagement_history:
                 latest = max(s360.engagement_history, key=lambda x: x.semester)

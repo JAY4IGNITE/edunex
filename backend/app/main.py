@@ -1,10 +1,26 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api.endpoints import students, scoring, academic_risk, placement_risk, explanation, segments, insights, data, analytics
+from backend.app.api.endpoints import students, scoring, academic_risk, placement_risk, explanation, segments, insights, data, analytics, websockets
 from backend.app.core.config import settings
+from backend.app.core.redis import redis_manager
+
+from backend.app.services.pubsub import PubSubService
+import asyncio
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    redis_manager.connect()
+    loop = asyncio.get_running_loop()
+    PubSubService.start_subscriber(loop=loop)
+    yield
+    PubSubService.stop_subscriber()
+    redis_manager.disconnect()
+
 app = FastAPI(
     title="CampusPulse AI API",
     version="0.1.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -15,6 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(websockets.router, prefix="/ws", tags=["websockets"])
 app.include_router(data.router, prefix="/api/data", tags=["data"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["analytics"])
 app.include_router(students.router, prefix="/api/students", tags=["students"])

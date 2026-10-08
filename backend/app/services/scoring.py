@@ -100,6 +100,15 @@ class ScoringService:
         self.db.commit()
         self.db.refresh(score_record)
 
+        # Invalidate related caches AFTER successful transaction
+        from backend.app.services.cache import CacheService
+        from backend.app.services.pubsub import PubSubService
+        
+        CacheService.invalidate_tags(["analytics", "segments", "insights", f"student:{student_id}"])
+        PubSubService.publish("student_updated", {"student_id": student_id})
+        # Note: Future WebSocket layer will interpret "student_updated" as a signal 
+        # that analytical averages might have shifted, triggering necessary REST refetches.
+
         return StudentSuccessScoreResponse(
             student_id=student_id,
             success_score=final_score,

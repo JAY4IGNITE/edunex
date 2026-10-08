@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, selectinload
 from backend.app.models.canonical import Student
 
 class Student360Repository:
@@ -15,22 +15,22 @@ class Student360Repository:
 
     def get_student_360(self, student_id: str):
         return self.db.query(Student).options(
-            joinedload(Student.academic_records),
-            joinedload(Student.attendance_records),
-            joinedload(Student.lms_records),
-            joinedload(Student.engagement_records),
-            joinedload(Student.placement_records),
-            joinedload(Student.skill_records),
-            joinedload(Student.feedback_records)
+            selectinload(Student.academic_records),
+            selectinload(Student.attendance_records),
+            selectinload(Student.lms_records),
+            selectinload(Student.engagement_records),
+            selectinload(Student.placement_records),
+            selectinload(Student.skill_records),
+            selectinload(Student.feedback_records)
         ).filter(Student.student_id == student_id).first()
 
     def get_students_360_bulk(self, student_ids: list[str]):
         return self.db.query(Student).options(
-            joinedload(Student.academic_records),
-            joinedload(Student.attendance_records),
-            joinedload(Student.lms_records),
-            joinedload(Student.engagement_records),
-            joinedload(Student.placement_records),
-            joinedload(Student.skill_records),
-            joinedload(Student.feedback_records)
+            selectinload(Student.academic_records),
+            selectinload(Student.attendance_records),
+            selectinload(Student.lms_records),
+            selectinload(Student.engagement_records),
+            selectinload(Student.placement_records),
+            selectinload(Student.skill_records),
+            selectinload(Student.feedback_records)
         ).filter(Student.student_id.in_(student_ids)).all()

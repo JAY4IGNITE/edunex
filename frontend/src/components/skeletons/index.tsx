@@ -96,7 +96,7 @@ export function PageSkeleton() {
     <div role="status" aria-busy="true" aria-label="Loading page">
       <Skeleton className="h-12 w-64 mb-8" />
       <div className="kpi-grid">
-        {Array.from({ length: 6 }, (_, i) => (
+        {Array.from({ length: 4 }, (_, i) => (
           <KPISkeleton key={i} />
         ))}
       </div>
