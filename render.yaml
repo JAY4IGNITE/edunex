@@ -1,4 +1,8 @@
 services:
+  - type: redis
+    name: edunex-redis
+    ipAllowList: []
+
   - type: web
     name: edunex-backend
     env: python
@@ -35,7 +39,3 @@ databases:
   - name: edunex-db
     databaseName: edunex
     user: edunex
-
-  - type: redis
-    name: edunex-redis
-    ipAllowList: []
