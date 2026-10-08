@@ -1,0 +1,38 @@
+[
+    {
+        "description": "Missing student_id",
+        "record": {
+            "semester": 1, "academic_year": "2023-2024", "cgpa": 8.0, "internal_marks": 40.0, "backlogs": 0
+        },
+        "type": "AcademicRecord"
+    },
+    {
+        "description": "Invalid CGPA range",
+        "record": {
+            "student_id": "STU9999", "semester": 1, "academic_year": "2023-2024", "cgpa": 12.0, "internal_marks": 40.0, "backlogs": 0
+        },
+        "type": "AcademicRecord"
+    },
+    {
+        "description": "Attendance > 100",
+        "record": {
+            "student_id": "STU9999", "semester": 1, "academic_year": "2023-2024", "overall_attendance": 105.0
+        },
+        "type": "AttendanceRecord"
+    },
+    {
+        "description": "Invalid academic year",
+        "record": {
+            "student_id": "STU9999", "semester": 1, "academic_year": "2023", "overall_attendance": 90.0
+        },
+        "type": "AttendanceRecord"
+    },
+    {
+        "description": "Duplicate student-period record",
+        "record": [
+            {"student_id": "STU9999", "semester": 1, "academic_year": "2023-2024", "cgpa": 8.0, "internal_marks": 40.0, "backlogs": 0},
+            {"student_id": "STU9999", "semester": 1, "academic_year": "2023-2024", "cgpa": 8.0, "internal_marks": 40.0, "backlogs": 0}
+        ],
+        "type": "DuplicateTest"
+    }
+]

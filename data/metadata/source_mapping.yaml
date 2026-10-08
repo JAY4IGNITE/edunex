@@ -1,0 +1,22 @@
+# Source → canonical mapping registry.
+# Every mapping must be verified before use.
+
+mappings:
+  campuspulse_demo:
+    student_id:
+      canonical_field: "student_id"
+      transformation: "none"
+      validation: "must_be_string"
+      verification_status: "VERIFIED"
+    cgpa:
+      canonical_field: "cgpa"
+      transformation: "none"
+      validation: "range_0_10"
+      verification_status: "VERIFIED"
+
+rules:
+  - "Never invent a source field."
+  - "Never claim a source supports a canonical field without verification."
+  - "Record transformation and validation rules for every approved mapping."
+  - "Use namespaced external IDs for independent public datasets."
+  - "Student-level joins are prohibited across unrelated sources."

@@ -1,0 +1,59 @@
+datasets:
+  campuspulse_demo:
+    dataset_id: "campuspulse_demo"
+    name: "CampusPulse Demonstration Dataset"
+    status: "planned"
+    source_type: "demonstration_institutional_dataset"
+    description: "Coherent demonstration dataset covering all seven required domains."
+    authenticity: "DEMONSTRATION — NOT REAL INSTITUTIONAL DATA"
+    reference: "Synthetically generated locally"
+    license: "PROJECT-GENERATED / SEE REPOSITORY LICENSE"
+    acquisition_date: "2026-10-08"
+    domains_covered:
+      - "Academic"
+      - "Attendance"
+      - "LMS"
+      - "Engagement"
+      - "Placement"
+      - "Skills"
+      - "Feedback"
+    notes:
+      - "Must be programmatically controlled and internally consistent."
+      - "Must not be represented as real college data."
+      - "Generated with realistic correlations."
+    verification_status: "VERIFIED"
+
+  oulad:
+    dataset_id: "oulad"
+    name: "Open University Learning Analytics Dataset"
+    status: "candidate"
+    source_type: "public_dataset"
+    description: "External source for academic/LMS learning analytics."
+    authenticity: "public"
+    reference: "Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017). Open University Learning Analytics dataset. Scientific Data, 4, 170171. https://doi.org/10.1038/sdata.2017.171"
+    license: "CC BY 4.0"
+    acquisition_date: "2026-10-08"
+    domains_covered:
+      - "Academic"
+      - "LMS"
+    notes:
+      - "Use only fields verified from the official source."
+      - "Do not map attendance, placement, coding or mock interview fields unless actually present."
+    verification_status: "VERIFIED"
+
+  uci_dropout:
+    dataset_id: "uci_dropout"
+    name: "Predict Students' Dropout and Academic Success"
+    status: "candidate"
+    source_type: "public_dataset"
+    description: "External source for academic-risk/model validation."
+    authenticity: "public"
+    reference: "Martins, M. V., Toligo, D., Fleck, J., Roesler, V., & Machado, R. F. (2021). Predict Students' Dropout and Academic Success. UCI Machine Learning Repository. DOI: 10.5281/zenodo.5777339"
+    license: "CC BY 4.0"
+    acquisition_date: "2026-10-08"
+    domains_covered:
+      - "Academic"
+    notes:
+      - "Independent external dataset."
+      - "Do not merge with the institutional demonstration population by student_id."
+    verification_status: "VERIFIED"

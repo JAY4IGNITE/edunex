@@ -1,0 +1,1001 @@
+student_id,department,year,semester,section,academic_year
+STU0001,Computer Science,2,4,A,2024-2025
+STU0002,Information Technology,2,4,A,2024-2025
+STU0003,Computer Science,2,4,C,2024-2025
+STU0004,Electronics,2,4,C,2024-2025
+STU0005,Computer Science,2,4,C,2024-2025
+STU0006,Computer Science,2,4,A,2024-2025
+STU0007,Computer Science,2,4,A,2024-2025
+STU0008,Electronics,2,4,A,2024-2025
+STU0009,Computer Science,2,4,C,2024-2025
+STU0010,Electronics,2,4,C,2024-2025
+STU0011,Computer Science,2,4,B,2024-2025
+STU0012,Information Technology,2,4,A,2024-2025
+STU0013,Electronics,2,4,B,2024-2025
+STU0014,Information Technology,2,4,A,2024-2025
+STU0015,Information Technology,2,4,A,2024-2025
+STU0016,Information Technology,2,4,A,2024-2025
+STU0017,Information Technology,2,4,C,2024-2025
+STU0018,Computer Science,2,4,C,2024-2025
+STU0019,Electronics,2,4,A,2024-2025
+STU0020,Computer Science,2,4,C,2024-2025
+STU0021,Electronics,2,4,C,2024-2025
+STU0022,Electronics,2,4,A,2024-2025
+STU0023,Computer Science,2,4,A,2024-2025
+STU0024,Computer Science,2,4,B,2024-2025
+STU0025,Computer Science,2,4,A,2024-2025
+STU0026,Information Technology,2,4,B,2024-2025
+STU0027,Information Technology,2,4,A,2024-2025
+STU0028,Information Technology,2,4,A,2024-2025
+STU0029,Information Technology,2,4,C,2024-2025
+STU0030,Electronics,2,4,A,2024-2025
+STU0031,Electronics,2,4,A,2024-2025
+STU0032,Electronics,2,4,A,2024-2025
+STU0033,Information Technology,2,4,B,2024-2025
+STU0034,Electronics,2,4,C,2024-2025
+STU0035,Computer Science,2,4,C,2024-2025
+STU0036,Computer Science,2,4,A,2024-2025
+STU0037,Information Technology,2,4,B,2024-2025
+STU0038,Computer Science,2,4,A,2024-2025
+STU0039,Electronics,2,4,B,2024-2025
+STU0040,Electronics,2,4,B,2024-2025
+STU0041,Electronics,2,4,B,2024-2025
+STU0042,Information Technology,2,4,A,2024-2025
+STU0043,Electronics,2,4,C,2024-2025
+STU0044,Information Technology,2,4,C,2024-2025
+STU0045,Information Technology,2,4,C,2024-2025
+STU0046,Information Technology,2,4,A,2024-2025
+STU0047,Electronics,2,4,B,2024-2025
+STU0048,Computer Science,2,4,A,2024-2025
+STU0049,Electronics,2,4,A,2024-2025
+STU0050,Information Technology,2,4,C,2024-2025
+STU0051,Information Technology,2,4,B,2024-2025
+STU0052,Information Technology,2,4,C,2024-2025
+STU0053,Electronics,2,4,A,2024-2025
+STU0054,Electronics,2,4,A,2024-2025
+STU0055,Electronics,2,4,B,2024-2025
+STU0056,Information Technology,2,4,A,2024-2025
+STU0057,Information Technology,2,4,A,2024-2025
+STU0058,Computer Science,2,4,C,2024-2025
+STU0059,Information Technology,2,4,C,2024-2025
+STU0060,Electronics,2,4,A,2024-2025
+STU0061,Information Technology,2,4,C,2024-2025
+STU0062,Electronics,2,4,A,2024-2025
+STU0063,Information Technology,2,4,A,2024-2025
+STU0064,Electronics,2,4,A,2024-2025
+STU0065,Information Technology,2,4,B,2024-2025
+STU0066,Computer Science,2,4,B,2024-2025
+STU0067,Computer Science,2,4,A,2024-2025
+STU0068,Electronics,2,4,A,2024-2025
+STU0069,Electronics,2,4,B,2024-2025
+STU0070,Electronics,2,4,A,2024-2025
+STU0071,Electronics,2,4,B,2024-2025
+STU0072,Computer Science,2,4,B,2024-2025
+STU0073,Electronics,2,4,B,2024-2025
+STU0074,Electronics,2,4,C,2024-2025
+STU0075,Computer Science,2,4,C,2024-2025
+STU0076,Information Technology,2,4,C,2024-2025
+STU0077,Information Technology,2,4,B,2024-2025
+STU0078,Information Technology,2,4,A,2024-2025
+STU0079,Computer Science,2,4,A,2024-2025
+STU0080,Computer Science,2,4,C,2024-2025
+STU0081,Computer Science,2,4,C,2024-2025
+STU0082,Computer Science,2,4,A,2024-2025
+STU0083,Electronics,2,4,A,2024-2025
+STU0084,Computer Science,2,4,A,2024-2025
+STU0085,Computer Science,2,4,C,2024-2025
+STU0086,Information Technology,2,4,C,2024-2025
+STU0087,Computer Science,2,4,C,2024-2025
+STU0088,Electronics,2,4,C,2024-2025
+STU0089,Information Technology,2,4,A,2024-2025
+STU0090,Information Technology,2,4,A,2024-2025
+STU0091,Computer Science,2,4,C,2024-2025
+STU0092,Information Technology,2,4,B,2024-2025
+STU0093,Information Technology,2,4,C,2024-2025
+STU0094,Electronics,2,4,C,2024-2025
+STU0095,Computer Science,2,4,A,2024-2025
+STU0096,Electronics,2,4,B,2024-2025
+STU0097,Computer Science,2,4,A,2024-2025
+STU0098,Electronics,2,4,B,2024-2025
+STU0099,Information Technology,2,4,A,2024-2025
+STU0100,Information Technology,2,4,A,2024-2025
+STU0101,Information Technology,2,4,C,2024-2025
+STU0102,Computer Science,2,4,C,2024-2025
+STU0103,Computer Science,2,4,A,2024-2025
+STU0104,Computer Science,2,4,B,2024-2025
+STU0105,Information Technology,2,4,A,2024-2025
+STU0106,Computer Science,2,4,A,2024-2025
+STU0107,Computer Science,2,4,B,2024-2025
+STU0108,Information Technology,2,4,B,2024-2025
+STU0109,Electronics,2,4,C,2024-2025
+STU0110,Electronics,2,4,C,2024-2025
+STU0111,Computer Science,2,4,A,2024-2025
+STU0112,Computer Science,2,4,A,2024-2025
+STU0113,Electronics,2,4,C,2024-2025
+STU0114,Electronics,2,4,B,2024-2025
+STU0115,Computer Science,2,4,C,2024-2025
+STU0116,Electronics,2,4,C,2024-2025
+STU0117,Computer Science,2,4,C,2024-2025
+STU0118,Computer Science,2,4,A,2024-2025
+STU0119,Computer Science,2,4,C,2024-2025
+STU0120,Information Technology,2,4,A,2024-2025
+STU0121,Computer Science,2,4,C,2024-2025
+STU0122,Computer Science,2,4,C,2024-2025
+STU0123,Information Technology,2,4,C,2024-2025
+STU0124,Electronics,2,4,C,2024-2025
+STU0125,Information Technology,2,4,A,2024-2025
+STU0126,Electronics,2,4,B,2024-2025
+STU0127,Information Technology,2,4,B,2024-2025
+STU0128,Electronics,2,4,C,2024-2025
+STU0129,Information Technology,2,4,B,2024-2025
+STU0130,Computer Science,2,4,B,2024-2025
+STU0131,Electronics,2,4,A,2024-2025
+STU0132,Electronics,2,4,A,2024-2025
+STU0133,Information Technology,2,4,A,2024-2025
+STU0134,Computer Science,2,4,A,2024-2025
+STU0135,Information Technology,2,4,A,2024-2025
+STU0136,Electronics,2,4,C,2024-2025
+STU0137,Electronics,2,4,C,2024-2025
+STU0138,Computer Science,2,4,C,2024-2025
+STU0139,Information Technology,2,4,C,2024-2025
+STU0140,Computer Science,2,4,B,2024-2025
+STU0141,Computer Science,2,4,C,2024-2025
+STU0142,Computer Science,2,4,B,2024-2025
+STU0143,Electronics,2,4,A,2024-2025
+STU0144,Information Technology,2,4,A,2024-2025
+STU0145,Electronics,2,4,B,2024-2025
+STU0146,Information Technology,2,4,B,2024-2025
+STU0147,Computer Science,2,4,C,2024-2025
+STU0148,Information Technology,2,4,A,2024-2025
+STU0149,Information Technology,2,4,A,2024-2025
+STU0150,Information Technology,2,4,A,2024-2025
+STU0151,Information Technology,2,4,C,2024-2025
+STU0152,Information Technology,2,4,C,2024-2025
+STU0153,Computer Science,2,4,A,2024-2025
+STU0154,Computer Science,2,4,C,2024-2025
+STU0155,Information Technology,2,4,C,2024-2025
+STU0156,Computer Science,2,4,B,2024-2025
+STU0157,Computer Science,2,4,B,2024-2025
+STU0158,Computer Science,2,4,B,2024-2025
+STU0159,Electronics,2,4,A,2024-2025
+STU0160,Computer Science,2,4,B,2024-2025
+STU0161,Information Technology,2,4,C,2024-2025
+STU0162,Computer Science,2,4,A,2024-2025
+STU0163,Computer Science,2,4,B,2024-2025
+STU0164,Computer Science,2,4,C,2024-2025
+STU0165,Information Technology,2,4,C,2024-2025
+STU0166,Computer Science,2,4,B,2024-2025
+STU0167,Electronics,2,4,A,2024-2025
+STU0168,Computer Science,2,4,B,2024-2025
+STU0169,Computer Science,2,4,B,2024-2025
+STU0170,Information Technology,2,4,A,2024-2025
+STU0171,Computer Science,2,4,C,2024-2025
+STU0172,Information Technology,2,4,B,2024-2025
+STU0173,Computer Science,2,4,B,2024-2025
+STU0174,Electronics,2,4,C,2024-2025
+STU0175,Electronics,2,4,C,2024-2025
+STU0176,Computer Science,2,4,A,2024-2025
+STU0177,Computer Science,2,4,C,2024-2025
+STU0178,Computer Science,2,4,A,2024-2025
+STU0179,Information Technology,2,4,B,2024-2025
+STU0180,Information Technology,2,4,B,2024-2025
+STU0181,Electronics,2,4,A,2024-2025
+STU0182,Electronics,2,4,A,2024-2025
+STU0183,Computer Science,2,4,C,2024-2025
+STU0184,Computer Science,2,4,C,2024-2025
+STU0185,Electronics,2,4,C,2024-2025
+STU0186,Electronics,2,4,C,2024-2025
+STU0187,Information Technology,2,4,B,2024-2025
+STU0188,Electronics,2,4,B,2024-2025
+STU0189,Information Technology,2,4,C,2024-2025
+STU0190,Electronics,2,4,B,2024-2025
+STU0191,Information Technology,2,4,C,2024-2025
+STU0192,Information Technology,2,4,B,2024-2025
+STU0193,Information Technology,2,4,C,2024-2025
+STU0194,Computer Science,2,4,B,2024-2025
+STU0195,Information Technology,2,4,C,2024-2025
+STU0196,Computer Science,2,4,C,2024-2025
+STU0197,Information Technology,2,4,B,2024-2025
+STU0198,Computer Science,2,4,B,2024-2025
+STU0199,Computer Science,2,4,B,2024-2025
+STU0200,Electronics,2,4,C,2024-2025
+STU0201,Information Technology,2,4,B,2024-2025
+STU0202,Electronics,2,4,A,2024-2025
+STU0203,Information Technology,2,4,C,2024-2025
+STU0204,Electronics,2,4,A,2024-2025
+STU0205,Electronics,2,4,C,2024-2025
+STU0206,Electronics,2,4,B,2024-2025
+STU0207,Computer Science,2,4,C,2024-2025
+STU0208,Computer Science,2,4,A,2024-2025
+STU0209,Computer Science,2,4,A,2024-2025
+STU0210,Information Technology,2,4,C,2024-2025
+STU0211,Information Technology,2,4,B,2024-2025
+STU0212,Electronics,2,4,A,2024-2025
+STU0213,Electronics,2,4,B,2024-2025
+STU0214,Information Technology,2,4,A,2024-2025
+STU0215,Electronics,2,4,C,2024-2025
+STU0216,Computer Science,2,4,B,2024-2025
+STU0217,Computer Science,2,4,C,2024-2025
+STU0218,Information Technology,2,4,A,2024-2025
+STU0219,Computer Science,2,4,A,2024-2025
+STU0220,Computer Science,2,4,B,2024-2025
+STU0221,Electronics,2,4,C,2024-2025
+STU0222,Information Technology,2,4,B,2024-2025
+STU0223,Electronics,2,4,C,2024-2025
+STU0224,Electronics,2,4,B,2024-2025
+STU0225,Electronics,2,4,B,2024-2025
+STU0226,Information Technology,2,4,A,2024-2025
+STU0227,Information Technology,2,4,C,2024-2025
+STU0228,Electronics,2,4,A,2024-2025
+STU0229,Information Technology,2,4,A,2024-2025
+STU0230,Information Technology,2,4,A,2024-2025
+STU0231,Information Technology,2,4,B,2024-2025
+STU0232,Computer Science,2,4,A,2024-2025
+STU0233,Computer Science,2,4,B,2024-2025
+STU0234,Computer Science,2,4,C,2024-2025
+STU0235,Computer Science,2,4,B,2024-2025
+STU0236,Information Technology,2,4,C,2024-2025
+STU0237,Information Technology,2,4,A,2024-2025
+STU0238,Information Technology,2,4,B,2024-2025
+STU0239,Electronics,2,4,A,2024-2025
+STU0240,Information Technology,2,4,B,2024-2025
+STU0241,Information Technology,2,4,B,2024-2025
+STU0242,Information Technology,2,4,C,2024-2025
+STU0243,Electronics,2,4,C,2024-2025
+STU0244,Computer Science,2,4,B,2024-2025
+STU0245,Information Technology,2,4,B,2024-2025
+STU0246,Computer Science,2,4,B,2024-2025
+STU0247,Electronics,2,4,C,2024-2025
+STU0248,Electronics,2,4,A,2024-2025
+STU0249,Computer Science,2,4,C,2024-2025
+STU0250,Computer Science,2,4,B,2024-2025
+STU0251,Electronics,2,4,C,2024-2025
+STU0252,Computer Science,2,4,C,2024-2025
+STU0253,Computer Science,2,4,B,2024-2025
+STU0254,Computer Science,2,4,B,2024-2025
+STU0255,Information Technology,2,4,A,2024-2025
+STU0256,Information Technology,2,4,B,2024-2025
+STU0257,Information Technology,2,4,B,2024-2025
+STU0258,Computer Science,2,4,B,2024-2025
+STU0259,Electronics,2,4,C,2024-2025
+STU0260,Information Technology,2,4,A,2024-2025
+STU0261,Computer Science,2,4,C,2024-2025
+STU0262,Computer Science,2,4,A,2024-2025
+STU0263,Computer Science,2,4,C,2024-2025
+STU0264,Computer Science,2,4,A,2024-2025
+STU0265,Electronics,2,4,A,2024-2025
+STU0266,Computer Science,2,4,B,2024-2025
+STU0267,Information Technology,2,4,B,2024-2025
+STU0268,Electronics,2,4,C,2024-2025
+STU0269,Electronics,2,4,A,2024-2025
+STU0270,Information Technology,2,4,A,2024-2025
+STU0271,Computer Science,2,4,B,2024-2025
+STU0272,Electronics,2,4,B,2024-2025
+STU0273,Electronics,2,4,A,2024-2025
+STU0274,Electronics,2,4,C,2024-2025
+STU0275,Computer Science,2,4,A,2024-2025
+STU0276,Information Technology,2,4,C,2024-2025
+STU0277,Computer Science,2,4,C,2024-2025
+STU0278,Information Technology,2,4,C,2024-2025
+STU0279,Electronics,2,4,B,2024-2025
+STU0280,Electronics,2,4,C,2024-2025
+STU0281,Computer Science,2,4,B,2024-2025
+STU0282,Computer Science,2,4,B,2024-2025
+STU0283,Electronics,2,4,B,2024-2025
+STU0284,Computer Science,2,4,B,2024-2025
+STU0285,Electronics,2,4,C,2024-2025
+STU0286,Information Technology,2,4,C,2024-2025
+STU0287,Information Technology,2,4,B,2024-2025
+STU0288,Electronics,2,4,C,2024-2025
+STU0289,Information Technology,2,4,A,2024-2025
+STU0290,Information Technology,2,4,B,2024-2025
+STU0291,Information Technology,2,4,C,2024-2025
+STU0292,Electronics,2,4,B,2024-2025
+STU0293,Computer Science,2,4,B,2024-2025
+STU0294,Computer Science,2,4,B,2024-2025
+STU0295,Information Technology,2,4,B,2024-2025
+STU0296,Information Technology,2,4,C,2024-2025
+STU0297,Information Technology,2,4,C,2024-2025
+STU0298,Electronics,2,4,A,2024-2025
+STU0299,Computer Science,2,4,C,2024-2025
+STU0300,Information Technology,2,4,C,2024-2025
+STU0301,Electronics,2,4,B,2024-2025
+STU0302,Electronics,2,4,B,2024-2025
+STU0303,Computer Science,2,4,A,2024-2025
+STU0304,Computer Science,2,4,B,2024-2025
+STU0305,Computer Science,2,4,B,2024-2025
+STU0306,Electronics,2,4,B,2024-2025
+STU0307,Electronics,2,4,C,2024-2025
+STU0308,Information Technology,2,4,C,2024-2025
+STU0309,Information Technology,2,4,B,2024-2025
+STU0310,Information Technology,2,4,B,2024-2025
+STU0311,Information Technology,2,4,A,2024-2025
+STU0312,Electronics,2,4,A,2024-2025
+STU0313,Computer Science,2,4,C,2024-2025
+STU0314,Electronics,2,4,A,2024-2025
+STU0315,Computer Science,2,4,C,2024-2025
+STU0316,Information Technology,2,4,C,2024-2025
+STU0317,Electronics,2,4,C,2024-2025
+STU0318,Computer Science,2,4,A,2024-2025
+STU0319,Computer Science,2,4,B,2024-2025
+STU0320,Information Technology,2,4,A,2024-2025
+STU0321,Electronics,2,4,A,2024-2025
+STU0322,Computer Science,2,4,A,2024-2025
+STU0323,Information Technology,2,4,C,2024-2025
+STU0324,Electronics,2,4,B,2024-2025
+STU0325,Computer Science,2,4,C,2024-2025
+STU0326,Information Technology,2,4,B,2024-2025
+STU0327,Information Technology,2,4,A,2024-2025
+STU0328,Information Technology,2,4,B,2024-2025
+STU0329,Computer Science,2,4,B,2024-2025
+STU0330,Computer Science,2,4,C,2024-2025
+STU0331,Electronics,2,4,A,2024-2025
+STU0332,Computer Science,2,4,C,2024-2025
+STU0333,Computer Science,2,4,A,2024-2025
+STU0334,Electronics,2,4,B,2024-2025
+STU0335,Electronics,2,4,C,2024-2025
+STU0336,Electronics,2,4,B,2024-2025
+STU0337,Information Technology,2,4,B,2024-2025
+STU0338,Information Technology,2,4,B,2024-2025
+STU0339,Electronics,2,4,A,2024-2025
+STU0340,Electronics,2,4,A,2024-2025
+STU0341,Electronics,2,4,A,2024-2025
+STU0342,Electronics,2,4,A,2024-2025
+STU0343,Computer Science,2,4,A,2024-2025
+STU0344,Computer Science,2,4,A,2024-2025
+STU0345,Information Technology,2,4,B,2024-2025
+STU0346,Electronics,2,4,B,2024-2025
+STU0347,Computer Science,2,4,A,2024-2025
+STU0348,Electronics,2,4,B,2024-2025
+STU0349,Information Technology,2,4,A,2024-2025
+STU0350,Computer Science,2,4,B,2024-2025
+STU0351,Electronics,2,4,C,2024-2025
+STU0352,Information Technology,2,4,A,2024-2025
+STU0353,Computer Science,2,4,C,2024-2025
+STU0354,Information Technology,2,4,A,2024-2025
+STU0355,Computer Science,2,4,A,2024-2025
+STU0356,Electronics,2,4,C,2024-2025
+STU0357,Information Technology,2,4,B,2024-2025
+STU0358,Information Technology,2,4,C,2024-2025
+STU0359,Electronics,2,4,B,2024-2025
+STU0360,Electronics,2,4,C,2024-2025
+STU0361,Information Technology,2,4,A,2024-2025
+STU0362,Computer Science,2,4,B,2024-2025
+STU0363,Information Technology,2,4,C,2024-2025
+STU0364,Computer Science,2,4,A,2024-2025
+STU0365,Electronics,2,4,C,2024-2025
+STU0366,Computer Science,2,4,C,2024-2025
+STU0367,Electronics,2,4,A,2024-2025
+STU0368,Information Technology,2,4,C,2024-2025
+STU0369,Information Technology,2,4,B,2024-2025
+STU0370,Electronics,2,4,B,2024-2025
+STU0371,Information Technology,2,4,A,2024-2025
+STU0372,Information Technology,2,4,B,2024-2025
+STU0373,Information Technology,2,4,C,2024-2025
+STU0374,Computer Science,2,4,B,2024-2025
+STU0375,Electronics,2,4,B,2024-2025
+STU0376,Electronics,2,4,B,2024-2025
+STU0377,Computer Science,2,4,B,2024-2025
+STU0378,Information Technology,2,4,B,2024-2025
+STU0379,Computer Science,2,4,B,2024-2025
+STU0380,Computer Science,2,4,C,2024-2025
+STU0381,Information Technology,2,4,B,2024-2025
+STU0382,Computer Science,2,4,C,2024-2025
+STU0383,Electronics,2,4,B,2024-2025
+STU0384,Information Technology,2,4,A,2024-2025
+STU0385,Information Technology,2,4,C,2024-2025
+STU0386,Information Technology,2,4,B,2024-2025
+STU0387,Information Technology,2,4,A,2024-2025
+STU0388,Electronics,2,4,C,2024-2025
+STU0389,Electronics,2,4,A,2024-2025
+STU0390,Electronics,2,4,A,2024-2025
+STU0391,Information Technology,2,4,A,2024-2025
+STU0392,Computer Science,2,4,B,2024-2025
+STU0393,Electronics,2,4,A,2024-2025
+STU0394,Electronics,2,4,B,2024-2025
+STU0395,Electronics,2,4,B,2024-2025
+STU0396,Information Technology,2,4,B,2024-2025
+STU0397,Information Technology,2,4,C,2024-2025
+STU0398,Information Technology,2,4,A,2024-2025
+STU0399,Electronics,2,4,C,2024-2025
+STU0400,Computer Science,2,4,B,2024-2025
+STU0401,Information Technology,2,4,C,2024-2025
+STU0402,Computer Science,2,4,B,2024-2025
+STU0403,Information Technology,2,4,C,2024-2025
+STU0404,Electronics,2,4,B,2024-2025
+STU0405,Information Technology,2,4,C,2024-2025
+STU0406,Information Technology,2,4,B,2024-2025
+STU0407,Electronics,2,4,B,2024-2025
+STU0408,Information Technology,2,4,A,2024-2025
+STU0409,Computer Science,2,4,C,2024-2025
+STU0410,Computer Science,2,4,B,2024-2025
+STU0411,Information Technology,2,4,C,2024-2025
+STU0412,Electronics,2,4,B,2024-2025
+STU0413,Electronics,2,4,C,2024-2025
+STU0414,Information Technology,2,4,A,2024-2025
+STU0415,Electronics,2,4,C,2024-2025
+STU0416,Computer Science,2,4,B,2024-2025
+STU0417,Electronics,2,4,B,2024-2025
+STU0418,Electronics,2,4,A,2024-2025
+STU0419,Electronics,2,4,A,2024-2025
+STU0420,Information Technology,2,4,B,2024-2025
+STU0421,Electronics,2,4,C,2024-2025
+STU0422,Electronics,2,4,A,2024-2025
+STU0423,Electronics,2,4,C,2024-2025
+STU0424,Information Technology,2,4,C,2024-2025
+STU0425,Information Technology,2,4,C,2024-2025
+STU0426,Electronics,2,4,A,2024-2025
+STU0427,Electronics,2,4,C,2024-2025
+STU0428,Computer Science,2,4,C,2024-2025
+STU0429,Information Technology,2,4,A,2024-2025
+STU0430,Electronics,2,4,A,2024-2025
+STU0431,Computer Science,2,4,C,2024-2025
+STU0432,Computer Science,2,4,A,2024-2025
+STU0433,Computer Science,2,4,B,2024-2025
+STU0434,Information Technology,2,4,B,2024-2025
+STU0435,Computer Science,2,4,C,2024-2025
+STU0436,Electronics,2,4,C,2024-2025
+STU0437,Computer Science,2,4,A,2024-2025
+STU0438,Electronics,2,4,B,2024-2025
+STU0439,Electronics,2,4,A,2024-2025
+STU0440,Electronics,2,4,A,2024-2025
+STU0441,Information Technology,2,4,C,2024-2025
+STU0442,Information Technology,2,4,B,2024-2025
+STU0443,Computer Science,2,4,B,2024-2025
+STU0444,Electronics,2,4,C,2024-2025
+STU0445,Computer Science,2,4,B,2024-2025
+STU0446,Electronics,2,4,B,2024-2025
+STU0447,Information Technology,2,4,C,2024-2025
+STU0448,Information Technology,2,4,B,2024-2025
+STU0449,Information Technology,2,4,B,2024-2025
+STU0450,Computer Science,2,4,B,2024-2025
+STU0451,Information Technology,2,4,C,2024-2025
+STU0452,Electronics,2,4,B,2024-2025
+STU0453,Electronics,2,4,B,2024-2025
+STU0454,Computer Science,2,4,C,2024-2025
+STU0455,Electronics,2,4,A,2024-2025
+STU0456,Electronics,2,4,B,2024-2025
+STU0457,Computer Science,2,4,C,2024-2025
+STU0458,Computer Science,2,4,C,2024-2025
+STU0459,Electronics,2,4,B,2024-2025
+STU0460,Electronics,2,4,C,2024-2025
+STU0461,Computer Science,2,4,C,2024-2025
+STU0462,Electronics,2,4,C,2024-2025
+STU0463,Information Technology,2,4,B,2024-2025
+STU0464,Electronics,2,4,B,2024-2025
+STU0465,Computer Science,2,4,A,2024-2025
+STU0466,Information Technology,2,4,C,2024-2025
+STU0467,Computer Science,2,4,A,2024-2025
+STU0468,Electronics,2,4,B,2024-2025
+STU0469,Electronics,2,4,B,2024-2025
+STU0470,Information Technology,2,4,B,2024-2025
+STU0471,Electronics,2,4,B,2024-2025
+STU0472,Information Technology,2,4,A,2024-2025
+STU0473,Computer Science,2,4,C,2024-2025
+STU0474,Electronics,2,4,B,2024-2025
+STU0475,Information Technology,2,4,A,2024-2025
+STU0476,Computer Science,2,4,B,2024-2025
+STU0477,Computer Science,2,4,B,2024-2025
+STU0478,Electronics,2,4,C,2024-2025
+STU0479,Information Technology,2,4,C,2024-2025
+STU0480,Electronics,2,4,B,2024-2025
+STU0481,Electronics,2,4,A,2024-2025
+STU0482,Computer Science,2,4,C,2024-2025
+STU0483,Information Technology,2,4,C,2024-2025
+STU0484,Electronics,2,4,A,2024-2025
+STU0485,Information Technology,2,4,C,2024-2025
+STU0486,Electronics,2,4,B,2024-2025
+STU0487,Computer Science,2,4,A,2024-2025
+STU0488,Information Technology,2,4,B,2024-2025
+STU0489,Computer Science,2,4,A,2024-2025
+STU0490,Computer Science,2,4,B,2024-2025
+STU0491,Information Technology,2,4,C,2024-2025
+STU0492,Electronics,2,4,C,2024-2025
+STU0493,Electronics,2,4,C,2024-2025
+STU0494,Computer Science,2,4,B,2024-2025
+STU0495,Computer Science,2,4,B,2024-2025
+STU0496,Information Technology,2,4,B,2024-2025
+STU0497,Electronics,2,4,B,2024-2025
+STU0498,Information Technology,2,4,B,2024-2025
+STU0499,Information Technology,2,4,A,2024-2025
+STU0500,Information Technology,2,4,C,2024-2025
+STU0501,Information Technology,2,4,A,2024-2025
+STU0502,Information Technology,2,4,A,2024-2025
+STU0503,Information Technology,2,4,A,2024-2025
+STU0504,Computer Science,2,4,C,2024-2025
+STU0505,Electronics,2,4,A,2024-2025
+STU0506,Information Technology,2,4,A,2024-2025
+STU0507,Electronics,2,4,A,2024-2025
+STU0508,Electronics,2,4,A,2024-2025
+STU0509,Computer Science,2,4,A,2024-2025
+STU0510,Computer Science,2,4,C,2024-2025
+STU0511,Information Technology,2,4,A,2024-2025
+STU0512,Electronics,2,4,B,2024-2025
+STU0513,Computer Science,2,4,C,2024-2025
+STU0514,Computer Science,2,4,A,2024-2025
+STU0515,Computer Science,2,4,C,2024-2025
+STU0516,Computer Science,2,4,A,2024-2025
+STU0517,Computer Science,2,4,A,2024-2025
+STU0518,Information Technology,2,4,C,2024-2025
+STU0519,Electronics,2,4,A,2024-2025
+STU0520,Information Technology,2,4,B,2024-2025
+STU0521,Electronics,2,4,A,2024-2025
+STU0522,Electronics,2,4,A,2024-2025
+STU0523,Computer Science,2,4,C,2024-2025
+STU0524,Electronics,2,4,B,2024-2025
+STU0525,Electronics,2,4,A,2024-2025
+STU0526,Information Technology,2,4,B,2024-2025
+STU0527,Electronics,2,4,A,2024-2025
+STU0528,Electronics,2,4,B,2024-2025
+STU0529,Computer Science,2,4,B,2024-2025
+STU0530,Computer Science,2,4,A,2024-2025
+STU0531,Information Technology,2,4,C,2024-2025
+STU0532,Electronics,2,4,C,2024-2025
+STU0533,Information Technology,2,4,B,2024-2025
+STU0534,Electronics,2,4,B,2024-2025
+STU0535,Electronics,2,4,C,2024-2025
+STU0536,Computer Science,2,4,C,2024-2025
+STU0537,Electronics,2,4,C,2024-2025
+STU0538,Electronics,2,4,A,2024-2025
+STU0539,Information Technology,2,4,A,2024-2025
+STU0540,Information Technology,2,4,B,2024-2025
+STU0541,Information Technology,2,4,C,2024-2025
+STU0542,Information Technology,2,4,B,2024-2025
+STU0543,Electronics,2,4,B,2024-2025
+STU0544,Computer Science,2,4,C,2024-2025
+STU0545,Computer Science,2,4,A,2024-2025
+STU0546,Computer Science,2,4,B,2024-2025
+STU0547,Electronics,2,4,C,2024-2025
+STU0548,Computer Science,2,4,C,2024-2025
+STU0549,Electronics,2,4,C,2024-2025
+STU0550,Information Technology,2,4,C,2024-2025
+STU0551,Information Technology,2,4,B,2024-2025
+STU0552,Information Technology,2,4,C,2024-2025
+STU0553,Information Technology,2,4,C,2024-2025
+STU0554,Information Technology,2,4,A,2024-2025
+STU0555,Electronics,2,4,A,2024-2025
+STU0556,Electronics,2,4,B,2024-2025
+STU0557,Computer Science,2,4,B,2024-2025
+STU0558,Information Technology,2,4,A,2024-2025
+STU0559,Electronics,2,4,A,2024-2025
+STU0560,Electronics,2,4,C,2024-2025
+STU0561,Electronics,2,4,C,2024-2025
+STU0562,Computer Science,2,4,C,2024-2025
+STU0563,Electronics,2,4,B,2024-2025
+STU0564,Computer Science,2,4,B,2024-2025
+STU0565,Information Technology,2,4,B,2024-2025
+STU0566,Computer Science,2,4,A,2024-2025
+STU0567,Electronics,2,4,C,2024-2025
+STU0568,Computer Science,2,4,A,2024-2025
+STU0569,Electronics,2,4,A,2024-2025
+STU0570,Electronics,2,4,C,2024-2025
+STU0571,Information Technology,2,4,B,2024-2025
+STU0572,Information Technology,2,4,A,2024-2025
+STU0573,Information Technology,2,4,C,2024-2025
+STU0574,Electronics,2,4,C,2024-2025
+STU0575,Computer Science,2,4,A,2024-2025
+STU0576,Electronics,2,4,A,2024-2025
+STU0577,Computer Science,2,4,B,2024-2025
+STU0578,Electronics,2,4,B,2024-2025
+STU0579,Electronics,2,4,B,2024-2025
+STU0580,Information Technology,2,4,A,2024-2025
+STU0581,Computer Science,2,4,B,2024-2025
+STU0582,Computer Science,2,4,B,2024-2025
+STU0583,Electronics,2,4,C,2024-2025
+STU0584,Electronics,2,4,C,2024-2025
+STU0585,Computer Science,2,4,A,2024-2025
+STU0586,Electronics,2,4,A,2024-2025
+STU0587,Computer Science,2,4,B,2024-2025
+STU0588,Computer Science,2,4,B,2024-2025
+STU0589,Information Technology,2,4,A,2024-2025
+STU0590,Information Technology,2,4,C,2024-2025
+STU0591,Computer Science,2,4,A,2024-2025
+STU0592,Electronics,2,4,C,2024-2025
+STU0593,Electronics,2,4,C,2024-2025
+STU0594,Information Technology,2,4,A,2024-2025
+STU0595,Electronics,2,4,A,2024-2025
+STU0596,Computer Science,2,4,B,2024-2025
+STU0597,Information Technology,2,4,C,2024-2025
+STU0598,Electronics,2,4,B,2024-2025
+STU0599,Electronics,2,4,B,2024-2025
+STU0600,Computer Science,2,4,B,2024-2025
+STU0601,Information Technology,2,4,A,2024-2025
+STU0602,Information Technology,2,4,C,2024-2025
+STU0603,Computer Science,2,4,B,2024-2025
+STU0604,Computer Science,2,4,B,2024-2025
+STU0605,Information Technology,2,4,C,2024-2025
+STU0606,Information Technology,2,4,B,2024-2025
+STU0607,Information Technology,2,4,A,2024-2025
+STU0608,Computer Science,2,4,A,2024-2025
+STU0609,Electronics,2,4,A,2024-2025
+STU0610,Electronics,2,4,A,2024-2025
+STU0611,Information Technology,2,4,C,2024-2025
+STU0612,Computer Science,2,4,A,2024-2025
+STU0613,Computer Science,2,4,B,2024-2025
+STU0614,Computer Science,2,4,C,2024-2025
+STU0615,Electronics,2,4,A,2024-2025
+STU0616,Electronics,2,4,B,2024-2025
+STU0617,Electronics,2,4,C,2024-2025
+STU0618,Electronics,2,4,C,2024-2025
+STU0619,Electronics,2,4,C,2024-2025
+STU0620,Electronics,2,4,B,2024-2025
+STU0621,Information Technology,2,4,A,2024-2025
+STU0622,Information Technology,2,4,C,2024-2025
+STU0623,Information Technology,2,4,C,2024-2025
+STU0624,Information Technology,2,4,C,2024-2025
+STU0625,Information Technology,2,4,B,2024-2025
+STU0626,Computer Science,2,4,A,2024-2025
+STU0627,Information Technology,2,4,A,2024-2025
+STU0628,Computer Science,2,4,C,2024-2025
+STU0629,Electronics,2,4,B,2024-2025
+STU0630,Electronics,2,4,C,2024-2025
+STU0631,Computer Science,2,4,B,2024-2025
+STU0632,Electronics,2,4,A,2024-2025
+STU0633,Electronics,2,4,B,2024-2025
+STU0634,Computer Science,2,4,A,2024-2025
+STU0635,Computer Science,2,4,B,2024-2025
+STU0636,Computer Science,2,4,C,2024-2025
+STU0637,Computer Science,2,4,A,2024-2025
+STU0638,Electronics,2,4,B,2024-2025
+STU0639,Electronics,2,4,C,2024-2025
+STU0640,Computer Science,2,4,B,2024-2025
+STU0641,Information Technology,2,4,B,2024-2025
+STU0642,Information Technology,2,4,C,2024-2025
+STU0643,Computer Science,2,4,C,2024-2025
+STU0644,Information Technology,2,4,A,2024-2025
+STU0645,Computer Science,2,4,C,2024-2025
+STU0646,Information Technology,2,4,B,2024-2025
+STU0647,Electronics,2,4,C,2024-2025
+STU0648,Computer Science,2,4,B,2024-2025
+STU0649,Electronics,2,4,C,2024-2025
+STU0650,Information Technology,2,4,B,2024-2025
+STU0651,Electronics,2,4,C,2024-2025
+STU0652,Computer Science,2,4,C,2024-2025
+STU0653,Computer Science,2,4,B,2024-2025
+STU0654,Information Technology,2,4,C,2024-2025
+STU0655,Computer Science,2,4,C,2024-2025
+STU0656,Electronics,2,4,C,2024-2025
+STU0657,Computer Science,2,4,C,2024-2025
+STU0658,Information Technology,2,4,C,2024-2025
+STU0659,Computer Science,2,4,B,2024-2025
+STU0660,Computer Science,2,4,A,2024-2025
+STU0661,Information Technology,2,4,A,2024-2025
+STU0662,Computer Science,2,4,A,2024-2025
+STU0663,Information Technology,2,4,A,2024-2025
+STU0664,Electronics,2,4,C,2024-2025
+STU0665,Computer Science,2,4,C,2024-2025
+STU0666,Electronics,2,4,A,2024-2025
+STU0667,Information Technology,2,4,A,2024-2025
+STU0668,Computer Science,2,4,C,2024-2025
+STU0669,Computer Science,2,4,C,2024-2025
+STU0670,Computer Science,2,4,B,2024-2025
+STU0671,Electronics,2,4,C,2024-2025
+STU0672,Information Technology,2,4,C,2024-2025
+STU0673,Electronics,2,4,B,2024-2025
+STU0674,Electronics,2,4,A,2024-2025
+STU0675,Information Technology,2,4,A,2024-2025
+STU0676,Electronics,2,4,C,2024-2025
+STU0677,Information Technology,2,4,B,2024-2025
+STU0678,Electronics,2,4,C,2024-2025
+STU0679,Computer Science,2,4,A,2024-2025
+STU0680,Computer Science,2,4,B,2024-2025
+STU0681,Electronics,2,4,B,2024-2025
+STU0682,Electronics,2,4,A,2024-2025
+STU0683,Electronics,2,4,A,2024-2025
+STU0684,Computer Science,2,4,A,2024-2025
+STU0685,Information Technology,2,4,C,2024-2025
+STU0686,Information Technology,2,4,A,2024-2025
+STU0687,Information Technology,2,4,B,2024-2025
+STU0688,Information Technology,2,4,A,2024-2025
+STU0689,Electronics,2,4,B,2024-2025
+STU0690,Information Technology,2,4,A,2024-2025
+STU0691,Computer Science,2,4,A,2024-2025
+STU0692,Computer Science,2,4,C,2024-2025
+STU0693,Information Technology,2,4,A,2024-2025
+STU0694,Computer Science,2,4,B,2024-2025
+STU0695,Electronics,2,4,A,2024-2025
+STU0696,Information Technology,2,4,B,2024-2025
+STU0697,Computer Science,2,4,A,2024-2025
+STU0698,Information Technology,2,4,A,2024-2025
+STU0699,Electronics,2,4,C,2024-2025
+STU0700,Electronics,2,4,B,2024-2025
+STU0701,Information Technology,2,4,A,2024-2025
+STU0702,Computer Science,2,4,A,2024-2025
+STU0703,Information Technology,2,4,C,2024-2025
+STU0704,Information Technology,2,4,A,2024-2025
+STU0705,Information Technology,2,4,C,2024-2025
+STU0706,Computer Science,2,4,C,2024-2025
+STU0707,Electronics,2,4,A,2024-2025
+STU0708,Computer Science,2,4,B,2024-2025
+STU0709,Computer Science,2,4,C,2024-2025
+STU0710,Computer Science,2,4,C,2024-2025
+STU0711,Computer Science,2,4,C,2024-2025
+STU0712,Computer Science,2,4,C,2024-2025
+STU0713,Computer Science,2,4,C,2024-2025
+STU0714,Electronics,2,4,C,2024-2025
+STU0715,Computer Science,2,4,B,2024-2025
+STU0716,Computer Science,2,4,C,2024-2025
+STU0717,Information Technology,2,4,B,2024-2025
+STU0718,Computer Science,2,4,B,2024-2025
+STU0719,Information Technology,2,4,A,2024-2025
+STU0720,Electronics,2,4,C,2024-2025
+STU0721,Electronics,2,4,C,2024-2025
+STU0722,Computer Science,2,4,A,2024-2025
+STU0723,Electronics,2,4,B,2024-2025
+STU0724,Computer Science,2,4,C,2024-2025
+STU0725,Electronics,2,4,B,2024-2025
+STU0726,Computer Science,2,4,A,2024-2025
+STU0727,Electronics,2,4,B,2024-2025
+STU0728,Information Technology,2,4,A,2024-2025
+STU0729,Computer Science,2,4,A,2024-2025
+STU0730,Information Technology,2,4,C,2024-2025
+STU0731,Electronics,2,4,B,2024-2025
+STU0732,Computer Science,2,4,C,2024-2025
+STU0733,Information Technology,2,4,B,2024-2025
+STU0734,Electronics,2,4,B,2024-2025
+STU0735,Computer Science,2,4,B,2024-2025
+STU0736,Information Technology,2,4,C,2024-2025
+STU0737,Information Technology,2,4,B,2024-2025
+STU0738,Information Technology,2,4,C,2024-2025
+STU0739,Information Technology,2,4,C,2024-2025
+STU0740,Computer Science,2,4,C,2024-2025
+STU0741,Computer Science,2,4,B,2024-2025
+STU0742,Computer Science,2,4,C,2024-2025
+STU0743,Information Technology,2,4,A,2024-2025
+STU0744,Information Technology,2,4,C,2024-2025
+STU0745,Information Technology,2,4,B,2024-2025
+STU0746,Electronics,2,4,B,2024-2025
+STU0747,Electronics,2,4,B,2024-2025
+STU0748,Information Technology,2,4,A,2024-2025
+STU0749,Information Technology,2,4,C,2024-2025
+STU0750,Information Technology,2,4,C,2024-2025
+STU0751,Computer Science,2,4,C,2024-2025
+STU0752,Information Technology,2,4,B,2024-2025
+STU0753,Electronics,2,4,C,2024-2025
+STU0754,Computer Science,2,4,A,2024-2025
+STU0755,Electronics,2,4,B,2024-2025
+STU0756,Computer Science,2,4,A,2024-2025
+STU0757,Electronics,2,4,B,2024-2025
+STU0758,Information Technology,2,4,C,2024-2025
+STU0759,Electronics,2,4,A,2024-2025
+STU0760,Information Technology,2,4,B,2024-2025
+STU0761,Information Technology,2,4,A,2024-2025
+STU0762,Computer Science,2,4,C,2024-2025
+STU0763,Information Technology,2,4,B,2024-2025
+STU0764,Information Technology,2,4,A,2024-2025
+STU0765,Computer Science,2,4,C,2024-2025
+STU0766,Information Technology,2,4,C,2024-2025
+STU0767,Electronics,2,4,A,2024-2025
+STU0768,Information Technology,2,4,C,2024-2025
+STU0769,Computer Science,2,4,C,2024-2025
+STU0770,Electronics,2,4,B,2024-2025
+STU0771,Computer Science,2,4,A,2024-2025
+STU0772,Information Technology,2,4,A,2024-2025
+STU0773,Information Technology,2,4,A,2024-2025
+STU0774,Information Technology,2,4,C,2024-2025
+STU0775,Electronics,2,4,A,2024-2025
+STU0776,Electronics,2,4,B,2024-2025
+STU0777,Computer Science,2,4,C,2024-2025
+STU0778,Electronics,2,4,C,2024-2025
+STU0779,Information Technology,2,4,C,2024-2025
+STU0780,Computer Science,2,4,A,2024-2025
+STU0781,Computer Science,2,4,B,2024-2025
+STU0782,Information Technology,2,4,C,2024-2025
+STU0783,Information Technology,2,4,B,2024-2025
+STU0784,Computer Science,2,4,C,2024-2025
+STU0785,Computer Science,2,4,B,2024-2025
+STU0786,Electronics,2,4,C,2024-2025
+STU0787,Electronics,2,4,B,2024-2025
+STU0788,Electronics,2,4,A,2024-2025
+STU0789,Information Technology,2,4,C,2024-2025
+STU0790,Information Technology,2,4,B,2024-2025
+STU0791,Electronics,2,4,B,2024-2025
+STU0792,Electronics,2,4,C,2024-2025
+STU0793,Computer Science,2,4,A,2024-2025
+STU0794,Electronics,2,4,A,2024-2025
+STU0795,Electronics,2,4,A,2024-2025
+STU0796,Computer Science,2,4,A,2024-2025
+STU0797,Electronics,2,4,A,2024-2025
+STU0798,Electronics,2,4,B,2024-2025
+STU0799,Information Technology,2,4,A,2024-2025
+STU0800,Electronics,2,4,B,2024-2025
+STU0801,Electronics,2,4,B,2024-2025
+STU0802,Electronics,2,4,A,2024-2025
+STU0803,Electronics,2,4,A,2024-2025
+STU0804,Electronics,2,4,A,2024-2025
+STU0805,Electronics,2,4,C,2024-2025
+STU0806,Electronics,2,4,B,2024-2025
+STU0807,Computer Science,2,4,A,2024-2025
+STU0808,Computer Science,2,4,C,2024-2025
+STU0809,Information Technology,2,4,C,2024-2025
+STU0810,Electronics,2,4,B,2024-2025
+STU0811,Electronics,2,4,A,2024-2025
+STU0812,Electronics,2,4,C,2024-2025
+STU0813,Electronics,2,4,B,2024-2025
+STU0814,Computer Science,2,4,C,2024-2025
+STU0815,Information Technology,2,4,B,2024-2025
+STU0816,Electronics,2,4,A,2024-2025
+STU0817,Information Technology,2,4,B,2024-2025
+STU0818,Information Technology,2,4,A,2024-2025
+STU0819,Electronics,2,4,A,2024-2025
+STU0820,Electronics,2,4,B,2024-2025
+STU0821,Information Technology,2,4,B,2024-2025
+STU0822,Information Technology,2,4,C,2024-2025
+STU0823,Computer Science,2,4,B,2024-2025
+STU0824,Information Technology,2,4,A,2024-2025
+STU0825,Information Technology,2,4,A,2024-2025
+STU0826,Computer Science,2,4,A,2024-2025
+STU0827,Information Technology,2,4,C,2024-2025
+STU0828,Computer Science,2,4,A,2024-2025
+STU0829,Electronics,2,4,C,2024-2025
+STU0830,Computer Science,2,4,A,2024-2025
+STU0831,Electronics,2,4,B,2024-2025
+STU0832,Information Technology,2,4,B,2024-2025
+STU0833,Computer Science,2,4,B,2024-2025
+STU0834,Information Technology,2,4,A,2024-2025
+STU0835,Electronics,2,4,B,2024-2025
+STU0836,Computer Science,2,4,B,2024-2025
+STU0837,Electronics,2,4,C,2024-2025
+STU0838,Information Technology,2,4,B,2024-2025
+STU0839,Computer Science,2,4,A,2024-2025
+STU0840,Computer Science,2,4,B,2024-2025
+STU0841,Information Technology,2,4,B,2024-2025
+STU0842,Computer Science,2,4,B,2024-2025
+STU0843,Electronics,2,4,C,2024-2025
+STU0844,Information Technology,2,4,C,2024-2025
+STU0845,Computer Science,2,4,B,2024-2025
+STU0846,Information Technology,2,4,C,2024-2025
+STU0847,Electronics,2,4,C,2024-2025
+STU0848,Computer Science,2,4,A,2024-2025
+STU0849,Information Technology,2,4,B,2024-2025
+STU0850,Electronics,2,4,B,2024-2025
+STU0851,Computer Science,2,4,C,2024-2025
+STU0852,Information Technology,2,4,C,2024-2025
+STU0853,Computer Science,2,4,A,2024-2025
+STU0854,Electronics,2,4,B,2024-2025
+STU0855,Electronics,2,4,B,2024-2025
+STU0856,Electronics,2,4,C,2024-2025
+STU0857,Information Technology,2,4,C,2024-2025
+STU0858,Computer Science,2,4,B,2024-2025
+STU0859,Electronics,2,4,B,2024-2025
+STU0860,Information Technology,2,4,C,2024-2025
+STU0861,Electronics,2,4,B,2024-2025
+STU0862,Electronics,2,4,B,2024-2025
+STU0863,Computer Science,2,4,B,2024-2025
+STU0864,Electronics,2,4,A,2024-2025
+STU0865,Electronics,2,4,B,2024-2025
+STU0866,Electronics,2,4,C,2024-2025
+STU0867,Electronics,2,4,B,2024-2025
+STU0868,Electronics,2,4,C,2024-2025
+STU0869,Computer Science,2,4,C,2024-2025
+STU0870,Electronics,2,4,B,2024-2025
+STU0871,Electronics,2,4,C,2024-2025
+STU0872,Electronics,2,4,B,2024-2025
+STU0873,Electronics,2,4,A,2024-2025
+STU0874,Electronics,2,4,C,2024-2025
+STU0875,Computer Science,2,4,A,2024-2025
+STU0876,Information Technology,2,4,B,2024-2025
+STU0877,Information Technology,2,4,C,2024-2025
+STU0878,Information Technology,2,4,C,2024-2025
+STU0879,Information Technology,2,4,C,2024-2025
+STU0880,Computer Science,2,4,C,2024-2025
+STU0881,Electronics,2,4,A,2024-2025
+STU0882,Information Technology,2,4,C,2024-2025
+STU0883,Electronics,2,4,B,2024-2025
+STU0884,Computer Science,2,4,B,2024-2025
+STU0885,Information Technology,2,4,C,2024-2025
+STU0886,Electronics,2,4,C,2024-2025
+STU0887,Electronics,2,4,C,2024-2025
+STU0888,Electronics,2,4,B,2024-2025
+STU0889,Computer Science,2,4,B,2024-2025
+STU0890,Information Technology,2,4,A,2024-2025
+STU0891,Information Technology,2,4,C,2024-2025
+STU0892,Electronics,2,4,C,2024-2025
+STU0893,Information Technology,2,4,B,2024-2025
+STU0894,Electronics,2,4,C,2024-2025
+STU0895,Information Technology,2,4,A,2024-2025
+STU0896,Electronics,2,4,C,2024-2025
+STU0897,Information Technology,2,4,B,2024-2025
+STU0898,Information Technology,2,4,A,2024-2025
+STU0899,Electronics,2,4,A,2024-2025
+STU0900,Information Technology,2,4,C,2024-2025
+STU0901,Electronics,2,4,B,2024-2025
+STU0902,Computer Science,2,4,C,2024-2025
+STU0903,Electronics,2,4,C,2024-2025
+STU0904,Computer Science,2,4,A,2024-2025
+STU0905,Electronics,2,4,C,2024-2025
+STU0906,Computer Science,2,4,A,2024-2025
+STU0907,Electronics,2,4,A,2024-2025
+STU0908,Computer Science,2,4,A,2024-2025
+STU0909,Information Technology,2,4,B,2024-2025
+STU0910,Information Technology,2,4,A,2024-2025
+STU0911,Computer Science,2,4,A,2024-2025
+STU0912,Computer Science,2,4,B,2024-2025
+STU0913,Information Technology,2,4,B,2024-2025
+STU0914,Computer Science,2,4,B,2024-2025
+STU0915,Information Technology,2,4,C,2024-2025
+STU0916,Computer Science,2,4,C,2024-2025
+STU0917,Computer Science,2,4,C,2024-2025
+STU0918,Electronics,2,4,A,2024-2025
+STU0919,Information Technology,2,4,A,2024-2025
+STU0920,Information Technology,2,4,B,2024-2025
+STU0921,Electronics,2,4,B,2024-2025
+STU0922,Computer Science,2,4,B,2024-2025
+STU0923,Electronics,2,4,A,2024-2025
+STU0924,Information Technology,2,4,B,2024-2025
+STU0925,Electronics,2,4,C,2024-2025
+STU0926,Computer Science,2,4,C,2024-2025
+STU0927,Information Technology,2,4,A,2024-2025
+STU0928,Information Technology,2,4,A,2024-2025
+STU0929,Information Technology,2,4,C,2024-2025
+STU0930,Electronics,2,4,A,2024-2025
+STU0931,Electronics,2,4,B,2024-2025
+STU0932,Electronics,2,4,C,2024-2025
+STU0933,Computer Science,2,4,C,2024-2025
+STU0934,Information Technology,2,4,B,2024-2025
+STU0935,Information Technology,2,4,A,2024-2025
+STU0936,Electronics,2,4,A,2024-2025
+STU0937,Computer Science,2,4,B,2024-2025
+STU0938,Computer Science,2,4,A,2024-2025
+STU0939,Information Technology,2,4,A,2024-2025
+STU0940,Information Technology,2,4,B,2024-2025
+STU0941,Electronics,2,4,C,2024-2025
+STU0942,Computer Science,2,4,B,2024-2025
+STU0943,Information Technology,2,4,C,2024-2025
+STU0944,Computer Science,2,4,C,2024-2025
+STU0945,Information Technology,2,4,B,2024-2025
+STU0946,Information Technology,2,4,C,2024-2025
+STU0947,Electronics,2,4,B,2024-2025
+STU0948,Computer Science,2,4,C,2024-2025
+STU0949,Information Technology,2,4,C,2024-2025
+STU0950,Computer Science,2,4,A,2024-2025
+STU0951,Computer Science,2,4,B,2024-2025
+STU0952,Electronics,2,4,B,2024-2025
+STU0953,Electronics,2,4,C,2024-2025
+STU0954,Electronics,2,4,C,2024-2025
+STU0955,Computer Science,2,4,C,2024-2025
+STU0956,Computer Science,2,4,C,2024-2025
+STU0957,Electronics,2,4,C,2024-2025
+STU0958,Computer Science,2,4,C,2024-2025
+STU0959,Computer Science,2,4,C,2024-2025
+STU0960,Computer Science,2,4,C,2024-2025
+STU0961,Computer Science,2,4,A,2024-2025
+STU0962,Electronics,2,4,B,2024-2025
+STU0963,Electronics,2,4,A,2024-2025
+STU0964,Electronics,2,4,B,2024-2025
+STU0965,Electronics,2,4,B,2024-2025
+STU0966,Information Technology,2,4,A,2024-2025
+STU0967,Information Technology,2,4,B,2024-2025
+STU0968,Computer Science,2,4,C,2024-2025
+STU0969,Electronics,2,4,B,2024-2025
+STU0970,Computer Science,2,4,B,2024-2025
+STU0971,Computer Science,2,4,C,2024-2025
+STU0972,Electronics,2,4,A,2024-2025
+STU0973,Information Technology,2,4,B,2024-2025
+STU0974,Computer Science,2,4,C,2024-2025
+STU0975,Computer Science,2,4,B,2024-2025
+STU0976,Information Technology,2,4,B,2024-2025
+STU0977,Computer Science,2,4,C,2024-2025
+STU0978,Electronics,2,4,B,2024-2025
+STU0979,Information Technology,2,4,B,2024-2025
+STU0980,Information Technology,2,4,A,2024-2025
+STU0981,Electronics,2,4,C,2024-2025
+STU0982,Electronics,2,4,B,2024-2025
+STU0983,Computer Science,2,4,C,2024-2025
+STU0984,Electronics,2,4,A,2024-2025
+STU0985,Computer Science,2,4,A,2024-2025
+STU0986,Information Technology,2,4,B,2024-2025
+STU0987,Electronics,2,4,C,2024-2025
+STU0988,Electronics,2,4,B,2024-2025
+STU0989,Computer Science,2,4,B,2024-2025
+STU0990,Computer Science,2,4,B,2024-2025
+STU0991,Electronics,2,4,A,2024-2025
+STU0992,Electronics,2,4,B,2024-2025
+STU0993,Computer Science,2,4,A,2024-2025
+STU0994,Computer Science,2,4,A,2024-2025
+STU0995,Computer Science,2,4,B,2024-2025
+STU0996,Electronics,2,4,C,2024-2025
+STU0997,Computer Science,2,4,C,2024-2025
+STU0998,Information Technology,2,4,B,2024-2025
+STU0999,Electronics,2,4,A,2024-2025
+STU1000,Computer Science,2,4,C,2024-2025

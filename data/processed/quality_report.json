@@ -1,0 +1,78 @@
+{
+    "dataset_id": "campuspulse_demo",
+    "run_time": "2026-10-08 14:13:41.546356",
+    "domains": {
+        "students": {
+            "records_processed": 1000,
+            "records_accepted": 1000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "academic_records": {
+            "records_processed": 4000,
+            "records_accepted": 4000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "attendance_records": {
+            "records_processed": 4000,
+            "records_accepted": 4000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "lms_records": {
+            "records_processed": 4000,
+            "records_accepted": 4000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "engagement_records": {
+            "records_processed": 4000,
+            "records_accepted": 4000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "placement_records": {
+            "records_processed": 1000,
+            "records_accepted": 1000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "skill_records": {
+            "records_processed": 1000,
+            "records_accepted": 1000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        },
+        "feedback_records": {
+            "records_processed": 4000,
+            "records_accepted": 4000,
+            "records_rejected": 0,
+            "missing_values": 0,
+            "duplicate_records": 0,
+            "schema_errors": 0,
+            "invalid_ranges": 0
+        }
+    }
+}
