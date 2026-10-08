@@ -19,7 +19,7 @@ export default function Insights() {
     <>
       <PageHeading
         eyebrow="Cohort insights"
-        title="From signals to understanding."
+        title="Insights"
         description="Explore observed patterns, comparisons, and trends in student success, readiness, and engagement."
       />
       <QueryState

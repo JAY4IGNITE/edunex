@@ -19,6 +19,7 @@ import type {
   Student360,
   SuccessScore,
   Trends,
+  AIPrediction,
 } from "@/types/api";
 const studentPath = (id: string) => `/students/${encodeURIComponent(id)}`;
 export const api = {
@@ -42,6 +43,8 @@ export const api = {
     get<SuccessScore>(`${studentPath(id)}/success-score`, undefined, signal),
   academicRisk: (id: string, signal?: AbortSignal) =>
     get<AcademicRisk>(`${studentPath(id)}/academic-risk`, undefined, signal),
+  aiPrediction: (id: string, signal?: AbortSignal) =>
+    get<AIPrediction>(`${studentPath(id)}/ai-prediction`, undefined, signal),
   placementRisk: (id: string, signal?: AbortSignal) =>
     get<PlacementRisk>(`${studentPath(id)}/placement-risk`, undefined, signal),
   explanation: (id: string, signal?: AbortSignal) =>

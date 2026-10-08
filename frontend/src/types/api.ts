@@ -103,7 +103,7 @@ export interface PlacementRisk extends Risk {
     skills_assessment_date: string | null;
   };
 }
-export interface Contributor {
+interface Contributor {
   name: string;
   status: string;
   excluded_from_calculation: boolean;
@@ -111,11 +111,11 @@ export interface Contributor {
   effective_weight: number;
   normalized_value: number | null;
 }
-export interface DomainContributor extends Contributor {
+interface DomainContributor extends Contributor {
   contribution: number | null;
   direction: string;
 }
-export interface RiskDriver extends Contributor {
+interface RiskDriver extends Contributor {
   risk_contribution: number | null;
 }
 export interface RiskExplanation {
@@ -140,7 +140,7 @@ export interface Explanation {
     assessment_metadata: PlacementRisk["assessment_metadata"];
   };
 }
-export interface SegmentSummary {
+interface SegmentSummary {
   segment_id: string;
   name: string;
   description: string;
@@ -248,4 +248,28 @@ export interface Quality {
       invalid_ranges: number;
     }
   >;
+}
+
+export interface SHAPContribution {
+  feature: string;
+  value: number;
+  contribution: number;
+  direction: "higher_risk" | "lower_risk";
+}
+
+export interface AIPrediction {
+  status: "success" | "error";
+  student_id?: string;
+  prediction_horizon?: string;
+  prediction?: string;
+  risk_probability?: number;
+  model_version?: string;
+  features?: Record<string, number>;
+  top_factors?: {
+    all_contributions: SHAPContribution[];
+    top_higher_risk: SHAPContribution[];
+    top_lower_risk: SHAPContribution[];
+    expected_value: number;
+  };
+  reason?: string;
 }

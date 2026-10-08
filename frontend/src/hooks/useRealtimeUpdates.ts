@@ -17,7 +17,7 @@ export function useRealtimeUpdates(): ConnectionStatus {
     function connect() {
       if (!active) return;
       
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || window.location.origin;
+      const baseUrl = (import.meta.env.VITE_API_BASE_URL || window.location.origin).replace(/\/+$/, "");
       const wsUrl = baseUrl.replace(/^http/, 'ws') + "/ws/updates";
 
       try {
@@ -68,19 +68,20 @@ export function useRealtimeUpdates(): ConnectionStatus {
       backoff.current = Math.min(30000, backoff.current * 2) + (Math.random() * 500);
     }
 
-    function handleEvent(data: any) {
+    function handleEvent(data: unknown) {
       if (!data || typeof data !== "object") return;
 
-      const { event_type, student_id } = data;
+      const { event_type, student_id } = data as Record<string, unknown>;
 
       if (event_type === "analytics_updated") {
         queryClient.invalidateQueries({ queryKey: ["overview"] });
         queryClient.invalidateQueries({ queryKey: ["trends"] });
         queryClient.invalidateQueries({ queryKey: ["distribution"] });
         queryClient.invalidateQueries({ queryKey: ["segments"] });
+        queryClient.invalidateQueries({ queryKey: ["segment"] });
         queryClient.invalidateQueries({ queryKey: ["insights"] });
         // NOTE: we intentionally don't invalidate "students" list blindly to avoid request storms
-      } else if (event_type === "student_updated" && student_id) {
+      } else if (event_type === "student_updated" && typeof student_id === "string" && student_id) {
         // Invalidate specific student queries
         queryClient.invalidateQueries({ queryKey: ["student", student_id] });
         queryClient.invalidateQueries({ queryKey: ["score", student_id] });
@@ -94,6 +95,7 @@ export function useRealtimeUpdates(): ConnectionStatus {
         queryClient.invalidateQueries({ queryKey: ["trends"] });
         queryClient.invalidateQueries({ queryKey: ["distribution"] });
         queryClient.invalidateQueries({ queryKey: ["segments"] });
+        queryClient.invalidateQueries({ queryKey: ["segment"] });
         queryClient.invalidateQueries({ queryKey: ["insights"] });
       }
     }

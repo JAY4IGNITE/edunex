@@ -6,6 +6,7 @@ from backend.app.models.canonical import Student
 from backend.app.schemas.canonical import StudentSchema
 from backend.app.schemas.student_360 import Student360Response
 from backend.app.services.student_360 import Student360Service
+from backend.app.services.ml_prediction_service import MLPredictionService
 
 router = APIRouter()
 
@@ -44,3 +45,12 @@ def get_student_360_endpoint(student_id: str, response: Response, db: Session = 
     response.headers["Cache-Control"] = "public, max-age=300"
     service = Student360Service(db)
     return service.get_student_360(student_id)
+
+@router.get("/{student_id}/ai-prediction", summary="Get ML Academic Risk Prediction")
+def get_ml_prediction(student_id: str, db: Session = Depends(get_db)):
+    """
+    Retrieve the AI Early Warning prediction for a student.
+    Provides prediction for the next semester with SHAP explanations.
+    """
+    service = MLPredictionService(db)
+    return service.get_academic_risk_prediction(student_id)

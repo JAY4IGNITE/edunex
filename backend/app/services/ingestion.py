@@ -3,7 +3,7 @@ import numpy as np
 import json
 from datetime import datetime
 from pydantic import ValidationError
-from typing import Type, Any, Dict, List
+from typing import Type, Any, List
 from backend.app.schemas.canonical import ProvenanceMetadata
 
 class IngestionPipeline:

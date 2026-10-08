@@ -4,7 +4,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 
 // Live API checks for Phase 13. Only the explicit 500/loading scenario is intercepted.
-const base = "http://127.0.0.1:5173";
+const base = process.env.EDUNEX_TEST_BASE_URL ?? "http://127.0.0.1:5173";
 const cohort = "?department=Computer+Science&year=2&semester=4";
 const report = {
   checks: [],

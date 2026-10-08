@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { ArrowUpRight, Search, CornerDownLeft, UserRound } from "lucide-react";
+import { ArrowRight, Search, CornerDownLeft, UserRound } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
   Dialog,
@@ -143,7 +143,7 @@ export function CommandPalette() {
                 <strong>{label}</strong>
                 <small>{detail}</small>
               </span>
-              <ArrowUpRight size={15} aria-hidden="true" />
+              <ArrowRight size={15} aria-hidden="true" />
             </div>
           ))}
         </div>

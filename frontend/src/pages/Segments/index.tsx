@@ -1,16 +1,7 @@
 import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import {
-  Layers3,
-  ArrowUpRight,
-  GraduationCap,
-  BookOpen,
-  BriefcaseBusiness,
-  ShieldAlert,
-  Activity,
-  CircleDashed,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { api } from "@/services/api";
 import { useFilters } from "@/hooks/useFilters";
 import {
@@ -29,15 +20,6 @@ import {
 } from "@/components/ui/dialog";
 import { humanize, number } from "@/utils/data";
 import "@/analytics.css";
-
-const segmentIcons: Record<string, typeof Layers3> = {
-  HIGH_ACADEMIC_HIGH_PLACEMENT: GraduationCap,
-  HIGH_ACADEMIC_LOW_PLACEMENT: BookOpen,
-  LOW_ACADEMIC_HIGH_PLACEMENT: BriefcaseBusiness,
-  LOW_ACADEMIC_LOW_PLACEMENT: ShieldAlert,
-  HIGH_ENGAGEMENT_LOW_ACADEMIC: Activity,
-  LOW_ENGAGEMENT_LOW_ACADEMIC: CircleDashed,
-};
 
 export default function Segments() {
   const { filters, filtered, cohortSearch } = useFilters();
@@ -79,7 +61,6 @@ export default function Segments() {
     return (
       <div className="grid-three segment-grid">
         {summary.data.segments.map((segment, index) => {
-          const SegmentIcon = segmentIcons[segment.segment_id] ?? Layers3;
           const count = filtered
             ? available
               ? (counts?.[segment.segment_id] ?? 0)
@@ -98,9 +79,6 @@ export default function Segments() {
               key={segment.segment_id}
             >
               <div className="segment-card-top">
-                <span className="segment-icon">
-                  <SegmentIcon size={21} aria-hidden="true" />
-                </span>
                 <span className="segment-index">0{index + 1}</span>
               </div>
               <p className="eyebrow">Analytical Segment</p>
@@ -141,7 +119,7 @@ export default function Segments() {
                   setMemberPage(0);
                 }}
               >
-                View characteristics <ArrowUpRight size={15} />
+                View characteristics <ArrowRight size={15} />
               </Button>
             </article>
           );
@@ -261,7 +239,7 @@ export default function Segments() {
                             to={`/students/${encodeURIComponent(id)}${cohortSearch}`}
                           >
                             {id}
-                            <ArrowUpRight size={13} />
+                            <ArrowRight size={13} />
                           </Link>
                         ))}
                     </div>

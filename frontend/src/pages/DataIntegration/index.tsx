@@ -58,7 +58,7 @@ export default function DataIntegration() {
     <>
       <PageHeading
         eyebrow="Data integration"
-        title="Connected data. Clear provenance."
+        title="Data integration"
         description="Understand the sources, coverage, and quality behind the student success picture."
       />
       <QueryState

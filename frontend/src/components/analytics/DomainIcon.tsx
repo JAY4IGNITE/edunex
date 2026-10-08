@@ -1,21 +1,21 @@
 import {
-  Activity,
-  BookOpen,
-  BrainCircuit,
+  UsersRound,
+  MonitorPlay,
+  ListChecks,
   BriefcaseBusiness,
   CalendarCheck,
   Database,
-  GraduationCap,
+  BookMarked,
   MessageSquareText,
 } from "lucide-react";
 
 const icons = {
-  academic: GraduationCap,
+  academic: BookMarked,
   attendance: CalendarCheck,
-  lms: BookOpen,
-  engagement: Activity,
+  lms: MonitorPlay,
+  engagement: UsersRound,
   placement: BriefcaseBusiness,
-  skills: BrainCircuit,
+  skills: ListChecks,
   feedback: MessageSquareText,
 };
 

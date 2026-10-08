@@ -1,9 +1,9 @@
 import {
   LayoutDashboard,
-  Users,
-  ShieldAlert,
-  Layers3,
-  Sparkles,
+  ContactRound,
+  TriangleAlert,
+  ChartScatter,
+  ChartNoAxesCombined,
   Database,
 } from "lucide-react";
 
@@ -17,25 +17,25 @@ export const destinations = [
   {
     to: "/students",
     label: "Students",
-    icon: Users,
+    icon: ContactRound,
     detail: "Explore student profiles",
   },
   {
     to: "/risks",
     label: "Risks",
-    icon: ShieldAlert,
+    icon: TriangleAlert,
     detail: "View high risk students",
   },
   {
     to: "/segments",
     label: "Segments",
-    icon: Layers3,
+    icon: ChartScatter,
     detail: "Understand student groups",
   },
   {
     to: "/insights",
     label: "Insights",
-    icon: Sparkles,
+    icon: ChartNoAxesCombined,
     detail: "Explore trends and signals",
   },
   {

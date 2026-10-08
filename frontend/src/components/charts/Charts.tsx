@@ -11,7 +11,7 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Trends } from "@/types/api";
 import { number, trendRows } from "@/utils/data";
@@ -131,7 +131,7 @@ export function RiskDistribution({
             to={`/risks${cohortSearch}`}
             aria-label={`Explore ${title.toLowerCase()}`}
           >
-            <ArrowUpRight size={18} />
+            <ArrowRight size={18} />
           </Link>
         }
       />

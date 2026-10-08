@@ -1,6 +1,6 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Users } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Users } from "lucide-react";
 import { api } from "@/services/api";
 import { useFilters } from "@/hooks/useFilters";
 import { TableSkeleton } from "@/components/skeletons";
@@ -296,7 +296,7 @@ function StudentRows({
                 </td>
               )}
               <td className="student-row-arrow" role="cell">
-                <ArrowUpRight size={15} aria-hidden="true" className="muted" />
+                <ArrowRight size={15} aria-hidden="true" className="muted" />
               </td>
             </tr>
           ))}

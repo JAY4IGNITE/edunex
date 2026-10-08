@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowUpRight, Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { PageHeading } from "@/components/cards/Shared";
 import { StudentTable } from "@/components/tables/StudentTable";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ export default function Students() {
     <>
       <PageHeading
         eyebrow="Student explorer"
-        title="Every student. In perspective."
+        title="Students"
         description="Explore individual performance, risk, and analytical segments across your selected cohort."
       />
       <form
@@ -43,7 +43,7 @@ export default function Students() {
           />
         </div>
         <Button type="submit" disabled={!studentId.trim()}>
-          Open profile <ArrowUpRight size={16} aria-hidden="true" />
+          Open profile <ArrowRight size={16} aria-hidden="true" />
         </Button>
         <p id="student-search-help">
           Open any student by their exact ID, or explore the cohort below.

@@ -5,8 +5,9 @@ import assert from "node:assert/strict";
 import { installRedesignFixtures } from "./redesign-fixtures.mjs";
 
 const baseline = process.argv.includes("--baseline");
-const base = baseline ? "http://127.0.0.1:4173" : "http://127.0.0.1:5173";
-const output = `verification/${baseline ? "before-edunex" : "after-edunex"}`;
+const base = process.env.EDUNEX_TEST_BASE_URL ?? (baseline ? "http://127.0.0.1:4173" : "http://127.0.0.1:5173");
+const theme = process.argv.includes("--light") ? "light" : "dark";
+const output = `verification/${baseline ? "before-edunex" : `theme-${theme}`}`;
 const widths = [1440, 1280, 1024, 768, 480, 390, 320];
 const routes = [
   ["/", "overview"],
@@ -32,8 +33,11 @@ const browser = await chromium.launch({ channel: "chrome", headless: true });
 const context = await browser.newContext({
   viewport: { width: 1440, height: 1000 },
   reducedMotion: "reduce",
+  colorScheme: theme,
 });
 const page = await context.newPage();
+// Isolate transport in this contract-fixture suite; live connectivity is checked separately.
+await page.routeWebSocket("**/ws/updates", () => {});
 await installRedesignFixtures(page, report.requests);
 page.on("console", (message) => {
   if (["error", "warning"].includes(message.type()))
@@ -78,13 +82,13 @@ try {
           }),
         ),
         overflowing: [
-          ...document.querySelectorAll("main > *, .filter-bar, .app-header"),
+          ...document.querySelectorAll("main > *, .filter-bar, .workspace-header-actions"),
         ]
           .filter((el) => el.getBoundingClientRect().right > innerWidth + 1)
           .map((el) => el.className),
       }));
       report.responsive.push({ route, width, ...geometry });
-      if (geometry.overflow)
+      if (geometry.overflow || geometry.overflowing.length)
         report.failures.push(`${name} document overflows at ${width}px`);
       if (
         geometry.charts.some((rect) => rect.width <= 100 || rect.height <= 100)
@@ -138,7 +142,20 @@ try {
     );
     await page.getByRole("link", { name: "Students", exact: true }).click();
     assert.equal(new URL(page.url()).searchParams.get("year"), "2");
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByRole("button", { name: "More", exact: true }).click();
+    assert.equal(await page.getByRole("dialog").getByRole("link", { name: "Data Integration" }).locator("span").isVisible(), true, "Collapsed desktop sidebar must not hide mobile menu labels");
+    await page.keyboard.press("Escape");
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.getByRole("button", { name: "Expand sidebar" }).click();
+    const opposite = theme === "dark" ? "light" : "dark";
+    await page.getByRole("button", { name: `Switch to ${opposite} theme` }).click();
+    assert.equal(await page.locator("html").getAttribute("data-theme"), opposite);
+    await page.reload();
+    await page.getByRole("button", { name: `Switch to ${theme} theme` }).waitFor();
+    assert.equal(await page.locator("html").getAttribute("data-theme"), opposite, "Theme survives reload");
+    await page.getByRole("button", { name: `Switch to ${theme} theme` }).click();
+    report.checks.push("Theme toggles, persists after reload, and collapsed sidebar leaves mobile labels visible.");
     const trigger = page.getByRole("button", { name: "Search and navigate" });
     await trigger.click();
     const input = page.getByRole("combobox");

@@ -1,4 +1,4 @@
-import { ArrowUpRight, Layers3 } from "lucide-react";
+import { ArrowRight, ChartScatter } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SectionHeading } from "@/components/cards/Shared";
 import { EmptyState } from "@/components/states/States";
@@ -25,7 +25,7 @@ export function SegmentDistribution({
             to={`/segments${cohortSearch}`}
             aria-label="Explore student segments"
           >
-            <ArrowUpRight size={18} />
+            <ArrowRight size={18} />
           </Link>
         }
       />
@@ -55,7 +55,7 @@ export function SegmentDistribution({
         />
       )}
       <p className="panel-footnote">
-        <Layers3 size={13} aria-hidden="true" /> Explore segments for criteria
+        <ChartScatter size={13} aria-hidden="true" /> Explore segments for criteria
         and characteristics.
       </p>
     </section>

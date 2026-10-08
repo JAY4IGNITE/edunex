@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import {
-  Activity,
+  UsersRound,
+  Database,
   ArrowRight,
   CalendarCheck,
-  GraduationCap,
+  Gauge,
   Users,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -52,7 +53,7 @@ export default function Dashboard() {
     <div ref={ref}>
       <PageHeading
         eyebrow="Campus overview"
-        title="Student Success Intelligence"
+        title="Student success overview"
         description="Understand performance, identify risk, and discover the student groups that need attention."
         action={
           <Link
@@ -88,7 +89,7 @@ export default function Dashboard() {
                 value={data.average_success_score}
                 suffix="/100"
                 context="Average across assessed students"
-                icon={<GraduationCap />}
+                icon={<Gauge aria-hidden="true" />}
               />
               <Metric
                 label="Attendance"
@@ -101,7 +102,7 @@ export default function Dashboard() {
                 label="Engagement"
                 value={data.average_engagement_index}
                 context="Average engagement index"
-                icon={<Activity />}
+                icon={<UsersRound aria-hidden="true" />}
               />
             </div>
             {data.total_students === 0 && (
@@ -233,7 +234,7 @@ export default function Dashboard() {
       )}
       <SpotlightCard className="understanding-note">
         <span className="note-icon">
-          <Activity size={20} />
+          <Database size={20} aria-hidden="true" />
         </span>
         <div>
           <h2>A connected view. A considered perspective.</h2>

@@ -25,28 +25,24 @@
   padding: 0 8px 28px;
   white-space: nowrap;
 }
-.brand-mark {
+.edunex-mark {
+  display: block;
   width: 40px;
   height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  color: var(--accent);
-  background: var(--surface-active);
-  border: 1px solid rgba(163, 157, 255, 0.25);
   flex-shrink: 0;
+  color: var(--text-primary);
 }
 .brand-wordmark {
   font-size: 25px;
   letter-spacing: -0.9px;
-  font-weight: 600;
+  font-weight: 650;
 }
 .brand-wordmark > span {
   display: block;
   color: var(--text-muted);
-  font-size: 8px;
-  letter-spacing: 1.6px;
-  margin-top: 3px;
+  font-size: 11px;
+  letter-spacing: 0.15px;
+  margin-top: 4px;
   font-weight: 500;
 }
 .workspace-switcher {
@@ -113,7 +109,7 @@
 .nav-item.active {
   background: var(--surface-active);
   color: var(--accent);
-  border-color: rgba(163, 157, 255, 0.14);
+  border-color: var(--accent-border);
 }
 .nav-item > i {
   width: 5px;
@@ -126,20 +122,13 @@
   margin: auto 8px 28px;
   padding-top: 36px;
 }
-.sidebar-note-icon {
-  display: inline-flex;
-  color: var(--accent);
-  margin-bottom: 14px;
-}
 .sidebar-note p {
-  font-size: 17px;
-  line-height: 1.65;
-  letter-spacing: -0.5px;
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 550;
+  color: var(--text-secondary);
 }
-.sidebar-note strong {
-  font-weight: 500;
-}
-.sidebar-note > span:not(.sidebar-note-icon) {
+.sidebar-note > span {
   display: block;
   font-size: 11px;
   line-height: 1.8;
@@ -186,12 +175,12 @@
 .sidebar-collapsed .sidebar-brand-note {
   display: none;
 }
-.sidebar-collapsed .nav-item {
+.sidebar-collapsed .workspace-sidebar .nav-item {
   padding: 14px;
   justify-content: center;
 }
-.sidebar-collapsed .nav-item > span,
-.sidebar-collapsed .nav-item > i {
+.sidebar-collapsed .workspace-sidebar .nav-item > span,
+.sidebar-collapsed .workspace-sidebar .nav-item > i {
   display: none;
 }
 .sidebar-collapsed .workspace-sidebar-bottom {
@@ -206,7 +195,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 32px;
-  background: rgba(11, 13, 17, 0.86);
+  background: var(--header-background);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   z-index: 35;
@@ -228,22 +217,12 @@
 .workspace-header-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 .workspace-divider {
   width: 1px;
   height: 22px;
   background: var(--border);
-}
-.workspace-avatar {
-  width: 34px;
-  height: 34px;
-  background: var(--surface-hover);
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--border-hover);
-  border-radius: 10px;
-  color: var(--text-secondary);
 }
 .mobile-brand {
   display: none;
@@ -287,7 +266,7 @@ kbd {
   min-height: 100vh;
   background: radial-gradient(
     ellipse at 82% 0,
-    rgba(119, 111, 201, 0.045),
+    var(--ambient),
     transparent 45%
   );
   transition: margin-left var(--duration-normal);
@@ -355,14 +334,14 @@ kbd {
 }
 .command-item[aria-selected="true"] {
   background: var(--surface-active);
-  border-color: rgba(163, 157, 255, 0.14);
+  border-color: var(--accent-border);
 }
 .command-icon {
-  padding: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  border-radius: var(--radius-sm);
-  color: var(--accent);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-secondary);
 }
 .command-item strong {
   display: block;
@@ -416,3 +395,5 @@ kbd {
   font-size: 11px;
   color: var(--text-muted);
 }
+
+.mobile-brand .edunex-mark { width: 30px; height: 30px; }

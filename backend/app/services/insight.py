@@ -1,4 +1,4 @@
-from typing import List, Optional, Dict
+from typing import Optional
 from datetime import datetime, UTC
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
@@ -10,7 +10,6 @@ from backend.app.services.academic_risk import AcademicRiskService
 from backend.app.services.placement_risk import PlacementRiskService
 from backend.app.services.segmentation import SegmentationService
 from backend.app.models.canonical import Student
-from backend.app.schemas.student_360 import Student360Response
 
 class InsightService:
     def __init__(self, db: Session):

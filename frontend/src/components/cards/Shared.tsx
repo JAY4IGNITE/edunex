@@ -1,15 +1,17 @@
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { number } from "@/utils/data";
-import { ShieldAlert, ShieldCheck, ShieldQuestion } from "lucide-react";
+import { CircleAlert, CircleCheck, CircleHelp, TriangleAlert } from "lucide-react";
 import { GlassCard } from "@/components/ui/glass-card";
 export function RiskBadge({ level }: { level?: string | null }) {
   const Icon =
     level === "LOW"
-      ? ShieldCheck
-      : level === "HIGH" || level === "MEDIUM"
-        ? ShieldAlert
-        : ShieldQuestion;
+      ? CircleCheck
+      : level === "HIGH"
+        ? CircleAlert
+        : level === "MEDIUM"
+          ? TriangleAlert
+          : CircleHelp;
   return (
     <Badge
       variant="outline"

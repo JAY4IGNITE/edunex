@@ -2,11 +2,10 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
-  Layers3,
+  ChartScatter,
   ShieldCheck,
   BriefcaseBusiness,
-  Fingerprint,
-  ArrowUpRight,
+  ArrowRight,
 } from "lucide-react";
 import { api } from "@/services/api";
 import { ApiError } from "@/services/api/client";
@@ -27,6 +26,7 @@ import {
 } from "@/components/skeletons";
 import { number, segmentName } from "@/utils/data";
 import { ExplanationPanels, MissingSignals } from "./ExplanationPanels";
+import { AIPredictionPanel } from "./AIPredictionPanel";
 import { DomainHistory } from "./DomainHistory";
 import { ScoreRing } from "@/components/analytics/ScoreRing";
 export default function StudentProfile() {
@@ -100,11 +100,6 @@ export default function StudentProfile() {
         eyebrow="Student 360"
         title={identity.student_id}
         description={`${identity.department} · Year ${identity.year} · Semester ${identity.semester} · Section ${identity.section} · ${identity.academic_year}`}
-        action={
-          <span className="student-profile-emblem" aria-hidden="true">
-            <Fingerprint size={32} />
-          </span>
-        }
       />
       <div className="profile-section-label">
         <span>Intelligence overview</span>
@@ -203,7 +198,7 @@ export default function StudentProfile() {
           {(data) => (
             <section className="panel profile-segment" data-reveal>
               <span className="segment-icon">
-                <Layers3 size={22} />
+                <ChartScatter size={22} />
               </span>
               <p className="eyebrow">Analytical Segment</p>
               <h2>
@@ -224,7 +219,7 @@ export default function StudentProfile() {
               )}
               <Link className="text-link" to={`/segments${cohortSearch}`}>
                 Explore analytical segments{" "}
-                <ArrowUpRight size={15} aria-hidden="true" />
+                <ArrowRight size={15} aria-hidden="true" />
               </Link>
             </section>
           )}
@@ -237,6 +232,9 @@ export default function StudentProfile() {
       >
         {(data) => <ExplanationPanels explanation={data} />}
       </QueryState>
+      
+      <AIPredictionPanel studentId={id} />
+      
       <DomainHistory student={student.data} />
     </div>
   );

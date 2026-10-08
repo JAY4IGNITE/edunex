@@ -86,16 +86,6 @@
   background: var(--score-color, var(--accent));
   border-radius: inherit;
 }
-.student-profile-emblem {
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-lg);
-  background: var(--accent-surface);
-  border: 1px solid var(--border);
-  color: var(--accent);
-}
 .profile-section-label {
   display: flex;
   justify-content: space-between;
@@ -209,7 +199,7 @@
   text-transform: capitalize;
 }
 .contribution-domain-icon {
-  color: var(--accent);
+  color: var(--text-secondary);
 }
 .contribution-status {
   margin-left: auto;
@@ -309,10 +299,10 @@
   place-items: center;
   width: 36px;
   height: 36px;
-  background: var(--accent-surface);
+  background: var(--surface-hover);
   border: 1px solid var(--border);
-  border-radius: 9px;
-  color: var(--accent);
+  border-radius: 8px;
+  color: var(--text-secondary);
 }
 .domain-history-label {
   color: var(--text-primary);
@@ -368,9 +358,9 @@
   place-items: center;
   height: 36px;
   width: 36px;
-  border-radius: 9px;
-  color: var(--accent);
-  background: var(--accent-surface);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  background: var(--surface-hover);
   margin-bottom: 16px;
 }
 .coverage-record-track {
@@ -494,9 +484,6 @@
     grid-column: auto;
   }
   .profile-section-label > span:last-child {
-    display: none;
-  }
-  .student-profile-emblem {
     display: none;
   }
   .profile-risk-stack {

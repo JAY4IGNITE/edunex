@@ -108,9 +108,6 @@
 .segment-tone-6 {
   --segment-color: var(--chart-6);
 }
-.segment-card .segment-icon {
-  color: var(--segment-color);
-}
 .segment-population-meter {
   margin-top: 16px;
 }

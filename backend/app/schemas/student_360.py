@@ -1,6 +1,5 @@
-from typing import List, Optional, Any, Dict
+from typing import List
 from pydantic import BaseModel
-from datetime import date
 from backend.app.schemas.canonical import (
     StudentSchema, AcademicRecordSchema, AttendanceRecordSchema,
     LMSRecordSchema, EngagementRecordSchema, PlacementRecordSchema,

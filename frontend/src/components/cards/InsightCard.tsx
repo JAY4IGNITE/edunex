@@ -1,4 +1,4 @@
-import { ChartNoAxesCombined, Lightbulb, Rows3 } from "lucide-react";
+import { Rows3 } from "lucide-react";
 import type { Insight } from "@/types/api";
 import { displayValue, humanize, number } from "@/utils/data";
 import { RiskBadge } from "./Shared";
@@ -14,7 +14,6 @@ export function InsightCard({
     <article className={`panel insight-card ${compact ? "compact" : ""}`}>
       <div className="insight-meta">
         <span>
-          <Lightbulb size={15} aria-hidden="true" />
           {humanize(insight.category.toLowerCase())}
         </span>
         <RiskBadge level={insight.priority} />
@@ -25,7 +24,6 @@ export function InsightCard({
         <div className="insight-value">
           {number(insight.metric_value)}
           <span>{insight.unit}</span>
-          <ChartNoAxesCombined size={18} aria-hidden="true" />
         </div>
       )}
       {insight.comparison_value != null && (

@@ -2,15 +2,13 @@ import { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Activity,
-  ArrowUpRight,
+  Building2,
+  ArrowRight,
   ChevronRight,
   Command,
-  GraduationCap,
   Menu,
   PanelLeftClose,
   PanelLeftOpen,
-  Sparkles,
 } from "lucide-react";
 import { PageSkeleton } from "@/components/skeletons";
 import { useFilters } from "@/hooks/useFilters";
@@ -29,6 +27,8 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { readableSourceText } from "@/utils/text";
 import { useRealtimeUpdates } from "@/hooks/useRealtimeUpdates";
 import { LiveIndicator } from "@/components/layout/LiveIndicator";
+import { ThemeToggle } from "./ThemeToggle";
+import { BrandMark } from "./BrandMark";
 import { CommandPalette } from "./CommandPalette";
 import { activeDestination, destinations } from "./navigation";
 
@@ -106,16 +106,14 @@ export default function Shell() {
           className="workspace-brand"
           aria-label="EduNex overview"
         >
-          <span className="brand-mark">
-            <GraduationCap size={25} aria-hidden="true" />
-          </span>
+          <BrandMark />
           <span className="brand-wordmark">
-            EduNex<span>STUDENT INTELLIGENCE</span>
+            EduNex<span>Campus analytics</span>
           </span>
         </Link>
         <div className="workspace-switcher">
           <span className="workspace-emblem">
-            <Activity size={18} />
+            <Building2 size={18} aria-hidden="true" />
           </span>
           <div>
             <strong>Institutional workspace</strong>
@@ -125,17 +123,10 @@ export default function Shell() {
         <p className="nav-caption">WORKSPACE</p>
         <nav aria-label="Main navigation">{nav()}</nav>
         <div className="sidebar-note">
-          <span className="sidebar-note-icon">
-            <Sparkles size={18} />
-          </span>
-          <p>
-            Clarity for every
-            <br />
-            <strong>student journey.</strong>
-          </p>
-          <span>Predict, understand &amp; improve student success.</span>
+          <p>Built on your campus data</p>
+          <span>Review source coverage, quality, and provenance.</span>
           <Link to={`/data${cohortSearch}`} className="sidebar-data-link">
-            Explore your data <ArrowUpRight size={14} />
+            Explore your data <ArrowRight size={14} />
           </Link>
         </div>
         <div className="workspace-sidebar-bottom">
@@ -161,7 +152,7 @@ export default function Shell() {
           to={`/dashboard${cohortSearch}`}
           aria-label="EduNex overview"
         >
-          <GraduationCap size={23} />
+          <BrandMark />
           <strong>EduNex</strong>
         </Link>
         <div className="workspace-breadcrumb">
@@ -173,17 +164,7 @@ export default function Shell() {
           <LiveIndicator status={realtimeStatus} />
           <span className="workspace-divider" />
           <CommandPalette />
-          <span className="workspace-divider" />
-          <Tooltip content="Institutional analytics workspace">
-            <span
-              className="workspace-avatar"
-              role="img"
-              tabIndex={0}
-              aria-label="Institutional analytics workspace"
-            >
-              <GraduationCap size={19} />
-            </span>
-          </Tooltip>
+          <ThemeToggle />
         </div>
       </header>
       <main className="app-main" id="main-content" tabIndex={-1}>
@@ -210,7 +191,7 @@ export default function Shell() {
               )}
             </span>
             <Link to={`/data${cohortSearch}`}>
-              View data provenance <ArrowUpRight size={13} />
+              View data provenance <ArrowRight size={13} />
             </Link>
           </footer>
         </div>

@@ -269,6 +269,10 @@ export async function installRedesignFixtures(page, observedRequests = []) {
       const index = students.indexOf(student);
       const academicLevel = index % 3 === 0 ? "HIGH" : "LOW";
       const resources = {
+        "ai-prediction": {
+          status: "error",
+          reason: "Additional semester history is required for this model.",
+        },
         "success-score": {
           student_id,
           success_score: 72.9,

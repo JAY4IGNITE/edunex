@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from backend.app.repositories.student_360 import Student360Repository
 from backend.app.schemas.student_360 import Student360Response
-from backend.app.schemas.canonical import StudentSchema
+
 
 class Student360Service:
     def __init__(self, db: Session):
