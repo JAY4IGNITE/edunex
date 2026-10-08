@@ -10,7 +10,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-EduNex is an analytics and AI-powered student success platform that unifies academic, attendance, LMS, engagement, placement, skills, and feedback data into an explainable Student Success Score, helping institutions identify academic and placement risks and make data-driven decisions.
+EduNex is an analytics and AI-powered student success platform developed for the **KPMG in India** challenge: *AI-Powered Student Analytics and Success Platform* (Challenge 4) at the byteXL hackathon. It unifies academic, attendance, LMS, engagement, placement, skills, and feedback data into an explainable Student Success Score, helping institutions identify academic and placement risks and make data-driven decisions.
 
 ## Table of Contents
 1. [Overview](#1-overview)
