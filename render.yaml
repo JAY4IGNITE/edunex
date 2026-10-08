@@ -1,11 +1,13 @@
 services:
   - type: redis
     name: edunex-redis
+    plan: free
     ipAllowList: []
 
   - type: web
     name: edunex-backend
     env: python
+    plan: free
     buildCommand: "pip install -r backend/requirements.txt"
     preDeployCommand: "alembic upgrade head"
     startCommand: "uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
@@ -39,3 +41,4 @@ databases:
   - name: edunex-db
     databaseName: edunex
     user: edunex
+    plan: free
