@@ -1,4 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from backend.app.core.database import get_db
+from backend.app.models.canonical import Student
 import json
 import yaml
 from pathlib import Path
@@ -42,3 +45,10 @@ def get_data_schema():
         raise HTTPException(status_code=404, detail="Schema registry not found")
     with open(schema_file, "r") as f:
         return yaml.safe_load(f)
+
+@router.get("/departments", summary="Get Available Departments", response_model=list[str])
+def get_departments(db: Session = Depends(get_db)):
+    """Returns a list of unique departments available in the dataset."""
+    departments = db.query(Student.department).distinct().order_by(Student.department).all()
+    return [d[0] for d in departments if d[0]]
+

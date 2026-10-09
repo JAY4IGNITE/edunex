@@ -55,9 +55,8 @@ class InsightService:
         if population_size < InsightConfig.MIN_COHORT_SIZE:
             return metrics
 
-        # Bulk fetch to avoid N+1
-        students_360 = self.student_360_service.get_students_360_bulk(student_ids)
-        s360_map = {s.student.student_id: s for s in students_360}
+        # Fetching pre-calculated metrics directly via query
+
 
         # Bulk fetch pre-calculated metrics to completely eliminate N+1 queries over remote database
         from backend.app.models.academic_risk import AcademicRiskScore
@@ -71,11 +70,32 @@ class InsightService:
         scores = {row[0]: row[1] for row in self.db.query(StudentSuccessScore.student_id, StudentSuccessScore.score).filter(StudentSuccessScore.student_id.in_(student_ids)).all()}
         segments = {row[0]: row[1] for row in self.db.query(StudentSegmentMembership.student_id, StudentSegmentMembership.segment_id).filter(StudentSegmentMembership.student_id.in_(student_ids), StudentSegmentMembership.membership_type == "PRIMARY").all()}
 
+        from backend.app.models.canonical import AttendanceRecord, EngagementRecord, AcademicRecord, LMSRecord, PlacementRecord, SkillRecord, FeedbackRecord
+        
+        # 1. Fetch scalar aggregations efficiently
+        att_records = self.db.query(AttendanceRecord.student_id, AttendanceRecord.semester, AttendanceRecord.overall_attendance).filter(AttendanceRecord.student_id.in_(student_ids)).all()
+        eng_records = self.db.query(
+            EngagementRecord.student_id, 
+            EngagementRecord.semester, 
+            EngagementRecord.events_count, 
+            EngagementRecord.clubs_count, 
+            EngagementRecord.hackathons_count, 
+            EngagementRecord.certifications_count
+        ).filter(EngagementRecord.student_id.in_(student_ids)).all()
+        
+        from collections import defaultdict
+        student_eng_by_sem = defaultdict(dict)
+        for row in eng_records:
+            student_eng_by_sem[row.student_id][row.semester] = row.events_count + row.clubs_count + row.hackathons_count + row.certifications_count
+        
         for sid in student_ids:
-            s360 = s360_map.get(sid)
-            if not s360:
-                continue
+            # Process engagement indices (latest semester for each student)
+            sems = student_eng_by_sem.get(sid)
+            if sems:
+                latest_sem = max(sems.keys())
+                metrics["engagement_indices"].append(sems[latest_sem])
 
+            # Restore missing metric processing
             ar_level = ac_risks.get(sid)
             if ar_level:
                 metrics["academic_risks"].append(ar_level)
@@ -96,41 +116,59 @@ class InsightService:
                 elif seg_level == "LOW_ENGAGEMENT_LOW_ACADEMIC":
                     metrics["low_eng_low_acad"] += 1
 
-            if s360.engagement_history:
-                latest = max(s360.engagement_history, key=lambda x: x.semester)
-                index = latest.events_count + latest.clubs_count + latest.hackathons_count + latest.certifications_count
-                metrics["engagement_indices"].append(index)
+        for row in att_records:
+            metrics["semester_attendance"].setdefault(f"Sem-{row.semester}", []).append(row.overall_attendance)
+            
+        for row in eng_records:
+            idx = row.events_count + row.clubs_count + row.hackathons_count + row.certifications_count
+            metrics["semester_engagement"].setdefault(f"Sem-{row.semester}", []).append(idx)
+        
+        # To avoid massive memory leak, semester_success is approximated or optimized by fetching just what we need.
+        # But for trends, the endpoint needs it. We will fetch dicts instead of full models.
+        acad_records = self.db.query(AcademicRecord.student_id, AcademicRecord.semester, AcademicRecord.cgpa).filter(AcademicRecord.student_id.in_(student_ids)).all()
+        lms_records = self.db.query(LMSRecord.student_id, LMSRecord.semester, LMSRecord.assignment_completion).filter(LMSRecord.student_id.in_(student_ids)).all()
+        place_records = self.db.query(PlacementRecord.student_id, PlacementRecord.aptitude_score, PlacementRecord.coding_score, PlacementRecord.mock_interview_score).filter(PlacementRecord.student_id.in_(student_ids)).all()
+        skill_records = self.db.query(SkillRecord.student_id, SkillRecord.technical_skill_score, SkillRecord.soft_skill_score).filter(SkillRecord.student_id.in_(student_ids)).all()
+        fb_records = self.db.query(FeedbackRecord.student_id, FeedbackRecord.semester, FeedbackRecord.student_satisfaction).filter(FeedbackRecord.student_id.in_(student_ids)).all()
+        
+        place_map = {r.student_id: (r.aptitude_score + r.coding_score + r.mock_interview_score)/3.0 for r in place_records}
+        skill_map = {r.student_id: (r.technical_skill_score + r.soft_skill_score)/2.0 for r in skill_records}
+        
+        # Group by student and semester
+        stu_sem_data = defaultdict(lambda: defaultdict(dict))
+        for r in acad_records:
+            stu_sem_data[r.student_id][r.semester]["acad"] = r.cgpa * 10.0
+        for r in att_records:
+            stu_sem_data[r.student_id][r.semester]["att"] = r.overall_attendance
+        for r in lms_records:
+            stu_sem_data[r.student_id][r.semester]["lms"] = r.assignment_completion
+        for sid, sems in student_eng_by_sem.items():
+            for sem, eng_idx in sems.items():
+                stu_sem_data[sid][sem]["eng"] = min(eng_idx * 10.0, 100.0)
+        for r in fb_records:
+            stu_sem_data[r.student_id][r.semester]["fb"] = r.student_satisfaction * 20.0
+            
+        from backend.app.core.scoring_config import ScoringConfig
+        for sid in student_ids:
+            sems = stu_sem_data.get(sid, {})
+            p_score = place_map.get(sid)
+            s_score = skill_map.get(sid)
+            for sem_num, data in sems.items():
+                domain_scores = {}
+                if "acad" in data: domain_scores["academic"] = data["acad"]
+                if "att" in data: domain_scores["attendance"] = data["att"]
+                if "lms" in data: domain_scores["lms"] = data["lms"]
+                if "eng" in data: domain_scores["engagement"] = data["eng"]
+                if p_score is not None: domain_scores["placement"] = p_score
+                if s_score is not None: domain_scores["skills"] = s_score
+                if "fb" in data: domain_scores["feedback"] = data["fb"]
                 
-            for att in s360.attendance_history:
-                sem = f"Sem-{att.semester}"
-                metrics["semester_attendance"].setdefault(sem, []).append(att.overall_attendance)
-                
-            for eng in s360.engagement_history:
-                sem = f"Sem-{eng.semester}"
-                idx = eng.events_count + eng.clubs_count + eng.hackathons_count + eng.certifications_count
-                metrics["semester_engagement"].setdefault(sem, []).append(idx)
-                
-            all_sems = set(r.semester for r in s360.academic_history)
-            for sem_num in all_sems:
-                sem = f"Sem-{sem_num}"
-                class IsolatedS360:
-                    pass
-                isolated_s360 = IsolatedS360()
-                isolated_s360.academic_history = [r for r in s360.academic_history if r.semester == sem_num]
-                isolated_s360.attendance_history = [r for r in s360.attendance_history if r.semester == sem_num]
-                isolated_s360.lms_history = [r for r in s360.lms_history if r.semester == sem_num]
-                isolated_s360.engagement_history = [r for r in s360.engagement_history if r.semester == sem_num]
-                isolated_s360.placement_information = s360.placement_information
-                isolated_s360.skills_information = s360.skills_information
-                isolated_s360.feedback_history = [r for r in s360.feedback_history if r.semester == sem_num]
-                domain_scores = self.scoring_service.calculate_domain_scores(isolated_s360)
-                available_domains = list(domain_scores.keys())
-                if available_domains:
-                    from backend.app.core.scoring_config import ScoringConfig
-                    total_weight = sum(ScoringConfig.DEFAULT_WEIGHTS[d] for d in available_domains)
-                    if total_weight > 0:
-                        score = sum(domain_scores[d] * (ScoringConfig.DEFAULT_WEIGHTS[d] / total_weight) for d in available_domains)
-                        metrics["semester_success"].setdefault(sem, []).append(score)
+                avail = list(domain_scores.keys())
+                if avail:
+                    tw = sum(ScoringConfig.DEFAULT_WEIGHTS[d] for d in avail)
+                    if tw > 0:
+                        score = sum(domain_scores[d] * (ScoringConfig.DEFAULT_WEIGHTS[d] / tw) for d in avail)
+                        metrics["semester_success"].setdefault(f"Sem-{sem_num}", []).append(score)
 
         return metrics
 

@@ -75,12 +75,19 @@ class SegmentationService:
             secondary_segments=secondaries
         )
 
-    def _get_all_student_ids(self):
-        return [s.student_id for s in self.db.query(Student.student_id).all()]
+    def _get_all_student_ids(self, department: str = None, year: int = None, semester: int = None):
+        query = self.db.query(Student.student_id)
+        if department:
+            query = query.filter(Student.department == department)
+        if year:
+            query = query.filter(Student.year == year)
+        if semester:
+            query = query.filter(Student.semester == semester)
+        return [s.student_id for s in query.all()]
 
-    def get_segments_summary(self) -> SegmentListResponse:
+    def get_segments_summary(self, department: str = None, year: int = None, semester: int = None) -> SegmentListResponse:
         """Dynamically builds segments for all students."""
-        student_ids = self._get_all_student_ids()
+        student_ids = self._get_all_student_ids(department, year, semester)
         total_students = len(student_ids)
 
         segment_counts = {seg_id: 0 for seg_id in SegmentationConfig.SEGMENTS}
@@ -108,11 +115,11 @@ class SegmentationService:
             segments=summaries
         )
 
-    def get_segment_detail(self, segment_id: str) -> SegmentDetailResponse:
+    def get_segment_detail(self, segment_id: str, department: str = None, year: int = None, semester: int = None) -> SegmentDetailResponse:
         if segment_id not in SegmentationConfig.SEGMENTS:
             raise HTTPException(status_code=404, detail="Segment not found")
 
-        student_ids = self._get_all_student_ids()
+        student_ids = self._get_all_student_ids(department, year, semester)
         total_students = len(student_ids)
         
         segment_members = []

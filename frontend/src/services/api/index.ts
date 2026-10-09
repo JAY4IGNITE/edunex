@@ -55,16 +55,18 @@ export const api = {
       undefined,
       signal,
     ),
-  segments: (signal?: AbortSignal) =>
-    get<SegmentList>("/segments", undefined, signal),
-  segment: (id: string, signal?: AbortSignal) =>
+  segments: (filters: Filters, signal?: AbortSignal) =>
+    get<SegmentList>("/segments", filterParams(filters), signal),
+  segment: (id: string, filters: Filters, signal?: AbortSignal) =>
     get<SegmentDetail>(
       `/segments/${encodeURIComponent(id)}`,
-      undefined,
+      filterParams(filters),
       signal,
     ),
   sources: (signal?: AbortSignal) =>
     get<Sources>("/data/sources", undefined, signal),
+  departments: (signal?: AbortSignal) =>
+    get<string[]>("/data/departments", undefined, signal),
   registry: (signal?: AbortSignal) =>
     get<Registry>("/data/schema", undefined, signal),
   quality: (signal?: AbortSignal) =>

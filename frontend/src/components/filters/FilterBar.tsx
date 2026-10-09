@@ -1,23 +1,59 @@
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { SlidersHorizontal, RotateCcw, Check } from "lucide-react";
 import { useFilters } from "@/hooks/useFilters";
 import { Button } from "@/components/ui/button";
 import { SelectNative } from "@/components/ui/select-native";
-import { readFilters } from "@/utils/data";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@/services/api";
+
 export function FilterBar({
   scope = "cohort",
 }: {
   scope?: "cohort" | "institution" | "student";
 }) {
   const { filters, setFilters, filtered } = useFilters();
+  
   const [department, setDepartment] = useState(filters.department ?? "");
+  const [year, setYear] = useState<number | "">(filters.year ?? "");
+  const [semester, setSemester] = useState<number | "">(filters.semester ?? "");
+
+  // Sync local state when URL filters change
+  useEffect(() => {
+    setDepartment(filters.department ?? "");
+    setYear(filters.year ?? "");
+    setSemester(filters.semester ?? "");
+  }, [filters]);
+
+  const { data: departments = [] } = useQuery({
+    queryKey: ["departments"],
+    queryFn: ({ signal }) => api.departments(signal),
+    staleTime: Infinity,
+  });
+
+  function handleYearChange(newYearStr: string) {
+    const newYear = newYearStr ? parseInt(newYearStr, 10) : "";
+    setYear(newYear);
+    
+    // When year changes, validate semester
+    if (newYear === "") {
+      setSemester("");
+    } else if (semester !== "") {
+      const sem = parseInt(String(semester), 10);
+      if (sem !== newYear * 2 - 1 && sem !== newYear * 2) {
+        setSemester("");
+      }
+    }
+  }
+
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setFilters((current) => ({
-      ...current,
-      department: department.trim() || undefined,
-    }));
+    setFilters({
+      department: department || undefined,
+      year: year !== "" ? year : undefined,
+      semester: semester !== "" ? semester : undefined,
+    });
   }
+
   return (
     <section className="filter-section" aria-label="Cohort filters">
       <form className="filter-bar" onSubmit={submit}>
@@ -27,29 +63,29 @@ export function FilterBar({
         </div>
         <label className="filter-field department-field">
           <span>Department</span>
-          <input
+          <SelectNative
             name="department"
-            placeholder="All departments"
             aria-label="Department"
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
-          />
+          >
+            <option value="">All departments</option>
+            {departments.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
+          </SelectNative>
         </label>
         <label className="filter-field">
           <span>Year</span>
           <SelectNative
             aria-label="Year"
-            value={filters.year ?? ""}
-            onChange={(e) =>
-              setFilters((current) => ({
-                ...current,
-                year: readFilters(new URLSearchParams({ year: e.target.value }))
-                  .year,
-              }))
-            }
+            value={year}
+            onChange={(e) => handleYearChange(e.target.value)}
           >
             <option value="">All years</option>
-            {[1, 2, 3, 4, 5].map((n) => (
+            {[1, 2, 3, 4].map((n) => (
               <option key={n} value={n}>
                 Year {n}
               </option>
@@ -60,18 +96,16 @@ export function FilterBar({
           <span>Semester</span>
           <SelectNative
             aria-label="Semester"
-            value={filters.semester ?? ""}
-            onChange={(e) =>
-              setFilters((current) => ({
-                ...current,
-                semester: readFilters(
-                  new URLSearchParams({ semester: e.target.value }),
-                ).semester,
-              }))
-            }
+            value={semester}
+            disabled={year === ""}
+            onChange={(e) => setSemester(e.target.value ? parseInt(e.target.value, 10) : "")}
           >
-            <option value="">All semesters</option>
-            {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+            {year === "" ? (
+              <option value="">Select a year first</option>
+            ) : (
+              <option value="">All semesters</option>
+            )}
+            {year !== "" && [year * 2 - 1, year * 2].map((n) => (
               <option key={n} value={n}>
                 Semester {n}
               </option>
@@ -80,7 +114,7 @@ export function FilterBar({
         </label>
         <Button type="submit" variant="secondary">
           <Check size={14} aria-hidden="true" />
-          Apply department
+          Apply Filters
         </Button>
         <Button
           type="button"
@@ -88,9 +122,11 @@ export function FilterBar({
           aria-label="Reset filters"
           onClick={() => {
             setDepartment("");
+            setYear("");
+            setSemester("");
             setFilters({});
           }}
-          disabled={!filtered && !department}
+          disabled={!filtered && !department && year === "" && semester === ""}
         >
           <RotateCcw size={15} />
           <span>Reset</span>
@@ -104,9 +140,6 @@ export function FilterBar({
             : filtered
               ? `Viewing ${[filters.department, filters.year && `Year ${filters.year}`, filters.semester && `Semester ${filters.semester}`].filter(Boolean).join(" · ")}`
               : "All departments · All years · All semesters"}
-        {scope === "cohort" && (
-          <span>Department matches the recorded name exactly.</span>
-        )}
       </div>
     </section>
   );

@@ -94,6 +94,53 @@ def run():
             load_into_db(db, model, df)
             
         print("Database ingestion successful.")
+        
+        print("Calculating initial scores and segments...")
+        from backend.app.services.scoring import ScoringService
+        from backend.app.services.academic_risk import AcademicRiskService
+        from backend.app.services.placement_risk import PlacementRiskService
+        from backend.app.services.segmentation import SegmentationService
+        
+        scoring_svc = ScoringService(db)
+        acad_risk_svc = AcademicRiskService(db)
+        place_risk_svc = PlacementRiskService(db)
+        seg_svc = SegmentationService(db)
+        
+        # Clear existing calculations
+        from backend.app.models.scoring import StudentSuccessScore
+        from backend.app.models.academic_risk import AcademicRiskScore
+        from backend.app.models.placement_risk import PlacementRiskScore
+        from backend.app.models.segment import StudentSegmentMembership
+        
+        db.query(StudentSegmentMembership).delete()
+        db.query(PlacementRiskScore).delete()
+        db.query(AcademicRiskScore).delete()
+        db.query(StudentSuccessScore).delete()
+        db.commit()
+        
+        sids = [s.student_id for s in db.query(Student.student_id).all()]
+        for sid in sids:
+            try:
+                scoring_svc.get_or_calculate_success_score(sid)
+                acad_risk_svc.get_or_calculate_academic_risk(sid)
+                place_risk_svc.get_or_calculate_placement_risk(sid)
+                mem = seg_svc.classify_student(sid)
+                if mem.primary_segment:
+                    db.add(StudentSegmentMembership(
+                        student_id=sid,
+                        segment_id=mem.primary_segment,
+                        membership_type="PRIMARY"
+                    ))
+                    for sec in mem.secondary_segments:
+                        db.add(StudentSegmentMembership(
+                            student_id=sid,
+                            segment_id=sec,
+                            membership_type="SECONDARY"
+                        ))
+            except Exception as e:
+                print(f"Failed to calculate scores for {sid}: {e}")
+
+        db.commit()
         db.close()
         
         # Invalidate all main tags because underlying data completely changed

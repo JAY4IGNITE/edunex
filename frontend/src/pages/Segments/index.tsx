@@ -27,8 +27,8 @@ export default function Segments() {
   const [memberPage, setMemberPage] = useState(0);
   const detailTrigger = useRef<HTMLButtonElement | null>(null);
   const summary = useQuery({
-    queryKey: ["segments"],
-    queryFn: ({ signal }) => api.segments(signal),
+    queryKey: ["segments", filters],
+    queryFn: ({ signal }) => api.segments(filters, signal),
     staleTime: 15 * 60 * 1000,
   });
   const overview = useQuery({
@@ -42,8 +42,8 @@ export default function Segments() {
     enabled: filtered && overview.isSuccess,
   });
   const detail = useQuery({
-    queryKey: ["segment", selected],
-    queryFn: ({ signal }) => api.segment(selected!, signal),
+    queryKey: ["segment", selected, filters],
+    queryFn: ({ signal }) => api.segment(selected!, filters, signal),
     enabled: selected !== null,
     staleTime: 15 * 60 * 1000,
   });
