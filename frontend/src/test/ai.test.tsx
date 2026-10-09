@@ -1,3 +1,4 @@
+import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,11 +20,23 @@ function renderWithClient(ui: React.ReactElement) {
     },
   });
   return render(
-    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+    <MemoryRouter><QueryClientProvider client={queryClient}>{ui}</QueryClientProvider></MemoryRouter>
   );
 }
 
 describe("AIPredictionPanel", () => {
+  it("renders zero probability as a valid prediction", async () => {
+    vi.mocked(api.aiPrediction).mockResolvedValueOnce({status:"success",risk_probability:0,prediction:"Low Risk"});
+    renderWithClient(<AIPredictionPanel studentId="STU0001" />);
+    expect(await screen.findByText("0.00%")).toBeInTheDocument();
+  });
+  it("labels the fallback as a score rather than a probability", async () => {
+    vi.mocked(api.aiPrediction).mockResolvedValueOnce({status:"fallback",risk_score:42,risk_level:"MEDIUM",reason:"Trained model unavailable"});
+    renderWithClient(<AIPredictionPanel studentId="STU0001" />);
+    expect(await screen.findByText("Transparent baseline fallback")).toBeInTheDocument();
+    expect(screen.getByText(/42.00\/100/)).toBeInTheDocument();
+    expect(screen.queryByText("42.00%")).not.toBeInTheDocument();
+  });
   it("renders loading skeleton initially", () => {
     vi.mocked(api.aiPrediction).mockImplementation(() => new Promise(() => {}));
     
@@ -55,7 +68,7 @@ describe("AIPredictionPanel", () => {
     renderWithClient(<AIPredictionPanel studentId="STU001" />);
 
     await waitFor(() => {
-      expect(screen.getByText("AI Early-Warning")).toBeInTheDocument();
+      expect(screen.getByText("Synthetic prediction model")).toBeInTheDocument();
     });
 
     // Probability renders correctly (78.45%)

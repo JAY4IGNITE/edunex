@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 export const destinations = [
+  {to: "/model", label: "Model evidence", icon: ChartNoAxesCombined, detail: "Measured synthetic performance and limitations"},
   {to: "/priority", label: "Priority Students", icon: ListTodo, detail: "Review and prioritize student support"},
   {to: "/interventions", label: "Interventions", icon: ClipboardCheck, detail: "Track assignments and observed outcomes"},
   {

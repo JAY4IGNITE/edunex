@@ -4,7 +4,7 @@
 - [x] Phase 1a: recommendation and priority rules, tests, schema and migration.
 - [x] Phase 1b: validated action/audit/outcome API, tests.
 - [x] Phase 1c: priority page, Student 360 actions and tracker, browser verification.
-- [ ] Phase 2: honest model pipeline, reproducible report, fallback and model panel.
+- [x] Phase 2: honest model pipeline, reproducible report, fallback and model panel.
 - [ ] Phase 3: demo identities and server-enforced stakeholder scopes.
 - [ ] Phase 4: KPIs, trends, capacity, what-if, CSV/print.
 - [ ] Phase 5: reliability, seeding, deployment and measured performance.

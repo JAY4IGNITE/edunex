@@ -15,6 +15,7 @@ const Insights = lazy(() => import("@/pages/Insights"));
 const DataIntegration = lazy(() => import("@/pages/DataIntegration"));
 const Priority = lazy(() => import("@/pages/Priority"));
 const Interventions = lazy(() => import("@/pages/Interventions"));
+const Model = lazy(() => import("@/pages/Model"));
 class ErrorBoundary extends Component<
   { children: ReactNode },
   { failed: boolean }
@@ -52,6 +53,7 @@ export default function App() {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="priority" element={<Priority />} />
                 <Route path="interventions" element={<Interventions />} />
+                <Route path="model" element={<Model />} />
                 <Route path="students" element={<Students />} />
                 <Route
                   path="students/:studentId"

@@ -254,11 +254,14 @@ export interface SHAPContribution {
   feature: string;
   value: number;
   contribution: number;
-  direction: "higher_risk" | "lower_risk";
+  direction: "higher_risk" | "lower_risk" | "neutral";
 }
 
 export interface AIPrediction {
-  status: "success" | "error";
+  status: "success" | "error" | "fallback" | "unavailable";
+  risk_score?: number;
+  risk_level?: string;
+  limitation?: string;
   student_id?: string;
   prediction_horizon?: string;
   prediction?: string;

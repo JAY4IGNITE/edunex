@@ -4,6 +4,7 @@ import { api } from "@/services/api";
 import { SectionHeading } from "@/components/cards/Shared";
 import { QueryState } from "@/components/states/States";
 import { ChartSkeleton } from "@/components/skeletons";
+import { Link } from "react-router-dom";
 
 export function AIPredictionPanel({ studentId }: { studentId: string }) {
   const prediction = useQuery({
@@ -18,11 +19,12 @@ export function AIPredictionPanel({ studentId }: { studentId: string }) {
       message="AI prediction temporarily unavailable."
     >
       {(data) => {
-        if (data.status === "error" || !data.risk_probability) {
+        if (data.status === "fallback") return <section className="panel"><SectionHeading title="Transparent baseline fallback" /><p>{data.reason}</p><p><strong>{data.risk_score?.toFixed(2)}/100 · {data.risk_level}</strong></p><p className="paragraph-small muted">Current academic risk score, not a future probability. Review the baseline drivers and missing-data notes above.</p><Link className="text-link" to="/model">Model methodology and limitations</Link></section>;
+        if (data.status !== "success" || data.risk_probability == null) {
           return (
             <section className="panel" data-reveal>
               <SectionHeading
-                title="AI Early-Warning"
+                title="Synthetic prediction model"
                 action={<ChartNoAxesCombined size={19} className="muted" />}
               />
               <div className="empty-state" style={{ padding: "2rem 0", textAlign: "center" }}>
@@ -40,7 +42,7 @@ export function AIPredictionPanel({ studentId }: { studentId: string }) {
         return (
           <section className="panel" data-reveal>
             <SectionHeading
-              title="AI Early-Warning"
+              title="Synthetic prediction model"
               action={<ChartNoAxesCombined size={19} className="muted" />}
             />
             <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
@@ -53,7 +55,7 @@ export function AIPredictionPanel({ studentId }: { studentId: string }) {
                   {data.prediction}
                 </div>
                 <p className="paragraph-small muted" style={{ marginTop: "0.25rem" }}>
-                  Next-semester backlog probability
+                  Estimated next-semester backlog probability · synthetic model
                 </p>
               </div>
               <div style={{ flex: "2 1 300px" }}>
@@ -76,7 +78,7 @@ export function AIPredictionPanel({ studentId }: { studentId: string }) {
 
             {data.top_factors && (
               <div style={{ marginTop: "2rem", borderTop: "1px solid var(--border)", paddingTop: "1.5rem" }}>
-                <p className="eyebrow" style={{ marginBottom: "1rem" }}>WHY THE MODEL PREDICTS THIS</p>
+                <p className="eyebrow" style={{ marginBottom: "1rem" }}>MODEL CONTRIBUTIONS · LOG-ODDS</p>
                 
                 <div style={{ display: "grid", gap: "2rem", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
                   <div>
@@ -121,9 +123,9 @@ export function AIPredictionPanel({ studentId }: { studentId: string }) {
                 </div>
                 
                 <p className="paragraph-small muted" style={{ marginTop: "1.5rem", fontStyle: "italic" }}>
-                  Disclaimer: This is a model-based early-warning signal trained on demonstration institutional data. 
-                  It does not establish causality or guarantee future outcomes. These factors influenced the model's prediction.
+                  {data.limitation} Contributions describe associations relative to the training mean, not causal effects.
                 </p>
+                <Link className="text-link" to="/model">View measured performance and calibration</Link>
               </div>
             )}
           </section>
