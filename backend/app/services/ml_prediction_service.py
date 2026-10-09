@@ -6,6 +6,8 @@ from backend.app.ml.features.temporal_aggregator import extract_student_features
 from backend.app.ml.inference import predict_academic_risk
 from backend.app.ml.explainability import generate_shap_explanation
 
+from backend.app.services.cache import CacheService
+
 class MLPredictionService:
     def __init__(self, db: Session):
         self.student_360_service = Student360Service(db)
@@ -16,6 +18,11 @@ class MLPredictionService:
         from their most recent completed semester, and returns the ML prediction
         for their academic risk in the NEXT semester.
         """
+        cache_key = f"edunex:v1:ai:prediction:{student_id}"
+        cached = CacheService.get(cache_key)
+        if cached:
+            return cached
+            
         try:
             student_360 = self.student_360_service.get_student_360(student_id)
         except HTTPException:
@@ -39,7 +46,7 @@ class MLPredictionService:
                 "reason": str(e)
             }
             
-        return {
+        result = {
             "status": "success",
             "student_id": student_id,
             "prediction_horizon": "next_semester",
@@ -49,3 +56,7 @@ class MLPredictionService:
             "features": features_df.to_dict(orient="records")[0],
             "top_factors": explanation
         }
+        
+        CacheService.set(cache_key, result, ttl=300, tags=[f"student:{student_id}"])
+        return result
+

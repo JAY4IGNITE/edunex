@@ -70,7 +70,7 @@ export function FilterBar({
             onChange={(e) => setDepartment(e.target.value)}
           >
             <option value="">All departments</option>
-            {departments.map((d) => (
+            {Array.isArray(departments) && departments.map((d) => (
               <option key={d} value={d}>
                 {d}
               </option>

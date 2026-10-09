@@ -77,7 +77,7 @@ def test_missing_data_segmentation():
     assert s.primary_segment is None
 
 def test_get_segments_api(monkeypatch):
-    monkeypatch.setattr(SegmentationService, "_get_all_student_ids", lambda self: ["STU0001", "STU0002"])
+    monkeypatch.setattr(SegmentationService, "_get_all_student_ids", lambda self, d=None, y=None, s=None: ["STU0001", "STU0002"])
     response = client.get("/api/segments")
     assert response.status_code == 200
     data = response.json()
@@ -86,7 +86,7 @@ def test_get_segments_api(monkeypatch):
     assert len(data["segments"]) == 6
 
 def test_get_segment_detail_api(monkeypatch):
-    monkeypatch.setattr(SegmentationService, "_get_all_student_ids", lambda self: ["STU0001"])
+    monkeypatch.setattr(SegmentationService, "_get_all_student_ids", lambda self, d=None, y=None, s=None: ["STU0001"])
     response = client.get("/api/segments/HIGH_ACADEMIC_LOW_PLACEMENT")
     assert response.status_code == 200
     data = response.json()

@@ -2,8 +2,6 @@ import shap
 import pandas as pd
 from typing import Dict, Any, List
 from backend.app.ml.inference import _load_model
-from backend.app.core.database import SessionLocal
-from backend.app.ml.features.temporal_aggregator import build_temporal_dataset
 
 _EXPLAINER = None
 _SCALER = None
@@ -17,24 +15,19 @@ def _initialize_explainer():
     model = artifact["model"] # Pipeline
     feature_cols = artifact["features"]
     
-    # Lazily build background dataset once
-    db = SessionLocal()
-    try:
-        df = build_temporal_dataset(db)
-        if df.empty:
-            raise ValueError("No temporal data available to build SHAP explainer.")
-        X_bg = df[feature_cols]
-    finally:
-        db.close()
+    # Load background dataset from artifact directly
+    X_bg = artifact.get("X_bg")
+    if X_bg is None or X_bg.empty:
+        raise ValueError("No temporal background data available in model artifact to build SHAP explainer.")
         
     lr_model = model.named_steps["lr"]
     _SCALER = model.named_steps["scaler"]
     
     X_bg_scaled = _SCALER.transform(X_bg)
     
-    # Initialize explainer with a reasonable sample size to limit memory/compute overhead
-    # LinearExplainer works well with a small representative background
+    # Initialize explainer
     _EXPLAINER = shap.LinearExplainer(lr_model, shap.maskers.Independent(X_bg_scaled, max_samples=100))
+
 
 def generate_shap_explanation(features_df: pd.DataFrame) -> Dict[str, Any]:
     """

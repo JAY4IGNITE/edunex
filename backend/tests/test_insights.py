@@ -16,22 +16,39 @@ class MockStudent:
 
 def test_get_insights_valid(monkeypatch):
     def _mock_query(self, *args):
-        is_student_id = False
-        if args and len(args) == 1 and hasattr(args[0], "name") and args[0].name == "student_id":
-            is_student_id = True
-            
+        class MockRow:
+            def __init__(self, cols, vals, j=0):
+                self._cols = cols
+                self._vals = vals
+                self._j = j
+            def __getitem__(self, idx): return self._vals[idx]
+            def __getattr__(self, name):
+                if name == "student_id": return self._vals[0]
+                if name == "semester": return (self._j % 2) + 1
+                for c, v in zip(self._cols, self._vals):
+                    if getattr(c, "name", str(c).split(".")[-1].lower()) == name: return v
+                return 1
+        
         class MockQuery:
             def filter(self, *a): return self
             def options(self, *a): return self
             def all(self):
-                if is_student_id:
-                    return [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
-                else:
-                    val = "HIGH_ACADEMIC_LOW_PLACEMENT"
-                    if len(args) > 1 and hasattr(args[1], "name"):
-                        if args[1].name == "risk_level": val = "HIGH"
-                        elif args[1].name == "score": val = 85.0
-                    return [(f"STU{i}", val) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
+                n_cols = len(args) if args else 1
+                base_row = []
+                for i in range(n_cols):
+                    name = getattr(args[i], "name", str(args[i]).split(".")[-1].lower()) if args else ""
+                    if i == 0: base_row.append("STU0")
+                    elif name == "score": base_row.append(85.0)
+                    elif name == "risk_level": base_row.append("HIGH")
+                    elif name == "segment_id": base_row.append("HIGH_ACADEMIC_LOW_PLACEMENT")
+                    else: base_row.append(1)
+                
+                rows = []
+                for j in range(25):
+                    r = list(base_row)
+                    r[0] = f"STU{j}"
+                    rows.append(MockRow(args, r, j))
+                return rows
         return MockQuery()
 
     monkeypatch.setattr("backend.app.services.insight.Session.query", _mock_query)
@@ -108,22 +125,39 @@ def test_get_insights_insufficient_sample(monkeypatch):
 
 def test_get_insights_filtered_comparative(monkeypatch):
     def _mock_query(self, *args):
-        is_student_id = False
-        if args and len(args) == 1 and hasattr(args[0], "name") and args[0].name == "student_id":
-            is_student_id = True
-            
+        class MockRow:
+            def __init__(self, cols, vals, j=0):
+                self._cols = cols
+                self._vals = vals
+                self._j = j
+            def __getitem__(self, idx): return self._vals[idx]
+            def __getattr__(self, name):
+                if name == "student_id": return self._vals[0]
+                if name == "semester": return (self._j % 2) + 1
+                for c, v in zip(self._cols, self._vals):
+                    if getattr(c, "name", str(c).split(".")[-1].lower()) == name: return v
+                return 1
+        
         class MockQuery:
             def filter(self, *a): return self
             def options(self, *a): return self
             def all(self):
-                if is_student_id:
-                    return [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
-                else:
-                    val = "HIGH_ACADEMIC_LOW_PLACEMENT"
-                    if len(args) > 1 and hasattr(args[1], "name"):
-                        if args[1].name == "risk_level": val = "HIGH"
-                        elif args[1].name == "score": val = 85.0
-                    return [(f"STU{i}", val) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)]
+                n_cols = len(args) if args else 1
+                base_row = []
+                for i in range(n_cols):
+                    name = getattr(args[i], "name", str(args[i]).split(".")[-1].lower()) if args else ""
+                    if i == 0: base_row.append("STU0")
+                    elif name == "score": base_row.append(85.0)
+                    elif name == "risk_level": base_row.append("HIGH")
+                    elif name == "segment_id": base_row.append("HIGH_ACADEMIC_LOW_PLACEMENT")
+                    else: base_row.append(1)
+                
+                rows = []
+                for j in range(25):
+                    r = list(base_row)
+                    r[0] = f"STU{j}"
+                    rows.append(MockRow(args, r, j))
+                return rows
         return MockQuery()
 
     monkeypatch.setattr("backend.app.services.insight.Session.query", _mock_query)
@@ -164,16 +198,21 @@ def test_get_insights_filtered_comparative(monkeypatch):
     assert comp_insight["comparison_value"] == 85.0
 
 def test_get_insights_raises_unexpected_exception(monkeypatch):
+    class MockRowShort:
+        def __init__(self, s): self.student_id = s; self._s = s
+        def __getitem__(self, idx): return self._s if idx == 0 else 85.0
+        def __getattr__(self, name): return 1
+        
     monkeypatch.setattr("backend.app.services.insight.Session.query", lambda self, *args: type("MockQuery", (), {
-        "all": lambda self: [(f"STU{i}",) for i in range(InsightConfig.MIN_COHORT_SIZE + 5)],
+        "all": lambda self: [MockRowShort(f"STU{i}") for i in range(InsightConfig.MIN_COHORT_SIZE + 5)],
         "filter": lambda self, *a: self,
         "options": lambda self, *a: self
     })())
     
-    def mock_programming_error(self, sids):
+    def mock_programming_error(*a, **kw):
         raise ValueError("Unexpected programming error!")
         
-    monkeypatch.setattr("backend.app.services.student_360.Student360Service.get_students_360_bulk", mock_programming_error)
+    monkeypatch.setattr("backend.app.services.insight.Session.query", mock_programming_error)
     
     with pytest.raises(ValueError, match="Unexpected programming error!"):
         client.get("/api/insights")

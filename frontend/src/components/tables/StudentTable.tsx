@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight, Users } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Users, ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { api } from "@/services/api";
 import { useFilters } from "@/hooks/useFilters";
 import { TableSkeleton } from "@/components/skeletons";
@@ -142,13 +143,90 @@ function StudentRows({
         row.explanation.data?.academic_risk.risk_level === "HIGH" ||
         row.explanation.data?.placement_risk.risk_level === "HIGH",
     );
-  if (highRisk && !pending && !failed && !visible.length)
+
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const handleSort = (key: string) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
+  };
+
+  const sortedVisible = [...visible].sort((a, b) => {
+    if (!sortKey) return 0;
+    const dir = sortDir === "asc" ? 1 : -1;
+    
+    const compareWithUnavailable = (valA: any, valB: any, compareFn: (a: any, b: any) => number) => {
+      const aIsUnavail = valA === null || valA === undefined || valA === "Unavailable";
+      const bIsUnavail = valB === null || valB === undefined || valB === "Unavailable";
+      if (aIsUnavail && bIsUnavail) return 0;
+      if (aIsUnavail) return 1;
+      if (bIsUnavail) return -1;
+      return compareFn(valA, valB) * dir;
+    };
+
+    switch (sortKey) {
+      case "student_id":
+        return a.student.student_id.localeCompare(b.student.student_id) * dir;
+      case "department":
+        return a.student.department.localeCompare(b.student.department) * dir;
+      case "year":
+        return (a.student.year - b.student.year) * dir;
+      case "semester":
+        return (a.student.semester - b.student.semester) * dir;
+      case "success_score": {
+        const valA = a.explanation.data?.success_score.score;
+        const valB = b.explanation.data?.success_score.score;
+        return compareWithUnavailable(valA, valB, (x, y) => x - y);
+      }
+      case "academic_risk": {
+        const valA = a.explanation.data?.academic_risk.score;
+        const valB = b.explanation.data?.academic_risk.score;
+        return compareWithUnavailable(valA, valB, (x, y) => x - y);
+      }
+      case "placement_risk": {
+        const valA = a.explanation.data?.placement_risk.score;
+        const valB = b.explanation.data?.placement_risk.score;
+        return compareWithUnavailable(valA, valB, (x, y) => x - y);
+      }
+      case "segment": {
+        const valA = a.membership.data?.primary_segment;
+        const valB = b.membership.data?.primary_segment;
+        return compareWithUnavailable(valA, valB, (x, y) => x.localeCompare(y));
+      }
+      default:
+        return 0;
+    }
+  });
+
+  if (highRisk && !pending && !failed && !sortedVisible.length)
     return (
       <EmptyState
         title="No HIGH risk students on this page."
         description="Continue through the student pages to review further assessments."
       />
     );
+  const SortHeader = ({ label, sortKeyName }: { label: string, sortKeyName: string }) => (
+    <th 
+      onClick={() => handleSort(sortKeyName)} 
+      style={{ cursor: "pointer", userSelect: "none", whiteSpace: "nowrap" }}
+      aria-sort={sortKey === sortKeyName ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+        {label}
+        {sortKey === sortKeyName ? (
+          sortDir === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />
+        ) : (
+          <ArrowUpDown size={14} className="muted" opacity={0.5} />
+        )}
+      </div>
+    </th>
+  );
+
   return (
     <div
       className="table-scroll student-records"
@@ -164,21 +242,21 @@ function StudentRows({
         </caption>
         <thead role="rowgroup">
           <tr role="row">
-            <th>Student ID</th>
-            <th>Department</th>
-            <th>Year</th>
-            <th>Semester</th>
-            <th>Success Score</th>
-            <th>Academic Risk</th>
-            <th>Placement Risk</th>
-            {!highRisk && <th>Segment</th>}
+            <SortHeader label="Student ID" sortKeyName="student_id" />
+            <SortHeader label="Department" sortKeyName="department" />
+            <SortHeader label="Year" sortKeyName="year" />
+            <SortHeader label="Semester" sortKeyName="semester" />
+            <SortHeader label="Success Score" sortKeyName="success_score" />
+            <SortHeader label="Academic Risk" sortKeyName="academic_risk" />
+            <SortHeader label="Placement Risk" sortKeyName="placement_risk" />
+            {!highRisk && <SortHeader label="Segment" sortKeyName="segment" />}
             <th>
               <span className="sr-only">Open profile</span>
             </th>
           </tr>
         </thead>
         <tbody role="rowgroup">
-          {visible.map(({ student, explanation, membership }) => (
+          {sortedVisible.map(({ student, explanation, membership }) => (
             <tr
               role="row"
               key={student.student_id}

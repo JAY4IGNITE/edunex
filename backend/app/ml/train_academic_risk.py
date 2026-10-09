@@ -67,37 +67,14 @@ def train_and_evaluate():
     print(f"Confusion Matrix:\n{confusion_matrix(y_val, lr_preds)}")
 
     # ---------------------------------------------------------
-    # PRIMARY MODEL: Random Forest
-    # ---------------------------------------------------------
-    rf_pipeline = Pipeline([
-        # RF doesn't strictly need scaling, but it doesn't hurt and keeps the pipeline signature standard
-        ("rf", RandomForestClassifier(n_estimators=100, max_depth=6, class_weight="balanced", random_state=42))
-    ])
-    
-    rf_pipeline.fit(X_train, y_train)
-    rf_preds = rf_pipeline.predict(X_val)
-    rf_probs = rf_pipeline.predict_proba(X_val)[:, 1]
-    
-    print("\n--- PRIMARY: Random Forest ---")
-    print(f"ROC-AUC: {roc_auc_score(y_val, rf_probs):.4f}")
-    print(f"Precision: {precision_score(y_val, rf_preds):.4f}")
-    print(f"Recall: {recall_score(y_val, rf_preds):.4f}")
-    print(f"F1-Score: {f1_score(y_val, rf_preds):.4f}")
-    print(f"Confusion Matrix:\n{confusion_matrix(y_val, rf_preds)}")
-
-    # ---------------------------------------------------------
-    # MODEL SELECTION
-    # Preference: Recall, then F1, then ROC-AUC
-    # ---------------------------------------------------------
-    lr_f1 = f1_score(y_val, lr_preds)
-    rf_f1 = f1_score(y_val, rf_preds)
-    
-    selected_model = rf_pipeline if rf_f1 >= lr_f1 else lr_pipeline
-    model_name = "RandomForest" if rf_f1 >= lr_f1 else "LogisticRegression"
+    selected_model = lr_pipeline
+    model_name = "LogisticRegression"
     
     print(f"\nSelected Model: {model_name}")
     
-    # ---------------------------------------------------------
+    # Save background sample for SHAP
+    X_bg = X_train.sample(min(100, len(X_train)))
+    
     # SERIALIZATION
     # ---------------------------------------------------------
     model_dir = os.path.join(os.path.dirname(__file__), "models")
@@ -108,6 +85,7 @@ def train_and_evaluate():
     artifact = {
         "model": selected_model,
         "features": FEATURE_COLS,
+        "X_bg": X_bg,
         "version": "1.0.0",
         "metadata": {
             "model_type": model_name,

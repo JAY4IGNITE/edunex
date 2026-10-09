@@ -45,16 +45,21 @@ describe("cohort controls", () => {
   });
   it("applies exact department, resets page and clears filters", async () => {
     const user = userEvent.setup();
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
     render(
-      <MemoryRouter initialEntries={["/students?page=3&year=2"]}>
-        <FilterBar />
-        <Location />
-      </MemoryRouter>,
+      <QueryClientProvider client={client}>
+        <MemoryRouter initialEntries={["/students?page=3&year=2"]}>
+          <FilterBar />
+          <Location />
+        </MemoryRouter>
+      </QueryClientProvider>,
     );
-    await user.type(screen.getByLabelText("Department"), "CSE");
-    await user.click(screen.getByRole("button", { name: "Apply department" }));
+    await user.selectOptions(screen.getByLabelText("Department"), "Computer Science");
+    await user.click(screen.getByRole("button", { name: "Apply Filters" }));
     expect(screen.getByLabelText("Current URL")).toHaveTextContent(
-      "department=CSE",
+      "department=Computer+Science",
     );
     expect(screen.getByLabelText("Current URL")).not.toHaveTextContent("page=");
     await user.click(screen.getByLabelText("Reset filters"));

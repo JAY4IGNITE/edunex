@@ -85,12 +85,14 @@ def run():
         Base.metadata.create_all(bind=engine)
         db = SessionLocal()
         
+        existing_students = db.query(Student).count()
+        if existing_students > 0:
+            print(f"Database already contains {existing_students} students. Skipping ingestion to preserve production data.")
+            db.close()
+            return
+
         for (name, model), df in processed_dfs.items():
             print(f"Loading {name} to DB...")
-            # Clear existing for idempotency in demo script
-            db.query(model).delete()
-            db.commit()
-            
             load_into_db(db, model, df)
             
         print("Database ingestion successful.")

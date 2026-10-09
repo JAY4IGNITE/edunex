@@ -9,7 +9,9 @@ services:
     env: python
     plan: free
     buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "alembic -c backend/alembic.ini upgrade head && PYTHONPATH=. python backend/scripts/generate_demo.py && PYTHONPATH=. python backend/scripts/run_ingestion.py && uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    preDeployCommand: "alembic -c backend/alembic.ini upgrade head"
+    startCommand: "uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: "/api/health"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
