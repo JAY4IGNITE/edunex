@@ -1,0 +1,286 @@
+{
+  "routes_relative_to_router_prefix": [
+    {
+      "file": "backend/app/api/endpoints/academic_risk.py",
+      "method": "GET",
+      "path": "/{student_id}/academic-risk"
+    },
+    {
+      "file": "backend/app/api/endpoints/analytics.py",
+      "method": "GET",
+      "path": "/overview"
+    },
+    {
+      "file": "backend/app/api/endpoints/analytics.py",
+      "method": "GET",
+      "path": "/trends"
+    },
+    {
+      "file": "backend/app/api/endpoints/analytics.py",
+      "method": "GET",
+      "path": "/distribution"
+    },
+    {
+      "file": "backend/app/api/endpoints/data.py",
+      "method": "GET",
+      "path": "/sources"
+    },
+    {
+      "file": "backend/app/api/endpoints/data.py",
+      "method": "GET",
+      "path": "/quality"
+    },
+    {
+      "file": "backend/app/api/endpoints/data.py",
+      "method": "GET",
+      "path": "/provenance"
+    },
+    {
+      "file": "backend/app/api/endpoints/data.py",
+      "method": "GET",
+      "path": "/schema"
+    },
+    {
+      "file": "backend/app/api/endpoints/data.py",
+      "method": "GET",
+      "path": "/departments"
+    },
+    {
+      "file": "backend/app/api/endpoints/explanation.py",
+      "method": "GET",
+      "path": "/{student_id}/explanation"
+    },
+    {
+      "file": "backend/app/api/endpoints/insights.py",
+      "method": "GET",
+      "path": ""
+    },
+    {
+      "file": "backend/app/api/endpoints/placement_risk.py",
+      "method": "GET",
+      "path": "/{student_id}/placement-risk"
+    },
+    {
+      "file": "backend/app/api/endpoints/scoring.py",
+      "method": "GET",
+      "path": "/{student_id}/success-score"
+    },
+    {
+      "file": "backend/app/api/endpoints/segments.py",
+      "method": "GET",
+      "path": ""
+    },
+    {
+      "file": "backend/app/api/endpoints/segments.py",
+      "method": "GET",
+      "path": "/{segment_id}"
+    },
+    {
+      "file": "backend/app/api/endpoints/segments.py",
+      "method": "GET",
+      "path": "/student/{student_id}"
+    },
+    {
+      "file": "backend/app/api/endpoints/students.py",
+      "method": "GET",
+      "path": ""
+    },
+    {
+      "file": "backend/app/api/endpoints/students.py",
+      "method": "GET",
+      "path": "/{student_id}"
+    },
+    {
+      "file": "backend/app/api/endpoints/students.py",
+      "method": "GET",
+      "path": "/{student_id}/ai-prediction"
+    },
+    {
+      "file": "backend/app/api/endpoints/websockets.py",
+      "method": "WEBSOCKET",
+      "path": "/updates"
+    },
+    {
+      "file": "backend/app/main.py",
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "file": "backend/app/main.py",
+      "method": "GET",
+      "path": "/api/health"
+    },
+    {
+      "file": "backend/app/main.py",
+      "method": "GET",
+      "path": "/api/keep-alive"
+    }
+  ],
+  "models": [
+    {
+      "file": "backend/app/models/academic_risk.py",
+      "model": "AcademicRiskScore",
+      "table": "academic_risk_scores"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "Student",
+      "table": "students"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "AcademicRecord",
+      "table": "academic_records"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "AttendanceRecord",
+      "table": "attendance_records"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "LMSRecord",
+      "table": "lms_records"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "EngagementRecord",
+      "table": "engagement_records"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "PlacementRecord",
+      "table": "placement_records"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "SkillRecord",
+      "table": "skill_records"
+    },
+    {
+      "file": "backend/app/models/canonical.py",
+      "model": "FeedbackRecord",
+      "table": "feedback_records"
+    },
+    {
+      "file": "backend/app/models/placement_risk.py",
+      "model": "PlacementRiskScore",
+      "table": "placement_risk_scores"
+    },
+    {
+      "file": "backend/app/models/scoring.py",
+      "model": "StudentSuccessScore",
+      "table": "student_success_scores"
+    },
+    {
+      "file": "backend/app/models/segment.py",
+      "model": "StudentSegmentMembership",
+      "table": "student_segment_memberships"
+    }
+  ],
+  "backend_tests": [
+    "backend/tests/test_academic_risk.py::test_get_academic_risk_valid_student",
+    "backend/tests/test_academic_risk.py::test_get_academic_risk_not_found",
+    "backend/tests/test_academic_risk.py::test_academic_risk_logic_perfect_student",
+    "backend/tests/test_academic_risk.py::test_academic_risk_logic_worst_student",
+    "backend/tests/test_academic_risk.py::test_missing_data_insufficient",
+    "backend/tests/test_analytics.py::test_get_analytics_overview",
+    "backend/tests/test_analytics.py::test_get_analytics_distribution",
+    "backend/tests/test_analytics.py::test_get_analytics_trends",
+    "backend/tests/test_cache.py::test_cache_set_and_invalidate_tags",
+    "backend/tests/test_cache.py::test_redis_unavailable_fallback",
+    "backend/tests/test_cache.py::test_redis_exception_during_invalidation",
+    "backend/tests/test_canonical.py::test_student_schema_valid",
+    "backend/tests/test_canonical.py::test_student_schema_invalid_year_format",
+    "backend/tests/test_canonical.py::test_academic_schema_missing_student_id",
+    "backend/tests/test_canonical.py::test_academic_schema_invalid_cgpa_range",
+    "backend/tests/test_canonical.py::test_dataset_metadata_validation",
+    "backend/tests/test_canonical.py::test_source_mapping_validation",
+    "backend/tests/test_canonical.py::test_duplicate_records_detection",
+    "backend/tests/test_data.py::test_data_sources",
+    "backend/tests/test_data.py::test_data_quality",
+    "backend/tests/test_data.py::test_data_provenance",
+    "backend/tests/test_data.py::test_data_schema",
+    "backend/tests/test_database.py::test_postgresql_connection",
+    "backend/tests/test_database.py::test_models_and_foreign_keys",
+    "backend/tests/test_database.py::test_student_360_query_foundation",
+    "backend/tests/test_database.py::test_uniqueness_constraints_present",
+    "backend/tests/test_explanation.py::test_get_explanation_valid_student",
+    "backend/tests/test_explanation.py::test_get_explanation_not_found",
+    "backend/tests/test_explanation.py::test_explain_perfect_student",
+    "backend/tests/test_explanation.py::test_explain_missing_data",
+    "backend/tests/test_health.py::test_health",
+    "backend/tests/test_ingestion.py::test_ingestion_duplicate_detection",
+    "backend/tests/test_ingestion.py::test_quality_report_generation",
+    "backend/tests/test_ingestion.py::test_orphan_detection",
+    "backend/tests/test_ingestion.py::test_deterministic_generation",
+    "backend/tests/test_insights.py::test_get_insights_valid",
+    "backend/tests/test_insights.py::test_get_insights_insufficient_sample",
+    "backend/tests/test_insights.py::test_get_insights_filtered_comparative",
+    "backend/tests/test_insights.py::test_get_insights_raises_unexpected_exception",
+    "backend/tests/test_ml.py::test_temporal_dataset_generation",
+    "backend/tests/test_ml.py::test_no_duplicate_training_rows",
+    "backend/tests/test_ml.py::test_correct_semester_pairing",
+    "backend/tests/test_ml.py::test_data_leakage_t_plus_one",
+    "backend/tests/test_ml.py::test_training_and_serialization",
+    "backend/tests/test_ml.py::test_inference_valid_prediction",
+    "backend/tests/test_ml.py::test_inference_missing_feature",
+    "backend/tests/test_ml.py::test_inference_empty_dataframe",
+    "backend/tests/test_ml.py::test_ml_prediction_service",
+    "backend/tests/test_ml.py::test_ml_shap_direction",
+    "backend/tests/test_ml.py::test_api_prediction_endpoint",
+    "backend/tests/test_ml.py::test_ml_prediction_service_invalid_student",
+    "backend/tests/test_placement_risk.py::test_get_placement_risk_valid_student",
+    "backend/tests/test_placement_risk.py::test_get_placement_risk_not_found",
+    "backend/tests/test_placement_risk.py::test_placement_risk_logic_perfect_student",
+    "backend/tests/test_placement_risk.py::test_placement_risk_logic_worst_student",
+    "backend/tests/test_placement_risk.py::test_missing_data_insufficient",
+    "backend/tests/test_pubsub.py::test_pubsub_publish_success",
+    "backend/tests/test_pubsub.py::test_pubsub_redis_unavailable",
+    "backend/tests/test_pubsub.py::test_pubsub_redis_exception",
+    "backend/tests/test_pubsub.py::test_subscriber_lifecycle",
+    "backend/tests/test_scoring.py::test_weights_configuration",
+    "backend/tests/test_scoring.py::test_get_success_score_valid_student",
+    "backend/tests/test_scoring.py::test_get_success_score_not_found",
+    "backend/tests/test_scoring.py::test_scoring_logic_missing_domain",
+    "backend/tests/test_scoring.py::test_scoring_logic_all_zero",
+    "backend/tests/test_scoring.py::test_scoring_no_data",
+    "backend/tests/test_segmentation.py::test_segments_criteria",
+    "backend/tests/test_segmentation.py::test_missing_data_segmentation",
+    "backend/tests/test_segmentation.py::test_get_segments_api",
+    "backend/tests/test_segmentation.py::test_get_segment_detail_api",
+    "backend/tests/test_segmentation.py::test_get_segment_detail_not_found",
+    "backend/tests/test_student_360.py::test_get_student_360_success",
+    "backend/tests/test_student_360.py::test_get_student_360_not_found",
+    "backend/tests/test_students_list.py::test_list_students_no_filters",
+    "backend/tests/test_students_list.py::test_list_students_with_filters",
+    "backend/tests/test_websockets.py::test_websocket_connection_and_ping",
+    "backend/tests/test_websockets.py::test_websocket_broadcast",
+    "backend/tests/test_websockets.py::test_websocket_broadcast_failure_removes_client",
+    "backend/tests/test_websockets.py::test_pubsub_handle_message_valid",
+    "backend/tests/test_websockets.py::test_pubsub_handle_message_invalid"
+  ],
+  "frontend_pages": [
+    "frontend/src/pages/Dashboard/index.tsx",
+    "frontend/src/pages/DataIntegration/index.tsx",
+    "frontend/src/pages/Insights/index.tsx",
+    "frontend/src/pages/Landing/index.tsx",
+    "frontend/src/pages/Risks/index.tsx",
+    "frontend/src/pages/Segments/index.tsx",
+    "frontend/src/pages/StudentProfile/index.tsx",
+    "frontend/src/pages/Students/index.tsx"
+  ],
+  "frontend_tests": [
+    "frontend/src/test/ai.test.tsx",
+    "frontend/src/test/contracts.test.ts",
+    "frontend/src/test/interaction.test.tsx",
+    "frontend/src/test/landing.test.tsx",
+    "frontend/src/test/realtime-regressions.test.tsx",
+    "frontend/src/test/realtime.test.tsx",
+    "frontend/src/test/segments.test.tsx",
+    "frontend/src/test/shell.test.tsx",
+    "frontend/src/test/text.test.ts",
+    "frontend/src/test/theme.test.tsx",
+    "frontend/src/test/views.test.tsx"
+  ]
+}
