@@ -1,9 +1,8 @@
 import { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+
 import {
   Building2,
-  ArrowRight,
   ChevronRight,
   Command,
   Menu,
@@ -13,7 +12,7 @@ import {
 import { PageSkeleton } from "@/components/skeletons";
 import { useFilters } from "@/hooks/useFilters";
 import { FilterBar } from "@/components/filters/FilterBar";
-import { api } from "@/services/api";
+
 import {
   Dialog,
   DialogContent,

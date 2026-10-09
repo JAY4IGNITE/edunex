@@ -222,6 +222,11 @@ export async function installRedesignFixtures(page, observedRequests = []) {
           },
         },
       },
+      "/api/data/departments": [
+        "Computer Science",
+        "Electronics",
+        "Information Technology",
+      ],
     };
     if (fixed[path]) return route.fulfill({ json: fixed[path] });
     if (path === "/api/students") {

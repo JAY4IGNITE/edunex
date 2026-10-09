@@ -92,15 +92,15 @@ try {
   );
   await page
     .getByLabel("Department", { exact: true })
-    .fill("NoSuchDepartmentPhase13");
-  await page.getByRole("button", { name: "Apply department" }).click();
-  await page
-    .getByText("No students match these filters.", { exact: true })
-    .waitFor();
+    .selectOption("Electronics");
+  await page.getByRole("button", { name: "Apply Filters" }).click();
+  await page.waitForURL((url) => url.searchParams.get("department") === "Electronics");
   assert.equal(new URL(page.url()).searchParams.has("page"), false);
   await page.getByLabel("Year", { exact: true }).selectOption("1");
+  await page.getByRole("button", { name: "Apply Filters" }).click();
   await page.waitForURL((url) => url.searchParams.get("year") === "1");
   await page.getByLabel("Semester", { exact: true }).selectOption("1");
+  await page.getByRole("button", { name: "Apply Filters" }).click();
   await page.waitForURL((url) => url.searchParams.get("semester") === "1");
   await settled();
   assert.equal(new URL(page.url()).searchParams.get("year"), "1");

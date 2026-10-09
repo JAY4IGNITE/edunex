@@ -92,8 +92,12 @@ class PlacementRiskService:
         score_record.missing_signals = missing_signals
         score_record.assessment_metadata = assessment_metadata.model_dump(mode="json")
 
-        self.db.commit()
-        self.db.refresh(score_record)
+        from sqlalchemy.exc import IntegrityError
+        try:
+            self.db.commit()
+            self.db.refresh(score_record)
+        except IntegrityError:
+            self.db.rollback()
 
         # Invalidate related caches AFTER successful transaction
         from backend.app.services.cache import CacheService

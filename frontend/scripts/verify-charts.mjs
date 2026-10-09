@@ -56,7 +56,7 @@ async function audit(label) {
   );
 }
 try {
-  await page.goto("http://127.0.0.1:5173/");
+  await page.goto("http://127.0.0.1:5173/dashboard");
   await page
     .getByText("No significant insights available for this cohort.", {
       exact: true,

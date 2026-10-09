@@ -10,7 +10,7 @@ const theme = process.argv.includes("--light") ? "light" : "dark";
 const output = `verification/${baseline ? "before-edunex" : `theme-${theme}`}`;
 const widths = [1440, 1280, 1024, 768, 480, 390, 320];
 const routes = [
-  ["/", "overview"],
+  ["/dashboard", "overview"],
   ["/students", "students"],
   ["/students/TEST0001", "profile"],
   ["/risks", "risks"],

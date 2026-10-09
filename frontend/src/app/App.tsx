@@ -5,6 +5,7 @@ import { queryClient } from "@/lib/query";
 import Shell from "@/components/layout/Shell";
 import { PageSkeleton } from "@/components/skeletons";
 import { EmptyState, ErrorState } from "@/components/states/States";
+const LandingPage = lazy(() => import("@/pages/Landing"));
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
 const Students = lazy(() => import("@/pages/Students"));
 const Risks = lazy(() => import("@/pages/Risks"));
@@ -44,8 +45,8 @@ export default function App() {
             }
           >
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route element={<Shell />}>
-                <Route index element={<Dashboard />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="students" element={<Students />} />
                 <Route

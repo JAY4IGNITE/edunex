@@ -112,8 +112,13 @@ class AcademicRiskService:
         score_record.missing_signals = missing_signals
         score_record.assessment_period = assessment_period.model_dump()
 
-        self.db.commit()
-        self.db.refresh(score_record)
+        from sqlalchemy.exc import IntegrityError
+        try:
+            self.db.commit()
+            self.db.refresh(score_record)
+        except IntegrityError:
+            self.db.rollback()
+            # Another transaction already inserted the record, which is fine since we calculated the same values.
 
         # Invalidate related caches AFTER successful transaction
         from backend.app.services.cache import CacheService
