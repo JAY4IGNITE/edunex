@@ -14,7 +14,7 @@ class AcademicRiskService:
         if not records:
             return None
         # Semester strictly increases over time
-        return max(records, key=lambda x: x.semester)
+        return max(records, key=lambda x: (x.academic_year, x.semester))
 
     def calculate_signal_risks(self, student_360) -> tuple[dict, AssessmentPeriod]:
         latest_academic = self._get_latest_record(student_360.academic_history)

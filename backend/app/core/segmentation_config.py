@@ -70,7 +70,7 @@ class SegmentationConfig:
         if not student_360.engagement_history:
             return "UNAVAILABLE"
             
-        latest = max(student_360.engagement_history, key=lambda x: x.semester)
+        latest = max(student_360.engagement_history, key=lambda x: (x.academic_year, x.semester))
         
         index = (latest.events_count + 
                  latest.clubs_count + 

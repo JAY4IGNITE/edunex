@@ -12,6 +12,7 @@ client = TestClient(app)
 class MockStudent360:
     def __init__(self, eng_index):
         class MockEng:
+            academic_year = "2025-2026"
             semester = 2
             events_count = eng_index
             clubs_count = 0
