@@ -8,7 +8,7 @@ from pathlib import Path
 
 router = APIRouter()
 
-DATA_DIR = Path("c:/Users/ramuv/CampusPulse_AI_Phases_0_1/data")
+DATA_DIR = Path(__file__).resolve().parents[4] / "data"
 
 @router.get("/sources", summary="Get Data Sources Mapping")
 def get_data_sources():

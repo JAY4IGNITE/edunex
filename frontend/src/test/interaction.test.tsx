@@ -44,6 +44,15 @@ describe("cohort controls", () => {
     expect(screen.getByLabelText("Current URL")).not.toHaveTextContent("page=");
   });
   it("applies exact department, resets page and clears filters", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string) => {
+        if (url.includes("/data/departments")) {
+          return new Response(JSON.stringify(["Computer Science", "Electronics"]), { status: 200, headers: { "content-type": "application/json" } });
+        }
+        return new Response("[]", { status: 200 });
+      }),
+    );
     const user = userEvent.setup();
     const client = new QueryClient({
       defaultOptions: { queries: { retry: false } },
@@ -56,6 +65,9 @@ describe("cohort controls", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
+    await waitFor(() => {
+      expect(screen.getByRole("option", { name: "Computer Science" })).toBeInTheDocument();
+    });
     await user.selectOptions(screen.getByLabelText("Department"), "Computer Science");
     await user.click(screen.getByRole("button", { name: "Apply Filters" }));
     expect(screen.getByLabelText("Current URL")).toHaveTextContent(

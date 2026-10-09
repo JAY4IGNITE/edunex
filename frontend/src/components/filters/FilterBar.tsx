@@ -22,7 +22,7 @@ export function FilterBar({
     setDepartment(filters.department ?? "");
     setYear(filters.year ?? "");
     setSemester(filters.semester ?? "");
-  }, [filters]);
+  }, [filters.department, filters.year, filters.semester]);
 
   const { data: departments = [] } = useQuery({
     queryKey: ["departments"],

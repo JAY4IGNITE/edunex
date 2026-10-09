@@ -46,6 +46,17 @@ class PlacementRiskService:
         return {k: round(v, 2) for k, v in signal_risks.items()}, assessment_metadata
 
     def get_or_calculate_placement_risk(self, student_id: str) -> PlacementRiskResponse:
+        score_record = self.db.query(PlacementRiskScore).filter_by(student_id=student_id).first()
+        if score_record:
+            return PlacementRiskResponse(
+                student_id=student_id,
+                placement_risk_score=score_record.placement_risk_score,
+                risk_level=score_record.risk_level,
+                available_signals=score_record.available_signals,
+                missing_signals=score_record.missing_signals,
+                assessment_metadata=AssessmentMetadata(**score_record.assessment_metadata) if score_record.assessment_metadata else AssessmentMetadata()
+            )
+
         student_360 = self.student_360_service.get_student_360(student_id)
 
         signal_risks, assessment_metadata = self.calculate_signal_risks(student_360)

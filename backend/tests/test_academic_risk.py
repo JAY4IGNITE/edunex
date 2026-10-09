@@ -48,6 +48,16 @@ class MockStudent360:
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+class MockDB:
+    def query(self, *args, **kwargs):
+        class MockQuery:
+            def filter_by(self, **kwargs): return self
+            def first(self): return None
+        return MockQuery()
+    def add(self, *args): pass
+    def commit(self): pass
+    def refresh(self, *args): pass
+
 def test_academic_risk_logic_perfect_student():
     # 4-8. High positive indicators reduce risk. (0 risk)
     mock_student = MockStudent360(
@@ -55,7 +65,7 @@ def test_academic_risk_logic_perfect_student():
         attendance_history=[MockAttendance()],
         lms_history=[MockLMS()]
     )
-    service = AcademicRiskService(db=None)
+    service = AcademicRiskService(db=MockDB())
     service.student_360_service = type("MockService", (), {"get_student_360": lambda self, x: mock_student})()
     
     try:
@@ -78,7 +88,7 @@ def test_academic_risk_logic_worst_student():
         lms_history=[WorstLMS()]
     )
     
-    service = AcademicRiskService(db=None)
+    service = AcademicRiskService(db=MockDB())
     service.student_360_service = type("MockService", (), {"get_student_360": lambda self, x: mock_student})()
     
     try:
@@ -93,7 +103,7 @@ def test_missing_data_insufficient():
         attendance_history=[],
         lms_history=[]
     )
-    service = AcademicRiskService(db=None)
+    service = AcademicRiskService(db=MockDB())
     service.student_360_service = type("MockService", (), {"get_student_360": lambda self, x: mock_student})()
     with pytest.raises(Exception) as exc:
         service.get_or_calculate_academic_risk("TEST")

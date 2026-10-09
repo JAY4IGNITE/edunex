@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Tooltip } from "@/components/ui/tooltip";
-import { readableSourceText } from "@/utils/text";
+
 import { useRealtimeUpdates } from "@/hooks/useRealtimeUpdates";
 import { LiveIndicator } from "@/components/layout/LiveIndicator";
 import { ThemeToggle } from "./ThemeToggle";
@@ -44,11 +44,7 @@ export default function Shell() {
       return false;
     }
   });
-  const provenance = useQuery({
-    queryKey: ["provenance"],
-    queryFn: ({ signal }) => api.provenance(signal),
-    staleTime: 30 * 60 * 1000,
-  });
+
   const title = location.pathname.startsWith("/students/")
     ? "Student 360"
     : (destinations.find((d) => activeDestination(location.pathname, d.to))
@@ -122,13 +118,7 @@ export default function Shell() {
         </div>
         <p className="nav-caption">WORKSPACE</p>
         <nav aria-label="Main navigation">{nav()}</nav>
-        <div className="sidebar-note">
-          <p>Built on your campus data</p>
-          <span>Review source coverage, quality, and provenance.</span>
-          <Link to={`/data${cohortSearch}`} className="sidebar-data-link">
-            Explore your data <ArrowRight size={14} />
-          </Link>
-        </div>
+
         <div className="workspace-sidebar-bottom">
           <span className="sidebar-brand-note">
             EDUNEX <span>INTELLIGENCE</span>
@@ -184,16 +174,7 @@ export default function Shell() {
               <Outlet />
             </Suspense>
           </div>
-          <footer className="page-footer">
-            <span>
-              {readableSourceText(
-                provenance.data?.authenticity ?? "Data provenance unavailable",
-              )}
-            </span>
-            <Link to={`/data${cohortSearch}`}>
-              View data provenance <ArrowRight size={13} />
-            </Link>
-          </footer>
+
         </div>
       </main>
       <nav className="mobile-nav" aria-label="Mobile navigation">

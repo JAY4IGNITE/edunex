@@ -66,6 +66,17 @@ class AcademicRiskService:
         return {k: round(v, 2) for k, v in signal_risks.items()}, assessment_period
 
     def get_or_calculate_academic_risk(self, student_id: str) -> AcademicRiskResponse:
+        score_record = self.db.query(AcademicRiskScore).filter_by(student_id=student_id).first()
+        if score_record:
+            return AcademicRiskResponse(
+                student_id=student_id,
+                academic_risk_score=score_record.academic_risk_score,
+                risk_level=score_record.risk_level,
+                available_signals=score_record.available_signals,
+                missing_signals=score_record.missing_signals,
+                assessment_period=AssessmentPeriod(**score_record.assessment_period) if score_record.assessment_period else None
+            )
+
         student_360 = self.student_360_service.get_student_360(student_id)
 
         signal_risks, assessment_period = self.calculate_signal_risks(student_360)

@@ -46,13 +46,23 @@ class MockStudent360:
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+class MockDB:
+    def query(self, *args, **kwargs):
+        class MockQuery:
+            def filter_by(self, **kwargs): return self
+            def first(self): return None
+        return MockQuery()
+    def add(self, *args): pass
+    def commit(self): pass
+    def refresh(self, *args): pass
+
 def test_placement_risk_logic_perfect_student():
     # 4-9. High readiness indicators reduce risk. (0 risk)
     mock_student = MockStudent360(
         placement_information=[MockPlacement()],
         skills_information=[MockSkill()]
     )
-    service = PlacementRiskService(db=None)
+    service = PlacementRiskService(db=MockDB())
     service.student_360_service = type("MockService", (), {"get_student_360": lambda self, x: mock_student})()
     
     try:
@@ -72,7 +82,7 @@ def test_placement_risk_logic_worst_student():
         skills_information=[WorstSkill()]
     )
     
-    service = PlacementRiskService(db=None)
+    service = PlacementRiskService(db=MockDB())
     service.student_360_service = type("MockService", (), {"get_student_360": lambda self, x: mock_student})()
     
     try:
@@ -86,7 +96,7 @@ def test_missing_data_insufficient():
         placement_information=[],
         skills_information=[]
     )
-    service = PlacementRiskService(db=None)
+    service = PlacementRiskService(db=MockDB())
     service.student_360_service = type("MockService", (), {"get_student_360": lambda self, x: mock_student})()
     with pytest.raises(Exception) as exc:
         service.get_or_calculate_placement_risk("TEST")
