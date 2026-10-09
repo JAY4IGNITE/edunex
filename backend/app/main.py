@@ -7,6 +7,7 @@ from backend.app.core.redis import redis_manager
 
 from backend.app.services.pubsub import PubSubService
 from backend.app.api.endpoints import interventions
+from backend.app.api.endpoints import model
 import asyncio
 
 @asynccontextmanager
@@ -43,6 +44,7 @@ app.include_router(explanation.router, prefix="/api/students", tags=["explanatio
 app.include_router(segments.router, prefix="/api/segments", tags=["segments"])
 app.include_router(insights.router, prefix="/api/insights", tags=["insights"])
 app.include_router(interventions.router, prefix="/api", tags=["interventions"])
+app.include_router(model.router, prefix="/api", tags=["model"])
 
 @app.get("/api/health")
 def health():

@@ -55,11 +55,11 @@ def test_data_leakage_t_plus_one(temporal_df, db_session):
     expected_target = 1 if sem_t_plus_1_academic.backlogs > 0 else 0
     assert sample["target"] == expected_target
 
-def test_training_and_serialization():
+def test_training_and_serialization(tmp_path):
     # Run the training process
-    train_and_evaluate()
+    model_path = tmp_path / "model.joblib"
+    train_and_evaluate(model_path, tmp_path / "metrics.json")
     
-    model_path = os.path.join(os.path.dirname(__file__), "..", "app", "ml", "models", "academic_risk_model.joblib")
     assert os.path.exists(model_path)
     
     artifact = joblib.load(model_path)

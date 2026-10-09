@@ -1,144 +1,82 @@
+"""Same-period inputs paired with the immediately following cumulative semester."""
+import json
+import re
+from pathlib import Path
 import pandas as pd
-from sqlalchemy.orm import Session
+import numpy as np
 from sqlalchemy import select
-from backend.app.models.canonical import (
-    Student,
-    AcademicRecord,
-    AttendanceRecord,
-    LMSRecord,
-    EngagementRecord,
-    FeedbackRecord
-)
+from backend.app.models.canonical import AcademicRecord, AttendanceRecord, LMSRecord, EngagementRecord, FeedbackRecord
 
-def build_temporal_dataset(db: Session) -> pd.DataFrame:
-    """
-    Constructs the temporal dataset for ML training/validation.
-    Ensures absolute strictness: features from semester t are paired
-    with the target from semester t+1.
-    No future data is exposed in features.
-    """
-    
-    # We load all required records into memory for fast Pandas operations,
-    # given the known scale (1000 students, 4000 records per domain) is very small.
-    # In a larger system, this would be a complex SQL join.
-    
-    academic_df = pd.read_sql(
-        select(
-            AcademicRecord.student_id,
-            AcademicRecord.semester,
-            AcademicRecord.cgpa,
-            AcademicRecord.internal_marks,
-            AcademicRecord.backlogs
-        ),
-        db.bind
-    )
-    
-    attendance_df = pd.read_sql(
-        select(
-            AttendanceRecord.student_id,
-            AttendanceRecord.semester,
-            AttendanceRecord.overall_attendance
-        ),
-        db.bind
-    )
-    
-    lms_df = pd.read_sql(
-        select(
-            LMSRecord.student_id,
-            LMSRecord.semester,
-            LMSRecord.login_frequency,
-            LMSRecord.assignment_completion
-        ),
-        db.bind
-    )
-    
-    engagement_df = pd.read_sql(
-        select(
-            EngagementRecord.student_id,
-            EngagementRecord.semester,
-            EngagementRecord.events_count,
-            EngagementRecord.clubs_count,
-            EngagementRecord.hackathons_count,
-            EngagementRecord.certifications_count
-        ),
-        db.bind
-    )
-    
-    feedback_df = pd.read_sql(
-        select(
-            FeedbackRecord.student_id,
-            FeedbackRecord.semester,
-            FeedbackRecord.student_satisfaction
-        ),
-        db.bind
-    )
-    
-    if academic_df.empty:
-        return pd.DataFrame()
+KEYS = ["student_id", "academic_year", "semester"]
+TABLES = {"academic": AcademicRecord, "attendance": AttendanceRecord, "lms": LMSRecord,
+          "engagement": EngagementRecord, "feedback": FeedbackRecord}
+FEATURE_COLS = ["cgpa", "internal_marks", "backlogs", "overall_attendance", "login_frequency",
+                "assignment_completion", "events_count", "clubs_count", "hackathons_count",
+                "certifications_count", "student_satisfaction"]
 
-    # Base features dataframe: all domains joined on student_id and semester (t)
-    features_df = academic_df.merge(attendance_df, on=["student_id", "semester"], how="inner")
-    features_df = features_df.merge(lms_df, on=["student_id", "semester"], how="inner")
-    features_df = features_df.merge(engagement_df, on=["student_id", "semester"], how="inner")
-    features_df = features_df.merge(feedback_df, on=["student_id", "semester"], how="inner")
-    
-    # We want to predict target for semester t+1.
-    # So we create a target dataframe from academic_records where we shift the semester.
-    target_df = academic_df[["student_id", "semester", "backlogs"]].copy()
-    target_df.rename(columns={"backlogs": "target_backlogs"}, inplace=True)
-    
-    # To join semester t features with semester t+1 target, we subtract 1 from target's semester
-    # so that target_df's "semester" represents the feature semester (t) it should match.
-    target_df["semester"] = target_df["semester"] - 1
-    
-    # Merge features (t) with target (t+1 via adjusted index)
-    temporal_df = features_df.merge(target_df, on=["student_id", "semester"], how="inner")
-    
-    # The target definition: 1 if backlogs > 0 in t+1, else 0
-    temporal_df["target"] = (temporal_df["target_backlogs"] > 0).astype(int)
-    
-    # Drop the raw target_backlogs to prevent leakage, though it's already properly aligned
-    temporal_df.drop(columns=["target_backlogs"], inplace=True)
-    
-    # Sort for predictability
-    temporal_df.sort_values(["student_id", "semester"], inplace=True)
-    temporal_df.reset_index(drop=True, inplace=True)
-    
-    return temporal_df
 
-def extract_student_features(student_360) -> pd.DataFrame:
-    """
-    Extracts features for a single student for inference from their latest semester.
-    """
-    # Find the latest academic record
-    if not student_360.academic_history:
+def next_year(value, semester):
+    if not re.fullmatch(r"\d{4}-\d{4}", value):
+        raise ValueError("Academic year must use YYYY-YYYY format")
+    start, end = map(int, value.split("-"))
+    if end != start + 1:
+        raise ValueError("Academic year must span consecutive calendar years")
+    shift = int(semester % 2 == 0)
+    return f"{start + shift}-{end + shift}"
+
+
+def assemble_temporal_dataset(frames):
+    for name, frame in frames.items():
+        if frame.duplicated(KEYS).any():
+            raise ValueError(f"Duplicate student/year/semester keys in {name}")
+    academic = frames["academic"].copy()
+    if academic.empty:
         return pd.DataFrame()
-        
-    latest_academic = max(student_360.academic_history, key=lambda x: x.semester)
-    t = latest_academic.semester
-    
-    # Extract matching records for semester t
-    academic = next((r for r in student_360.academic_history if r.semester == t), None)
-    attendance = next((r for r in student_360.attendance_history if r.semester == t), None)
-    lms = next((r for r in student_360.lms_history if r.semester == t), None)
-    engagement = next((r for r in student_360.engagement_history if r.semester == t), None)
-    feedback = next((r for r in student_360.feedback_history if r.semester == t), None)
-    
-    if not all([academic, attendance, lms, engagement, feedback]):
+    features = academic.copy()
+    for name in ("attendance", "lms", "engagement", "feedback"):
+        columns = KEYS + [c for c in FEATURE_COLS if c in frames[name] and c not in features]
+        features = features.merge(frames[name][columns], on=KEYS, how="inner", validate="one_to_one")
+    features["target_semester"] = features.semester + 1
+    features["target_academic_year"] = [next_year(y, s) for y, s in zip(features.academic_year, features.semester)]
+    targets = academic[KEYS + ["backlogs"]].rename(columns={"semester":"target_semester", "academic_year":"target_academic_year", "backlogs":"target_backlogs"})
+    result = features.merge(targets, on=["student_id", "target_academic_year", "target_semester"], how="inner", validate="one_to_one")
+    valid_target = np.isfinite(result.target_backlogs) & (result.target_backlogs >= 0)
+    invalid_targets = int((~valid_target).sum())
+    result = result.loc[valid_target].copy()
+    result["target"] = (result.pop("target_backlogs") > 0).astype(int)
+    incomplete = result[FEATURE_COLS].isna().any(axis=1)
+    dropped = int(incomplete.sum())
+    result = result.loc[~incomplete].sort_values(KEYS).reset_index(drop=True)
+    if "subject_performance" in result:
+        result["subject_performance"] = result.subject_performance.map(lambda v: json.loads(v) if isinstance(v,str) and v else v if isinstance(v,dict) else None)
+    result.attrs["data_audit"] = {"academic_rows":len(academic), "rows_with_all_domains":len(features),
+        "missing_domain_rows":len(academic)-len(features), "without_adjacent_target":len(features)-len(result)-dropped-invalid_targets,
+        "invalid_target_rows":invalid_targets,
+        "missing_feature_rows":dropped, "eligible_temporal_rows":len(result)}
+    return result
+
+
+def build_temporal_dataset(db):
+    frames = {}
+    for name, model in TABLES.items():
+        with db.bind.connect() as connection:
+            frames[name] = pd.read_sql(select(model), connection)
+    return assemble_temporal_dataset(frames)
+
+
+def build_csv_dataset(directory):
+    return assemble_temporal_dataset({name:pd.read_csv(Path(directory) / f"canonical_{name}_records.csv") for name in TABLES})
+
+
+def extract_student_features(profile):
+    if not profile.academic_history:
         return pd.DataFrame()
-        
-    feature_dict = {
-        "cgpa": academic.cgpa,
-        "internal_marks": academic.internal_marks,
-        "backlogs": academic.backlogs,
-        "overall_attendance": attendance.overall_attendance,
-        "login_frequency": lms.login_frequency,
-        "assignment_completion": lms.assignment_completion,
-        "events_count": engagement.events_count,
-        "clubs_count": engagement.clubs_count,
-        "hackathons_count": engagement.hackathons_count,
-        "certifications_count": engagement.certifications_count,
-        "student_satisfaction": feedback.student_satisfaction
-    }
-    
-    return pd.DataFrame([feature_dict])
+    academic = max(profile.academic_history, key=lambda r:(r.academic_year,r.semester))
+    records = [academic]
+    for name in ("attendance_history","lms_history","engagement_history","feedback_history"):
+        record = next((r for r in getattr(profile,name) if (r.academic_year,r.semester)==(academic.academic_year,academic.semester)),None)
+        if record is None:
+            return pd.DataFrame()
+        records.append(record)
+    values = {key:getattr(record,key) for record in records for key in FEATURE_COLS if hasattr(record,key)}
+    return pd.DataFrame([values],columns=FEATURE_COLS)
