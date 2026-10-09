@@ -17,7 +17,7 @@ export function useFilters() {
         ? change(readFilters(latestParams.current))
         : change;
     const updated = new URLSearchParams(latestParams.current);
-    for (const key of ["department", "year", "semester", "page"])
+    for (const key of ["department", "year", "semester", "page", "offset"])
       updated.delete(key);
     filterParams(next).forEach((v, k) => updated.set(k, v));
     latestParams.current = updated;

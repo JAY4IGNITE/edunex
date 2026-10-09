@@ -29,6 +29,7 @@ import { ExplanationPanels, MissingSignals } from "./ExplanationPanels";
 import { AIPredictionPanel } from "./AIPredictionPanel";
 import { DomainHistory } from "./DomainHistory";
 import { ScoreRing } from "@/components/analytics/ScoreRing";
+import { RecommendationsPanel } from "@/components/interventions/RecommendationsPanel";
 export default function StudentProfile() {
   const id = useParams().studentId ?? "";
   const { cohortSearch } = useFilters();
@@ -234,6 +235,7 @@ export default function StudentProfile() {
       </QueryState>
       
       <AIPredictionPanel studentId={id} />
+      <RecommendationsPanel studentId={id} />
       
       <DomainHistory student={student.data} />
     </div>

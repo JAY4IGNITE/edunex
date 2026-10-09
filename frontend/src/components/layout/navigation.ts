@@ -5,9 +5,13 @@ import {
   ChartScatter,
   ChartNoAxesCombined,
   Database,
+  ListTodo,
+  ClipboardCheck,
 } from "lucide-react";
 
 export const destinations = [
+  {to: "/priority", label: "Priority Students", icon: ListTodo, detail: "Review and prioritize student support"},
+  {to: "/interventions", label: "Interventions", icon: ClipboardCheck, detail: "Track assignments and observed outcomes"},
   {
     to: "/dashboard",
     label: "Overview",

@@ -1,0 +1,28 @@
+.support-section { margin-top: 32px; }
+.support-section > h2 { margin-bottom: 12px; }
+.support-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,360px),1fr)); gap: 20px; margin-block: 20px; }
+.support-card { display: flex; flex-direction: column; gap: 16px; }
+.support-card,.support-card label,.support-evidence > div { min-width: 0; overflow-wrap: anywhere; }
+.support-table .scope-note { margin: 5px 0 0; padding: 0; border: 0; background: transparent; }
+.support-card p { line-height: 1.7; color: var(--text-secondary); }
+.support-card-heading,.support-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.support-status { font-size: 12px; color: var(--accent); }
+.support-evidence { display: grid; grid-template-columns: repeat(auto-fit,minmax(115px,1fr)); gap: 12px; margin: 0; }
+.support-evidence dt { font-size: 11px; color: var(--text-muted); text-transform: capitalize; }
+.support-evidence dd { margin: 4px 0 0; font-size: 17px; font-variant-numeric: tabular-nums; }
+.support-card form,.support-fields { display: grid; gap: 12px; }
+.support-card label,.support-filters label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+.support-card :is(input,select,textarea),.support-filters select { width: 100%; min-height: 42px; padding: 10px; background: var(--surface-elevated); border: 1px solid var(--border-hover); border-radius: 6px; color: var(--text-primary); }
+.support-card textarea { min-height: 72px; resize: vertical; }
+.support-dismiss { display: flex; align-items: flex-end; gap: 12px; }
+.support-dismiss label { flex: 1; }
+.support-card summary { cursor: pointer; color: var(--accent); padding-block: 8px; }
+.support-card ol { padding-left: 20px; font-size: 12px; line-height: 1.8; }
+.support-filters { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-block: 20px; }
+.support-table-wrap { overflow-x: auto; }
+.support-table { width: 100%; border-collapse: collapse; min-width: 650px; }
+.support-table th,.support-table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.support-table th { font-size: 12px; color: var(--text-muted); }
+.support-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 16px; margin-block: 20px; }
+.support-formula { padding: 16px; font-size: 13px; line-height: 1.8; color: var(--text-secondary); }
+@media(max-width:600px) { .support-pagination { flex-wrap: wrap; } .support-filters label { flex: 1; min-width: 120px; } }
