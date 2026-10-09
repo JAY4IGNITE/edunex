@@ -1,11 +1,30 @@
 import { ArrowDown, ArrowUpRight, Check, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ProductPreview } from "./ProductPreview";
+import ColorBends from "../../../components/ui/ColorBends";
 
 export function HeroSection() {
   return (
     <section className="hero-section" aria-labelledby="hero-title">
-      <div className="landing-container hero-layout">
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.4, pointerEvents: 'none' }}>
+        <ColorBends
+          colors={["#00e5ff", "#a5a8ff", "#0070f3"]}
+          rotation={90}
+          speed={0.2}
+          scale={1}
+          frequency={1}
+          warpStrength={1}
+          mouseInfluence={0.5}
+          noise={0.15}
+          parallax={0.5}
+          iterations={1}
+          intensity={1.5}
+          bandWidth={6}
+          transparent
+          autoRotate={0.05}
+        />
+      </div>
+      <div className="landing-container hero-layout" style={{ position: 'relative', zIndex: 1 }}>
         <div className="hero-copy">
           <div className="hero-eyebrow"><span /> A clearer picture. A stronger campus.</div>
           <h1 id="hero-title">See the potential.<br />Spot the risk.<br /><span>Shape the future.</span></h1>
@@ -22,7 +41,7 @@ export function HeroSection() {
           <div className="product-caption"><span className="status-dot" /> One connected view. More informed decisions.</div>
         </div>
       </div>
-      <div className="landing-container hero-bottom"><span>BUILT AROUND STUDENT SUCCESS</span><a href="#intelligence">Discover the platform <ArrowDown size={15} aria-hidden="true" /></a></div>
+      <div className="landing-container hero-bottom" style={{ position: 'relative', zIndex: 1 }}><span>BUILT AROUND STUDENT SUCCESS</span><a href="#intelligence">Discover the platform <ArrowDown size={15} aria-hidden="true" /></a></div>
     </section>
   );
 }
