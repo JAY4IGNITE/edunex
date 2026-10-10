@@ -18,7 +18,7 @@ export function LandingNavbar() {
         </div>
         <div className="landing-nav-actions">
           <ThemeToggle />
-          <Link to="/login" className="landing-nav-cta">Staff access <ArrowUpRight size={16} aria-hidden="true" /></Link>
+          <Link to="/dashboard" className="landing-nav-cta">Staff access <ArrowUpRight size={16} aria-hidden="true" /></Link>
         </div>
       </nav>
     </header>
