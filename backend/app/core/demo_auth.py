@@ -38,6 +38,9 @@ def session_user(session):
     if not user:
         session.clear()
     return user
+    if session.get("expires_at",0) <= time.time():
+        return None
+    return DEMO_USERS.get(session.get("user_id"))
 
 
 def origin_allowed(request):
