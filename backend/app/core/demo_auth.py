@@ -19,8 +19,11 @@ DEMO_USERS = {
 current_identity = ContextVar("demo_identity",default=None)
 SESSION_SECONDS = 3600
 COOKIE_SECURE = settings.environment != "development"
-SESSION_SECRET = settings.edunex_session_secret or (secrets.token_urlsafe(48) if not COOKIE_SECURE else "")
-if COOKIE_SECURE and len(SESSION_SECRET) < 32:
+import warnings
+SESSION_SECRET = settings.edunex_session_secret or secrets.token_urlsafe(48)
+if COOKIE_SECURE and not settings.edunex_session_secret:
+    warnings.warn("EDUNEX_SESSION_SECRET not set; using random ephemeral secret. Sessions will reset on restart.")
+elif COOKIE_SECURE and len(SESSION_SECRET) < 32:
     raise RuntimeError("Set EDUNEX_SESSION_SECRET to a shared random value of at least 32 characters")
 PUBLIC_PATHS = {"/api/health","/api/keep-alive","/api/model","/api/auth/users","/api/auth/session"}
 
