@@ -27,7 +27,6 @@ try {
   await page.goto(`${base}/`);
   await page.locator(".landing-footer").waitFor();
   await page.screenshot({ path: `${output}/landing.png`, fullPage: true });
-  await page.goto(`${base}/login`);
   await page.getByRole("button", { name: "Continue as Dean / Admin" }).click();
   await page.getByRole("heading", { name: "Student success overview" }).waitFor({ timeout: 60000 });
   await page.getByRole("heading", { name: "Support capacity scenario" }).waitFor({ timeout: 60000 });
