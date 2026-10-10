@@ -160,7 +160,7 @@ export default function Shell() {
       </header>
       <main className="app-main" id="main-content" tabIndex={-1}>
         <div className="content-wrap">
-          {identity && <div className="demo-role-banner"><strong>{identity.name}</strong><p>{identity.scope} · Synthetic demo</p></div>}
+          {identity && <div className="demo-role-banner"><strong>{identity.name}</strong><p>{identity.scope} · Synthetic demo</p><Link className="text-link" to="/login">Switch role</Link></div>}
           <FilterBar
             key={cohortSearch}
             scope={

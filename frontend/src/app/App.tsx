@@ -1,10 +1,11 @@
 import { Component, Suspense, lazy, type ReactNode } from "react";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query";
 import { AuthGate } from "@/components/auth/DemoAuth";
 import { PageSkeleton } from "@/components/skeletons";
 import { EmptyState, ErrorState } from "@/components/states/States";
+import Login from "@/pages/Login";
 const LandingPage = lazy(() => import("@/pages/Landing"));
 const Shell = lazy(() => import("@/components/layout/Shell"));
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
@@ -51,7 +52,7 @@ export default function App() {
           >
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/login" element={<Login />} />
               <Route element={<AuthGate><Shell /></AuthGate>}>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="priority" element={<Priority />} />

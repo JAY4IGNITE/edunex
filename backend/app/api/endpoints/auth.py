@@ -20,12 +20,7 @@ def demo_users():
 
 @router.get("/session")
 def current_session(request:Request):
-    user = session_user(request.session)
-    if not user:
-        user = DEMO_USERS.get("dean-demo")
-        request.session.clear()
-        request.session.update(user_id=user["id"],expires_at=time.time()+SESSION_SECONDS)
-    return {"user": user}
+    return {"user":session_user(request.session)}
 
 
 @router.post("/session")
