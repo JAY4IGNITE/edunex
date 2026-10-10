@@ -40,68 +40,169 @@ The EduNex backend employs a modular monolith architecture, segregating data ing
 title: EduNex System Architecture
 ---
 flowchart TB
-    %% Styling
-    classDef dataLayer fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#0f172a,rx:10,ry:10
-    classDef appLayer fill:#f0fdfa,stroke:#0d9488,stroke-width:2px,color:#134e4a,rx:10,ry:10
-    classDef uiLayer fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#2e1065,rx:10,ry:10
-    classDef optionalLayer fill:#ffffff,stroke:#cbd5e1,stroke-width:2px,stroke-dasharray: 5 5,color:#475569,rx:10,ry:10
-    classDef dbLayer fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
-
-    subgraph DATA ["Data & Pipeline Layer"]
-        direction LR
-        sources[/"Synthetic CSVs"/]
-        ingest[["Ingestion Pipeline"]]
-        evidence[/"Canonical Evidence"/]
-        sources -->|Validate & Deduplicate| ingest -->|Write| evidence
+    %% Styling based on the image
+    classDef staff fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    classDef app fill:#dbeafe,stroke:#3b82f6,stroke-width:1px
+    classDef page fill:#bfdbfe,stroke:#2563eb,stroke-width:1px
+    classDef api fill:#fef3c7,stroke:#d97706,stroke-width:1px
+    classDef ep fill:#fde68a,stroke:#d97706,stroke-width:1px
+    classDef analytics fill:#dcfce7,stroke:#16a34a,stroke-width:1px
+    classDef support fill:#fee2e2,stroke:#dc2626,stroke-width:1px
+    classDef data fill:#e0e7ff,stroke:#4f46e5,stroke-width:1px
+    
+    user((University staff))
+    class user staff
+    
+    subgraph SE ["Staff experience"]
+        direction TB
+        appNode["EduNex web app<br>[App.tsx]"]
+        class appNode app
+        
+        subgraph pages [" "]
+            direction LR
+            dash["Cohort dashboard<br>[index.tsx]"]
+            student["Student views<br>[index.tsx]"]
+            risk["Risk and priority views<br>[index.tsx]"]
+            insights["Insights and segments<br>[index.tsx]"]
+            tracker["Intervention tracker<br>[index.tsx]"]
+            integration["Data integration view<br>[index.tsx]"]
+            class dash,student,risk,insights,tracker,integration page
+        end
+        
+        appNode -- routes to --> dash
+        appNode -- routes to --> student
+        appNode -- routes to --> risk
+        appNode -- routes to --> insights
+        appNode -- routes to --> tracker
+        appNode -- routes to --> integration
     end
-
-    subgraph CORE ["Core Application Layer"]
-        direction LR
-        db[("PostgreSQL")]
-        services{{"Domain Services"}}
-        model(["ML Inference"])
-        api[["FastAPI REST API"]]
-        support{{"Intervention Engine"}}
-
-        db <-->|Read/Write| services
-        services -->|Predict| model
-        services <--> api
-        model --> api
-        api <--> support
-        support <-->|Audit Trail| db
+    
+    user -- uses --> appNode
+    
+    subgraph API ["API and access"]
+        direction TB
+        fastapi["FastAPI application<br>[main.py]"]
+        class fastapi api
+        
+        subgraph eps [" "]
+            direction LR
+            ep_student["Student endpoints<br>[students.py]"]
+            ep_risk["Risk and scoring endpoints<br>[academic_risk.py]"]
+            ep_analytics["Analytics endpoints<br>[analytics.py]"]
+            ep_auth["Demo identity and access scope<br>[demo_auth.py]"]
+            ep_interv["Intervention endpoints<br>[interventions.py]"]
+            ep_ws["WebSocket endpoints<br>[websockets.py]"]
+            class ep_student,ep_risk,ep_analytics,ep_auth,ep_interv,ep_ws ep
+        end
+        
+        fastapi -- registers --> ep_student
+        fastapi -- registers --> ep_risk
+        fastapi -- registers --> ep_analytics
+        fastapi -- authenticates requests --> ep_auth
+        fastapi -- registers --> ep_interv
+        fastapi -- registers --> ep_ws
     end
-
-    subgraph UI ["Experience Layer"]
-        direction LR
-        client(("React UI Workspace"))
-        staff(["Staff Review Workflow"])
-        client <--> staff
+    
+    dash -. loads cohort data .-> fastapi
+    student -. loads student view .-> fastapi
+    risk -. loads risk results .-> fastapi
+    insights -. loads insights .-> fastapi
+    tracker -. requests data .-> fastapi
+    tracker -. manages interventions .-> fastapi
+    
+    subgraph SA ["Student analytics"]
+        direction TB
+        risk_pred["Academic risk prediction"]
+        risk_service["Academic and placement risk<br>[academic_risk.py]"]
+        insight_service["Insights and segmentation<br>[insight.py]"]
+        class risk_pred,risk_service,insight_service analytics
+        
+        subgraph ARP [" "]
+            direction TB
+            ml_inf["Model inference<br>[inference.py]"]
+            risk_exp["Risk explanations<br>[explanation.py]"]
+            student_360["Student 360 and scoring<br>[student_360.py]"]
+            temp_feat["Temporal feature assembly<br>[temporal_aggregator.py]"]
+            class ml_inf,risk_exp,student_360,temp_feat analytics
+            
+            risk_pred -- predicts risk --> ml_inf
+            risk_pred -- uses baseline --> risk_exp
+            risk_pred -- loads profile --> student_360
+            ml_inf -- uses feature contract --> temp_feat
+            risk_pred -- extracts features --> temp_feat
+        end
     end
-
-    subgraph ASYNC ["Real-Time & Caching Layer (Optional)"]
+    
+    ep_student -- requests prediction --> risk_pred
+    ep_risk -- calls --> risk_service
+    ep_analytics -- calls --> insight_service
+    
+    subgraph SO ["Support operations"]
         direction LR
-        redis[("Redis Cache/PubSub")]
-        ws[["WebSocket Gateway"]]
-        redis -.->|Publish| ws
+        interv_life["Intervention lifecycle<br>[interventions.py]"]
+        rt_pub["Realtime event publishing<br>[pubsub.py]"]
+        class interv_life,rt_pub support
     end
+    
+    ep_interv -- calls --> interv_life
+    ep_ws -- uses --> rt_pub
+    
+    subgraph DF ["Data foundation"]
+        direction TB
+        ingestion["Domain data ingestion<br>[ingestion.py]"]
+        domain_rec["Student domain records<br>[canonical.py]"]
+        canon_val["Canonical validation schemas<br>[canonical.py]"]
+        redis_cache["Redis cache and messaging<br>[cache.py]"]
+        pg[(PostgreSQL)]
+        class ingestion,domain_rec,canon_val,redis_cache,pg data
+        
+        ingestion -- validates records --> canon_val
+        ingestion -- persists domain records --> domain_rec
+        domain_rec --> pg
+    end
+    
+    temp_feat -- reads records --> pg
+    student_360 -- reads and writes scores --> pg
+    insight_service -- queries cohort data --> pg
+    interv_life -- stores audit workflow --> pg
+    interv_life -- reads student data --> pg
+    rt_pub -- uses messaging --> redis_cache
+    ep_ws -- connects at startup --> redis_cache
 
-    %% Cross-layer integrations
-    ingest -->|Idempotent Load| db
-    evidence -->|Provenance Data| api
-    api <-->|JSON / HTTP| client
-    services -.->|Cache Data| redis
-    support -.->|Invalidate & Notify| redis
-    ws -.->|Live Updates| client
-
-    %% Class Attachments
-    class DATA dataLayer
-    class CORE appLayer
-    class UI uiLayer
-    class ASYNC optionalLayer
-    class db,redis dbLayer
+    %% Click interactions
+    click appNode "frontend/src/app/App.tsx" "View App.tsx"
+    click dash "frontend/src/pages/Dashboard/index.tsx" "View Cohort dashboard"
+    click student "frontend/src/pages/StudentProfile/index.tsx" "View Student views"
+    click risk "frontend/src/pages/Priority/index.tsx" "View Risk and priority views"
+    click insights "frontend/src/pages/Insights/index.tsx" "View Insights and segments"
+    click tracker "frontend/src/pages/Interventions/index.tsx" "View Intervention tracker"
+    click integration "frontend/src/pages/DataIntegration/index.tsx" "View Data integration view"
+    
+    click fastapi "backend/app/main.py" "View FastAPI application"
+    click ep_student "backend/app/api/endpoints/students.py" "View Student endpoints"
+    click ep_risk "backend/app/api/endpoints/academic_risk.py" "View Risk and scoring endpoints"
+    click ep_analytics "backend/app/api/endpoints/analytics.py" "View Analytics endpoints"
+    click ep_auth "backend/app/core/demo_auth.py" "View Demo identity and access scope"
+    click ep_interv "backend/app/api/endpoints/interventions.py" "View Intervention endpoints"
+    click ep_ws "backend/app/api/endpoints/websockets.py" "View WebSocket endpoints"
+    
+    click risk_service "backend/app/services/academic_risk.py" "View Academic and placement risk"
+    click insight_service "backend/app/services/insight.py" "View Insights and segmentation"
+    click ml_inf "backend/app/ml/inference.py" "View Model inference"
+    click risk_exp "backend/app/services/explanation.py" "View Risk explanations"
+    click student_360 "backend/app/services/student_360.py" "View Student 360 and scoring"
+    click temp_feat "backend/app/ml/features/temporal_aggregator.py" "View Temporal feature assembly"
+    
+    click interv_life "backend/app/services/interventions.py" "View Intervention lifecycle"
+    click rt_pub "backend/app/services/pubsub.py" "View Realtime event publishing"
+    
+    click ingestion "backend/app/services/ingestion.py" "View Domain data ingestion"
+    click domain_rec "backend/app/schemas/canonical.py" "View Student domain records"
+    click canon_val "backend/app/schemas/canonical.py" "View Canonical validation schemas"
+    click redis_cache "backend/app/services/cache.py" "View Redis cache and messaging"
 ```
 
-*Solid arrows represent synchronous primary data flow and REST paths. Dashed arrows represent asynchronous cache operations and real-time WebSocket notifications.*
+*The diagram above features clickable nodes that directly navigate to their corresponding source files.*
 
 ### Core Workflow
 
