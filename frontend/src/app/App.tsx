@@ -1,5 +1,5 @@
 import { Component, Suspense, lazy, type ReactNode } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query";
 import { AuthGate } from "@/components/auth/DemoAuth";
@@ -51,7 +51,7 @@ export default function App() {
           >
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Navigate to="/dashboard" replace />} />
               <Route element={<AuthGate><Shell /></AuthGate>}>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="priority" element={<Priority />} />

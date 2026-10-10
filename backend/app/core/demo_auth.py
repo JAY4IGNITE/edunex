@@ -29,9 +29,7 @@ PUBLIC_PATHS = {"/api/health","/api/keep-alive","/api/model","/api/auth/users","
 
 
 def session_user(session):
-    if session.get("expires_at",0) <= time.time():
-        return None
-    return DEMO_USERS.get(session.get("user_id"))
+    return DEMO_USERS.get("dean-demo")
 
 
 def origin_allowed(request):
