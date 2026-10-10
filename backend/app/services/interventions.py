@@ -74,13 +74,18 @@ class InterventionService:
     def _audit(self, record, actor, event, details):
         self.db.add(InterventionAudit(intervention_id=record.id, actor=actor, event=event, details=details))
 
-    def _commit(self):
+    def _commit(self, student_id: str | None = None):
         try:
             self.db.commit()
         except (IntegrityError, StaleDataError):
             self.db.rollback()
             raise HTTPException(409, "This recommendation already exists or changed. Refresh and try again.")
         CacheService.invalidate_tags(["interventions", "analytics"])
+        
+        from backend.app.services.pubsub import PubSubService
+        PubSubService.publish("analytics_updated")
+        if student_id:
+            PubSubService.publish("student_updated", {"student_id": student_id})
 
     def create(self, payload, actor="demo-admin"):
         analysis = self.analysis(payload.student_id)
@@ -97,7 +102,7 @@ class InterventionService:
             self.db.rollback()
             raise HTTPException(409, "An open intervention already exists for this recommendation.")
         self._audit(record, actor, "Recommended", {"recommendation": recommendation})
-        self._commit()
+        self._commit(payload.student_id)
         return serialize(record)
 
     def update(self, intervention_id, payload, actor="demo-admin"):
@@ -139,7 +144,7 @@ class InterventionService:
         self._audit(record, actor, target if old_status != target else "Updated", {"from_status": old_status, "changes": changes})
         # Force a version increment even for a no-op edit, preserving audit ordering.
         record.updated_at = datetime.now(UTC)
-        self._commit()
+        self._commit(record.student_id)
         return serialize(record)
 
     def delete(self, intervention_id, version, actor="demo-admin"):
@@ -151,7 +156,7 @@ class InterventionService:
         record.deleted_at = datetime.now(UTC)
         record.active_key = None
         self._audit(record, actor, "Deleted", {"reason": "Removed unassigned recommendation"})
-        self._commit()
+        self._commit(record.student_id)
 
     def list(self, student_id=None, status=None, assignee=None, offset=0, limit=25, department=None, semester=None, year=None):
         query = self.db.query(Intervention).join(Student).filter(Intervention.deleted_at.is_(None))
