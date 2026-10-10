@@ -1,0 +1,1231 @@
+{
+  "environment": "local production preview; cold browser contexts; 150ms contract API fixtures; reduced motion",
+  "medianKpiMs": 1028,
+  "medianUsableMs": 1040,
+  "samples": [
+    {
+      "kpiMs": 1223,
+      "usableMs": 1254,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 213
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 213
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 814
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 816
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 817
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 817
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "Shell-BAQZMISm.js",
+          "bytes": 6433
+        },
+        {
+          "file": "useFilters-ClB4gxsQ.js",
+          "bytes": 519
+        },
+        {
+          "file": "utils-anZ0AMEM.js",
+          "bytes": 9381
+        },
+        {
+          "file": "chevron-down-By3G57rS.js",
+          "bytes": 162
+        },
+        {
+          "file": "index-lfoEoO6X.js",
+          "bytes": 483
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "dialog-BTGMqBjC.js",
+          "bytes": 9102
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "chart-scatter-BhC_GiPb.js",
+          "bytes": 562
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "search-uSb1eeOt.js",
+          "bytes": 203
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "chevron-right-Bgq-rzGs.js",
+          "bytes": 164
+        },
+        {
+          "file": "index-DHku9DQ0.js",
+          "bytes": 3942
+        },
+        {
+          "file": "useMotion-Bvn_GKKi.js",
+          "bytes": 27808
+        },
+        {
+          "file": "Shared-BOY8vRhT.js",
+          "bytes": 1354
+        },
+        {
+          "file": "Charts-DfS6UpQP.js",
+          "bytes": 113232
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-TLbvRO-S.js",
+          "bytes": 890
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-BE2aIAvD.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 933,
+      "usableMs": 950,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 93
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 94
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 628
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 629
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 629
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 630
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "Shell-BAQZMISm.js",
+          "bytes": 6433
+        },
+        {
+          "file": "useFilters-ClB4gxsQ.js",
+          "bytes": 519
+        },
+        {
+          "file": "chevron-down-By3G57rS.js",
+          "bytes": 162
+        },
+        {
+          "file": "utils-anZ0AMEM.js",
+          "bytes": 9381
+        },
+        {
+          "file": "index-lfoEoO6X.js",
+          "bytes": 483
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "dialog-BTGMqBjC.js",
+          "bytes": 9102
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "chart-scatter-BhC_GiPb.js",
+          "bytes": 562
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "search-uSb1eeOt.js",
+          "bytes": 203
+        },
+        {
+          "file": "chevron-right-Bgq-rzGs.js",
+          "bytes": 164
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "index-DHku9DQ0.js",
+          "bytes": 3942
+        },
+        {
+          "file": "useMotion-Bvn_GKKi.js",
+          "bytes": 27808
+        },
+        {
+          "file": "Shared-BOY8vRhT.js",
+          "bytes": 1354
+        },
+        {
+          "file": "Charts-DfS6UpQP.js",
+          "bytes": 113232
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-TLbvRO-S.js",
+          "bytes": 890
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-BE2aIAvD.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 1030,
+      "usableMs": 1053,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 165
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 166
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 695
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 696
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 696
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 696
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "Shell-BAQZMISm.js",
+          "bytes": 6433
+        },
+        {
+          "file": "useFilters-ClB4gxsQ.js",
+          "bytes": 519
+        },
+        {
+          "file": "utils-anZ0AMEM.js",
+          "bytes": 9381
+        },
+        {
+          "file": "chevron-down-By3G57rS.js",
+          "bytes": 162
+        },
+        {
+          "file": "index-lfoEoO6X.js",
+          "bytes": 483
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "dialog-BTGMqBjC.js",
+          "bytes": 9102
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "chart-scatter-BhC_GiPb.js",
+          "bytes": 562
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "search-uSb1eeOt.js",
+          "bytes": 203
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "chevron-right-Bgq-rzGs.js",
+          "bytes": 164
+        },
+        {
+          "file": "index-DHku9DQ0.js",
+          "bytes": 3942
+        },
+        {
+          "file": "useMotion-Bvn_GKKi.js",
+          "bytes": 27808
+        },
+        {
+          "file": "Shared-BOY8vRhT.js",
+          "bytes": 1354
+        },
+        {
+          "file": "Charts-DfS6UpQP.js",
+          "bytes": 113232
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-TLbvRO-S.js",
+          "bytes": 890
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-BE2aIAvD.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 1028,
+      "usableMs": 1040,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 148
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 148
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 694
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 697
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 697
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 697
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "Shell-BAQZMISm.js",
+          "bytes": 6433
+        },
+        {
+          "file": "useFilters-ClB4gxsQ.js",
+          "bytes": 519
+        },
+        {
+          "file": "chevron-down-By3G57rS.js",
+          "bytes": 162
+        },
+        {
+          "file": "utils-anZ0AMEM.js",
+          "bytes": 9381
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "index-lfoEoO6X.js",
+          "bytes": 483
+        },
+        {
+          "file": "dialog-BTGMqBjC.js",
+          "bytes": 9102
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "chart-scatter-BhC_GiPb.js",
+          "bytes": 562
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "search-uSb1eeOt.js",
+          "bytes": 203
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "chevron-right-Bgq-rzGs.js",
+          "bytes": 164
+        },
+        {
+          "file": "index-DHku9DQ0.js",
+          "bytes": 3942
+        },
+        {
+          "file": "useMotion-Bvn_GKKi.js",
+          "bytes": 27808
+        },
+        {
+          "file": "Shared-BOY8vRhT.js",
+          "bytes": 1354
+        },
+        {
+          "file": "Charts-DfS6UpQP.js",
+          "bytes": 113232
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-TLbvRO-S.js",
+          "bytes": 890
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-BE2aIAvD.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 952,
+      "usableMs": 970,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 101
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 101
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 621
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 623
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 628
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 628
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "Shell-BAQZMISm.js",
+          "bytes": 6433
+        },
+        {
+          "file": "useFilters-ClB4gxsQ.js",
+          "bytes": 519
+        },
+        {
+          "file": "utils-anZ0AMEM.js",
+          "bytes": 9381
+        },
+        {
+          "file": "chevron-down-By3G57rS.js",
+          "bytes": 162
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "index-lfoEoO6X.js",
+          "bytes": 483
+        },
+        {
+          "file": "dialog-BTGMqBjC.js",
+          "bytes": 9102
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "chart-scatter-BhC_GiPb.js",
+          "bytes": 562
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "search-uSb1eeOt.js",
+          "bytes": 203
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "chevron-right-Bgq-rzGs.js",
+          "bytes": 164
+        },
+        {
+          "file": "index-DHku9DQ0.js",
+          "bytes": 3942
+        },
+        {
+          "file": "useMotion-Bvn_GKKi.js",
+          "bytes": 27808
+        },
+        {
+          "file": "Shared-BOY8vRhT.js",
+          "bytes": 1354
+        },
+        {
+          "file": "Charts-DfS6UpQP.js",
+          "bytes": 113232
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-TLbvRO-S.js",
+          "bytes": 890
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-BE2aIAvD.js",
+          "bytes": 595
+        }
+      ]
+    }
+  ],
+  "landing": [
+    {
+      "contentMs": 541,
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-Du5ci7_K.js",
+          "bytes": 5786
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "arrow-down-CM6fZwU8.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-1ykjfVys.js",
+          "bytes": 359
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "shield-check-BYyt6dgQ.js",
+          "bytes": 354
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 556,
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-Du5ci7_K.js",
+          "bytes": 5786
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "arrow-down-CM6fZwU8.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-1ykjfVys.js",
+          "bytes": 359
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "shield-check-BYyt6dgQ.js",
+          "bytes": 354
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 552,
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-Du5ci7_K.js",
+          "bytes": 5786
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "arrow-down-CM6fZwU8.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-1ykjfVys.js",
+          "bytes": 359
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "shield-check-BYyt6dgQ.js",
+          "bytes": 354
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 534,
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-Du5ci7_K.js",
+          "bytes": 5786
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "arrow-down-CM6fZwU8.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-1ykjfVys.js",
+          "bytes": 359
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "shield-check-BYyt6dgQ.js",
+          "bytes": 354
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 550,
+      "resources": [
+        {
+          "file": "index-C-MZ2M_V.js",
+          "bytes": 112909
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-Du5ci7_K.js",
+          "bytes": 5786
+        },
+        {
+          "file": "ThemeToggle-HTthvSBS.js",
+          "bytes": 14572
+        },
+        {
+          "file": "index-z1r5mXeS.js",
+          "bytes": 4858
+        },
+        {
+          "file": "index-DLHEn48Z.js",
+          "bytes": 67
+        },
+        {
+          "file": "layout-dashboard-BzRZuSgX.js",
+          "bytes": 494
+        },
+        {
+          "file": "users-ByWmF2nz.js",
+          "bytes": 340
+        },
+        {
+          "file": "chart-no-axes-combined-ps4bBdFf.js",
+          "bytes": 433
+        },
+        {
+          "file": "arrow-down-CM6fZwU8.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-1ykjfVys.js",
+          "bytes": 359
+        },
+        {
+          "file": "arrow-right-xXDGeLVf.js",
+          "bytes": 199
+        },
+        {
+          "file": "shield-check-BYyt6dgQ.js",
+          "bytes": 354
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        },
+        {
+          "file": "database-DqpFZllw.js",
+          "bytes": 277
+        }
+      ]
+    }
+  ],
+  "chunks": [
+    {
+      "name": "arrow-down-CM6fZwU8.js",
+      "bytes": 199,
+      "gzipBytes": 180
+    },
+    {
+      "name": "arrow-right-xXDGeLVf.js",
+      "bytes": 199,
+      "gzipBytes": 182
+    },
+    {
+      "name": "briefcase-business-1ykjfVys.js",
+      "bytes": 359,
+      "gzipBytes": 265
+    },
+    {
+      "name": "chart-no-axes-combined-ps4bBdFf.js",
+      "bytes": 433,
+      "gzipBytes": 280
+    },
+    {
+      "name": "chart-scatter-BhC_GiPb.js",
+      "bytes": 562,
+      "gzipBytes": 288
+    },
+    {
+      "name": "Charts-DfS6UpQP.js",
+      "bytes": 387919,
+      "gzipBytes": 113232
+    },
+    {
+      "name": "chevron-down-By3G57rS.js",
+      "bytes": 162,
+      "gzipBytes": 158
+    },
+    {
+      "name": "chevron-right-Bgq-rzGs.js",
+      "bytes": 164,
+      "gzipBytes": 161
+    },
+    {
+      "name": "ColorBends-CYlP3MRA.js",
+      "bytes": 520448,
+      "gzipBytes": 131253
+    },
+    {
+      "name": "database-DqpFZllw.js",
+      "bytes": 277,
+      "gzipBytes": 222
+    },
+    {
+      "name": "dialog-BTGMqBjC.js",
+      "bytes": 24987,
+      "gzipBytes": 9102
+    },
+    {
+      "name": "DomainIcon-D_VD9xcp.js",
+      "bytes": 1700,
+      "gzipBytes": 892
+    },
+    {
+      "name": "index-B7HQAI5z.js",
+      "bytes": 4945,
+      "gzipBytes": 1953
+    },
+    {
+      "name": "index-BIPZjonT.js",
+      "bytes": 686,
+      "gzipBytes": 418
+    },
+    {
+      "name": "index-C-MZ2M_V.js",
+      "bytes": 346677,
+      "gzipBytes": 112909
+    },
+    {
+      "name": "index-CbHNAzpI.js",
+      "bytes": 1715,
+      "gzipBytes": 874
+    },
+    {
+      "name": "index-cgIbfkG5.js",
+      "bytes": 1566,
+      "gzipBytes": 812
+    },
+    {
+      "name": "index-DHku9DQ0.js",
+      "bytes": 11093,
+      "gzipBytes": 3942
+    },
+    {
+      "name": "index-DLHEn48Z.js",
+      "bytes": 67,
+      "gzipBytes": 80
+    },
+    {
+      "name": "index-DpPo5WVh.js",
+      "bytes": 2646,
+      "gzipBytes": 1245
+    },
+    {
+      "name": "index-Du5ci7_K.js",
+      "bytes": 19001,
+      "gzipBytes": 5786
+    },
+    {
+      "name": "index-lfoEoO6X.js",
+      "bytes": 1162,
+      "gzipBytes": 483
+    },
+    {
+      "name": "index-O2osHhQ1.js",
+      "bytes": 19816,
+      "gzipBytes": 5590
+    },
+    {
+      "name": "index-QINlOtkv.js",
+      "bytes": 8622,
+      "gzipBytes": 2789
+    },
+    {
+      "name": "index-Qj5ZY25I.js",
+      "bytes": 3974,
+      "gzipBytes": 1554
+    },
+    {
+      "name": "index-uecGIA_K.js",
+      "bytes": 2379,
+      "gzipBytes": 1099
+    },
+    {
+      "name": "index-WxiBvfOB.js",
+      "bytes": 3871,
+      "gzipBytes": 1462
+    },
+    {
+      "name": "index-z1r5mXeS.js",
+      "bytes": 13840,
+      "gzipBytes": 4858
+    },
+    {
+      "name": "InsightCard-TLbvRO-S.js",
+      "bytes": 2168,
+      "gzipBytes": 890
+    },
+    {
+      "name": "InterventionCard-CsKXvhM2.js",
+      "bytes": 3873,
+      "gzipBytes": 1609
+    },
+    {
+      "name": "layout-dashboard-BzRZuSgX.js",
+      "bytes": 494,
+      "gzipBytes": 279
+    },
+    {
+      "name": "search-uSb1eeOt.js",
+      "bytes": 203,
+      "gzipBytes": 186
+    },
+    {
+      "name": "Shared-BOY8vRhT.js",
+      "bytes": 3211,
+      "gzipBytes": 1354
+    },
+    {
+      "name": "Shell-BAQZMISm.js",
+      "bytes": 18248,
+      "gzipBytes": 6433
+    },
+    {
+      "name": "shield-check-BYyt6dgQ.js",
+      "bytes": 354,
+      "gzipBytes": 269
+    },
+    {
+      "name": "StudentTable-BPK54qp3.js",
+      "bytes": 11700,
+      "gzipBytes": 4278
+    },
+    {
+      "name": "support-B3P7vbeB.js",
+      "bytes": 407,
+      "gzipBytes": 252
+    },
+    {
+      "name": "ThemeToggle-HTthvSBS.js",
+      "bytes": 38976,
+      "gzipBytes": 14572
+    },
+    {
+      "name": "useFilters-ClB4gxsQ.js",
+      "bytes": 519,
+      "gzipBytes": 371
+    },
+    {
+      "name": "useMotion-Bvn_GKKi.js",
+      "bytes": 70687,
+      "gzipBytes": 27808
+    },
+    {
+      "name": "users-ByWmF2nz.js",
+      "bytes": 340,
+      "gzipBytes": 245
+    },
+    {
+      "name": "users-round-BE2aIAvD.js",
+      "bytes": 595,
+      "gzipBytes": 368
+    },
+    {
+      "name": "utils-anZ0AMEM.js",
+      "bytes": 29113,
+      "gzipBytes": 9381
+    }
+  ]
+}

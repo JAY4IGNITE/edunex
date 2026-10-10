@@ -1,0 +1,711 @@
+{
+  "environment": "local production preview; cold browser contexts; 150ms contract API fixtures; reduced motion",
+  "medianKpiMs": 941,
+  "medianUsableMs": 1423,
+  "samples": [
+    {
+      "kpiMs": 1092,
+      "usableMs": 1547,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 217
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 218
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 457
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 718
+        },
+        {
+          "path": "/api/analytics/distribution",
+          "startMs": 916
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 1091
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 1313
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-BQR7zK0K.js",
+          "bytes": 3886
+        },
+        {
+          "file": "useMotion-D1soy2P6.js",
+          "bytes": 27807
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "Shared-D-s9Y5tc.js",
+          "bytes": 1340
+        },
+        {
+          "file": "Charts-VWTRlyCn.js",
+          "bytes": 113164
+        },
+        {
+          "file": "InsightCard-BEzeP4Ov.js",
+          "bytes": 874
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-CiWc7Zbt.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 973,
+      "usableMs": 1415,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 151
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 151
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 354
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 633
+        },
+        {
+          "path": "/api/analytics/distribution",
+          "startMs": 828
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 998
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 1199
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BQR7zK0K.js",
+          "bytes": 3886
+        },
+        {
+          "file": "Shared-D-s9Y5tc.js",
+          "bytes": 1340
+        },
+        {
+          "file": "useMotion-D1soy2P6.js",
+          "bytes": 27807
+        },
+        {
+          "file": "Charts-VWTRlyCn.js",
+          "bytes": 113164
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "InsightCard-BEzeP4Ov.js",
+          "bytes": 874
+        },
+        {
+          "file": "users-round-CiWc7Zbt.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 941,
+      "usableMs": 1378,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 85
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 85
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 306
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 579
+        },
+        {
+          "path": "/api/analytics/distribution",
+          "startMs": 776
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 940
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 1154
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BQR7zK0K.js",
+          "bytes": 3886
+        },
+        {
+          "file": "useMotion-D1soy2P6.js",
+          "bytes": 27807
+        },
+        {
+          "file": "Shared-D-s9Y5tc.js",
+          "bytes": 1340
+        },
+        {
+          "file": "Charts-VWTRlyCn.js",
+          "bytes": 113164
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-BEzeP4Ov.js",
+          "bytes": 874
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-CiWc7Zbt.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 933,
+      "usableMs": 1423,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 72
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 72
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 305
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 570
+        },
+        {
+          "path": "/api/analytics/distribution",
+          "startMs": 785
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 967
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 1199
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BQR7zK0K.js",
+          "bytes": 3886
+        },
+        {
+          "file": "useMotion-D1soy2P6.js",
+          "bytes": 27807
+        },
+        {
+          "file": "Shared-D-s9Y5tc.js",
+          "bytes": 1340
+        },
+        {
+          "file": "Charts-VWTRlyCn.js",
+          "bytes": 113164
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-BEzeP4Ov.js",
+          "bytes": 874
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-CiWc7Zbt.js",
+          "bytes": 595
+        }
+      ]
+    },
+    {
+      "kpiMs": 924,
+      "usableMs": 1442,
+      "calls": [
+        {
+          "path": "/api/health",
+          "startMs": 79
+        },
+        {
+          "path": "/api/auth/session",
+          "startMs": 79
+        },
+        {
+          "path": "/api/data/departments",
+          "startMs": 299
+        },
+        {
+          "path": "/api/analytics/overview",
+          "startMs": 605
+        },
+        {
+          "path": "/api/analytics/distribution",
+          "startMs": 813
+        },
+        {
+          "path": "/api/analytics/trends",
+          "startMs": 977
+        },
+        {
+          "path": "/api/insights",
+          "startMs": 1215
+        }
+      ],
+      "resources": [
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BQR7zK0K.js",
+          "bytes": 3886
+        },
+        {
+          "file": "useMotion-D1soy2P6.js",
+          "bytes": 27807
+        },
+        {
+          "file": "Shared-D-s9Y5tc.js",
+          "bytes": 1340
+        },
+        {
+          "file": "Charts-VWTRlyCn.js",
+          "bytes": 113164
+        },
+        {
+          "file": "analytics-4bZnhgeF.css",
+          "bytes": 1140
+        },
+        {
+          "file": "InsightCard-BEzeP4Ov.js",
+          "bytes": 874
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "users-round-CiWc7Zbt.js",
+          "bytes": 595
+        }
+      ]
+    }
+  ],
+  "landing": [
+    {
+      "contentMs": 488,
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-AnKcAoKS.js",
+          "bytes": 5676
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "arrow-down-COXuz3L5.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-BjYVqpe6.js",
+          "bytes": 359
+        },
+        {
+          "file": "shield-check-BWoIqdXh.js",
+          "bytes": 354
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 476,
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-AnKcAoKS.js",
+          "bytes": 5676
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "arrow-down-COXuz3L5.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-BjYVqpe6.js",
+          "bytes": 359
+        },
+        {
+          "file": "shield-check-BWoIqdXh.js",
+          "bytes": 354
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 459,
+      "resources": [
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-AnKcAoKS.js",
+          "bytes": 5676
+        },
+        {
+          "file": "arrow-down-COXuz3L5.js",
+          "bytes": 199
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "shield-check-BWoIqdXh.js",
+          "bytes": 354
+        },
+        {
+          "file": "briefcase-business-BjYVqpe6.js",
+          "bytes": 359
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 482,
+      "resources": [
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-AnKcAoKS.js",
+          "bytes": 5676
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "arrow-down-COXuz3L5.js",
+          "bytes": 199
+        },
+        {
+          "file": "briefcase-business-BjYVqpe6.js",
+          "bytes": 359
+        },
+        {
+          "file": "shield-check-BWoIqdXh.js",
+          "bytes": 354
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        }
+      ]
+    },
+    {
+      "contentMs": 491,
+      "resources": [
+        {
+          "file": "index-BdNOgZt2.js",
+          "bytes": 154967
+        },
+        {
+          "file": "index-C3D7ilQM.css",
+          "bytes": 15076
+        },
+        {
+          "file": "index-AnKcAoKS.js",
+          "bytes": 5676
+        },
+        {
+          "file": "users-lgssES6m.js",
+          "bytes": 340
+        },
+        {
+          "file": "arrow-down-COXuz3L5.js",
+          "bytes": 199
+        },
+        {
+          "file": "index-D7EiFfCF.css",
+          "bytes": 4995
+        },
+        {
+          "file": "briefcase-business-BjYVqpe6.js",
+          "bytes": 359
+        },
+        {
+          "file": "shield-check-BWoIqdXh.js",
+          "bytes": 354
+        }
+      ]
+    }
+  ],
+  "chunks": [
+    {
+      "name": "arrow-down-COXuz3L5.js",
+      "bytes": 199,
+      "gzipBytes": 179
+    },
+    {
+      "name": "briefcase-business-BjYVqpe6.js",
+      "bytes": 359,
+      "gzipBytes": 265
+    },
+    {
+      "name": "Charts-VWTRlyCn.js",
+      "bytes": 387776,
+      "gzipBytes": 113164
+    },
+    {
+      "name": "ColorBends-k3RMagRT.js",
+      "bytes": 520448,
+      "gzipBytes": 131253
+    },
+    {
+      "name": "DomainIcon-Cybt94_3.js",
+      "bytes": 1669,
+      "gzipBytes": 882
+    },
+    {
+      "name": "index-AnKcAoKS.js",
+      "bytes": 18727,
+      "gzipBytes": 5676
+    },
+    {
+      "name": "index-B28Q72IL.js",
+      "bytes": 2358,
+      "gzipBytes": 1086
+    },
+    {
+      "name": "index-BdNOgZt2.js",
+      "bytes": 474237,
+      "gzipBytes": 154967
+    },
+    {
+      "name": "index-BFTV7tdC.js",
+      "bytes": 1512,
+      "gzipBytes": 782
+    },
+    {
+      "name": "index-BQR7zK0K.js",
+      "bytes": 11022,
+      "gzipBytes": 3886
+    },
+    {
+      "name": "index-BRfkraU0.js",
+      "bytes": 19515,
+      "gzipBytes": 5467
+    },
+    {
+      "name": "index-BxkShL4L.js",
+      "bytes": 2542,
+      "gzipBytes": 1201
+    },
+    {
+      "name": "index-CdptpzAN.js",
+      "bytes": 591,
+      "gzipBytes": 370
+    },
+    {
+      "name": "index-Doc9IhKQ.js",
+      "bytes": 1369,
+      "gzipBytes": 732
+    },
+    {
+      "name": "index-DvXVxoza.js",
+      "bytes": 4717,
+      "gzipBytes": 1857
+    },
+    {
+      "name": "index-DzaBE04Q.js",
+      "bytes": 3953,
+      "gzipBytes": 1536
+    },
+    {
+      "name": "index-LSnkq8XN.js",
+      "bytes": 3846,
+      "gzipBytes": 1446
+    },
+    {
+      "name": "index-UWy8r2tq.js",
+      "bytes": 8481,
+      "gzipBytes": 2729
+    },
+    {
+      "name": "InsightCard-BEzeP4Ov.js",
+      "bytes": 2136,
+      "gzipBytes": 874
+    },
+    {
+      "name": "InterventionCard-Bl14eWxb.js",
+      "bytes": 3874,
+      "gzipBytes": 1608
+    },
+    {
+      "name": "Shared-D-s9Y5tc.js",
+      "bytes": 3187,
+      "gzipBytes": 1340
+    },
+    {
+      "name": "shield-check-BWoIqdXh.js",
+      "bytes": 354,
+      "gzipBytes": 271
+    },
+    {
+      "name": "StudentTable-CNhOkIHP.js",
+      "bytes": 11511,
+      "gzipBytes": 4206
+    },
+    {
+      "name": "support-C8Afmkq6.js",
+      "bytes": 409,
+      "gzipBytes": 252
+    },
+    {
+      "name": "useMotion-D1soy2P6.js",
+      "bytes": 70687,
+      "gzipBytes": 27807
+    },
+    {
+      "name": "users-lgssES6m.js",
+      "bytes": 340,
+      "gzipBytes": 245
+    },
+    {
+      "name": "users-round-CiWc7Zbt.js",
+      "bytes": 595,
+      "gzipBytes": 368
+    }
+  ]
+}

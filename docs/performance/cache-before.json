@@ -1,0 +1,56 @@
+{
+  "environment": "isolated local PostgreSQL and Redis; test-only RESP2 for installed Windows Redis",
+  "checks": {
+    "overview_miss": {
+      "ms": 365.59,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "overview_hit": {
+      "ms": 1.96,
+      "sql_count": 0,
+      "same_data": true
+    },
+    "overview_invalidated": {
+      "ms": 134.32,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "overview_disabled": {
+      "ms": 267.06,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "overview_unavailable": {
+      "ms": 4516.67,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "distribution_miss": {
+      "ms": 365.75,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "distribution_hit": {
+      "ms": 6.67,
+      "sql_count": 0,
+      "same_data": true
+    },
+    "distribution_invalidated": {
+      "ms": 286.54,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "distribution_disabled": {
+      "ms": 152.89,
+      "sql_count": 12,
+      "same_data": true
+    },
+    "distribution_unavailable": {
+      "ms": 4346.84,
+      "sql_count": 12,
+      "same_data": true
+    }
+  },
+  "redis_version": "3.0.504"
+}

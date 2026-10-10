@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "chart metric switch",
+    "10-row pagination",
+    "department filter resets page",
+    "exact-ID profile search"
+  ],
+  "errors": []
+}

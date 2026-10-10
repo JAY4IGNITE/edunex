@@ -1,0 +1,41 @@
+import { chromium } from "playwright";
+import assert from "node:assert/strict";
+import { mkdir, writeFile } from "node:fs/promises";
+
+const base = process.env.EDUNEX_TEST_BASE_URL ?? "http://127.0.0.1:5174";
+const output = process.env.EDUNEX_TEST_OUTPUT ?? "../.phase-work/performance-data";
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ reducedMotion: "reduce" });
+const errors = [];
+page.on("pageerror", error => errors.push(error.message));
+const rows = () => page.locator(".student-table-panel tbody tr");
+try {
+  await page.goto(`${base}/login`);
+  await page.getByRole("button", { name: "Continue as Dean / Admin" }).click();
+  await page.getByRole("heading", { name: "Support capacity scenario" }).waitFor();
+  await page.getByRole("group", { name: "Historical metric" }).getByRole("button", { name: "Attendance", exact: true }).click();
+  assert.equal(await page.getByRole("button", { name: "Attendance", exact: true }).getAttribute("aria-pressed"), "true");
+  await page.goto(`${base}/students`);
+  await rows().first().waitFor();
+  assert.equal(await rows().count(), 10);
+  const first = await rows().first().locator(".student-id").textContent();
+  await page.getByRole("button", { name: "Next student page" }).click();
+  await page.waitForURL("**/students?page=2");
+  await rows().first().waitFor();
+  assert.notEqual(await rows().first().locator(".student-id").textContent(), first);
+  await page.getByLabel("Department", { exact: true }).selectOption("Computer Science");
+  await page.getByRole("button", { name: "Apply Filters" }).click();
+  await page.waitForURL(url => url.searchParams.get("department") === "Computer Science" && !url.searchParams.has("page"));
+  await rows().first().waitFor();
+  for (const row of await rows().all()) assert.match(await row.textContent(), /Computer Science/);
+  const id = (await rows().first().locator(".student-id").textContent()).trim();
+  const search = page.getByRole("search", { name: "Find a student by ID" });
+  await search.getByLabel("Student ID").fill(id);
+  await search.getByRole("button", { name: "Open profile" }).click();
+  await page.waitForURL(url => url.pathname === `/students/${id}`);
+  await page.getByRole("heading", { name: "Recommended interventions", exact: true }).waitFor();
+  assert.deepEqual(errors, []);
+  await mkdir(output, { recursive: true });
+  await writeFile(`${output}/result.json`, JSON.stringify({ passed: true, checks: ["chart metric switch", "10-row pagination", "department filter resets page", "exact-ID profile search"], errors }, null, 2));
+  console.log("Data navigation checks passed");
+} finally { await browser.close(); }

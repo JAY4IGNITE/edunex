@@ -1,0 +1,136 @@
+{
+  "environment": "local disposable PostgreSQL; Redis disabled; in-process HTTP",
+  "runs": 3,
+  "endpoints": {
+    "/api/analytics/overview": {
+      "samples": [
+        {
+          "elapsed_ms": 389.69,
+          "sql_ms": 80.38,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 477
+        },
+        {
+          "elapsed_ms": 111.96,
+          "sql_ms": 53.23,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 477
+        },
+        {
+          "elapsed_ms": 139.4,
+          "sql_ms": 66.28,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 477
+        }
+      ],
+      "median_ms": 139.4
+    },
+    "/api/analytics/distribution": {
+      "samples": [
+        {
+          "elapsed_ms": 257.78,
+          "sql_ms": 98.33,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 348
+        },
+        {
+          "elapsed_ms": 155.68,
+          "sql_ms": 76.25,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 348
+        },
+        {
+          "elapsed_ms": 140.98,
+          "sql_ms": 61.4,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 348
+        }
+      ],
+      "median_ms": 155.68
+    },
+    "/api/analytics/trends": {
+      "samples": [
+        {
+          "elapsed_ms": 216.98,
+          "sql_ms": 101.42,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 222
+        },
+        {
+          "elapsed_ms": 301.46,
+          "sql_ms": 116.47,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 222
+        },
+        {
+          "elapsed_ms": 123.7,
+          "sql_ms": 59.27,
+          "sql_count": 12,
+          "sql_writes": 0,
+          "response_bytes": 222
+        }
+      ],
+      "median_ms": 216.98
+    },
+    "/api/insights?department=Computer+Science": {
+      "samples": [
+        {
+          "elapsed_ms": 656.1,
+          "sql_ms": 133.53,
+          "sql_count": 45,
+          "sql_writes": 0,
+          "response_bytes": 2689
+        },
+        {
+          "elapsed_ms": 428.81,
+          "sql_ms": 80.56,
+          "sql_count": 45,
+          "sql_writes": 0,
+          "response_bytes": 2689
+        },
+        {
+          "elapsed_ms": 532.31,
+          "sql_ms": 93.68,
+          "sql_count": 45,
+          "sql_writes": 0,
+          "response_bytes": 2689
+        }
+      ],
+      "median_ms": 532.31
+    },
+    "/api/students?skip=0&limit=10": {
+      "samples": [
+        {
+          "elapsed_ms": 6.44,
+          "sql_ms": 1.48,
+          "sql_count": 1,
+          "sql_writes": 0,
+          "response_bytes": 1202
+        },
+        {
+          "elapsed_ms": 3.21,
+          "sql_ms": 0.33,
+          "sql_count": 1,
+          "sql_writes": 0,
+          "response_bytes": 1202
+        },
+        {
+          "elapsed_ms": 2.74,
+          "sql_ms": 0.31,
+          "sql_count": 1,
+          "sql_writes": 0,
+          "response_bytes": 1202
+        }
+      ],
+      "median_ms": 3.21
+    }
+  }
+}

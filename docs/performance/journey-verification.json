@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "roles": {
+    "adminStudents": 1000,
+    "facultyStudents": 327,
+    "mentorStudents": 501
+  },
+  "checks": [
+    "admin dashboard",
+    "capacity CSV",
+    "faculty department scope",
+    "mentor caseload scope",
+    "priority to completed intervention",
+    "responsive tracker"
+  ],
+  "widths": [
+    1440,
+    768,
+    390
+  ],
+  "errors": []
+}
