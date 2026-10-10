@@ -170,36 +170,36 @@ flowchart TB
     ep_ws -- connects at startup --> redis_cache
 
     %% Click interactions
-    click appNode "frontend/src/app/App.tsx" "View App.tsx"
-    click dash "frontend/src/pages/Dashboard/index.tsx" "View Cohort dashboard"
-    click student "frontend/src/pages/StudentProfile/index.tsx" "View Student views"
-    click risk "frontend/src/pages/Priority/index.tsx" "View Risk and priority views"
-    click insights "frontend/src/pages/Insights/index.tsx" "View Insights and segments"
-    click tracker "frontend/src/pages/Interventions/index.tsx" "View Intervention tracker"
-    click integration "frontend/src/pages/DataIntegration/index.tsx" "View Data integration view"
+    click appNode "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/app/App.tsx" "View App.tsx"
+    click dash "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/pages/Dashboard/index.tsx" "View Cohort dashboard"
+    click student "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/pages/StudentProfile/index.tsx" "View Student views"
+    click risk "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/pages/Priority/index.tsx" "View Risk and priority views"
+    click insights "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/pages/Insights/index.tsx" "View Insights and segments"
+    click tracker "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/pages/Interventions/index.tsx" "View Intervention tracker"
+    click integration "https://github.com/JAY4IGNITE/edunex/blob/main/frontend/src/pages/DataIntegration/index.tsx" "View Data integration view"
     
-    click fastapi "backend/app/main.py" "View FastAPI application"
-    click ep_student "backend/app/api/endpoints/students.py" "View Student endpoints"
-    click ep_risk "backend/app/api/endpoints/academic_risk.py" "View Risk and scoring endpoints"
-    click ep_analytics "backend/app/api/endpoints/analytics.py" "View Analytics endpoints"
-    click ep_auth "backend/app/core/demo_auth.py" "View Demo identity and access scope"
-    click ep_interv "backend/app/api/endpoints/interventions.py" "View Intervention endpoints"
-    click ep_ws "backend/app/api/endpoints/websockets.py" "View WebSocket endpoints"
+    click fastapi "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/main.py" "View FastAPI application"
+    click ep_student "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/api/endpoints/students.py" "View Student endpoints"
+    click ep_risk "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/api/endpoints/academic_risk.py" "View Risk and scoring endpoints"
+    click ep_analytics "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/api/endpoints/analytics.py" "View Analytics endpoints"
+    click ep_auth "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/core/demo_auth.py" "View Demo identity and access scope"
+    click ep_interv "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/api/endpoints/interventions.py" "View Intervention endpoints"
+    click ep_ws "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/api/endpoints/websockets.py" "View WebSocket endpoints"
     
-    click risk_service "backend/app/services/academic_risk.py" "View Academic and placement risk"
-    click insight_service "backend/app/services/insight.py" "View Insights and segmentation"
-    click ml_inf "backend/app/ml/inference.py" "View Model inference"
-    click risk_exp "backend/app/services/explanation.py" "View Risk explanations"
-    click student_360 "backend/app/services/student_360.py" "View Student 360 and scoring"
-    click temp_feat "backend/app/ml/features/temporal_aggregator.py" "View Temporal feature assembly"
+    click risk_service "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/academic_risk.py" "View Academic and placement risk"
+    click insight_service "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/insight.py" "View Insights and segmentation"
+    click ml_inf "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/ml/inference.py" "View Model inference"
+    click risk_exp "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/explanation.py" "View Risk explanations"
+    click student_360 "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/student_360.py" "View Student 360 and scoring"
+    click temp_feat "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/ml/features/temporal_aggregator.py" "View Temporal feature assembly"
     
-    click interv_life "backend/app/services/interventions.py" "View Intervention lifecycle"
-    click rt_pub "backend/app/services/pubsub.py" "View Realtime event publishing"
+    click interv_life "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/interventions.py" "View Intervention lifecycle"
+    click rt_pub "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/pubsub.py" "View Realtime event publishing"
     
-    click ingestion "backend/app/services/ingestion.py" "View Domain data ingestion"
-    click domain_rec "backend/app/schemas/canonical.py" "View Student domain records"
-    click canon_val "backend/app/schemas/canonical.py" "View Canonical validation schemas"
-    click redis_cache "backend/app/services/cache.py" "View Redis cache and messaging"
+    click ingestion "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/ingestion.py" "View Domain data ingestion"
+    click domain_rec "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/schemas/canonical.py" "View Student domain records"
+    click canon_val "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/schemas/canonical.py" "View Canonical validation schemas"
+    click redis_cache "https://github.com/JAY4IGNITE/edunex/blob/main/backend/app/services/cache.py" "View Redis cache and messaging"
 ```
 
 *The diagram above features clickable nodes that directly navigate to their corresponding source files.*
@@ -225,24 +225,28 @@ flowchart TB
 | **Quality Assurance** | pytest, Vitest, Playwright, axe-core |
 | **Infrastructure** | Render Blueprint (Web Service, Background Workers, PostgreSQL, Redis) |
 
-## Quick start
+## 🚀 Quick Start
 
 ### Prerequisites
 
-Use **Python 3.12**, **Node.js 22**, and **PostgreSQL 16** to match the repository's CI environment. Redis is optional for local development.
+Ensure your environment matches the CI pipeline:
+- **Python 3.12**
+- **Node.js 22**
+- **PostgreSQL 16**
+*(Note: Redis is optional for local development)*
 
-The commands below use PowerShell and start from the repository root. On macOS or Linux, create the environment with `python3.12 -m venv .venv` and activate it with `source .venv/bin/activate`.
+The commands below use PowerShell from the repository root. On macOS or Linux, initialize the environment using `python3.12 -m venv .venv` and activate it with `source .venv/bin/activate`.
 
-### 1. Configure the database and environment
+### 1. Database & Environment Configuration
 
-Create a local PostgreSQL database named `edunex` using an account with permission to create tables. For example, if PostgreSQL command-line tools are available:
+Create a local PostgreSQL database named `edunex` with a user permitted to create tables:
 
 ```powershell
 createdb -U postgres edunex
 Copy-Item .env.example .env
 ```
 
-If `.env` already exists, edit it instead of copying over it. Set these values, replacing the database credentials with your local account:
+If `.env` already exists, edit it instead of copying. Update with your local database credentials:
 
 ```dotenv
 DATABASE_URL=postgresql+psycopg://postgres:your_password@127.0.0.1:5432/edunex
@@ -250,9 +254,9 @@ FRONTEND_ORIGIN=http://127.0.0.1:5173,http://localhost:5173
 ENVIRONMENT=development
 ```
 
-Leave `REDIS_URL` empty for a database-only setup, or set it to your Redis connection URL to enable caching and Pub/Sub.
+*(Leave `REDIS_URL` empty for a database-only setup, or set your Redis connection URL to enable caching and WebSockets).*
 
-### 2. Initialize and start the backend
+### 2. Backend Initialization
 
 ```powershell
 py -3.12 -m venv .venv
@@ -262,12 +266,11 @@ python -m alembic -c backend/alembic.ini upgrade head
 python -m backend.scripts.run_ingestion
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
+> **Note:** The ingestion script loads the synthetic dataset and computes baseline assessments. It gracefully skips existing canonical datasets and is not designed to indiscriminately overwrite existing source records.
 
-Ingestion loads the committed synthetic dataset and calculates initial assessments. It skips an already complete canonical and derived dataset; it is not a general-purpose overwrite command for existing source records.
+### 3. Frontend Startup
 
-### 3. Start the frontend
-
-Open a second terminal at the repository root:
+In a new terminal at the repository root:
 
 ```powershell
 cd frontend
@@ -275,37 +278,42 @@ npm ci
 npm run dev
 ```
 
-Open the [application](http://127.0.0.1:5173) and use the public demo role selector to explore the workspace. The [API health endpoint](http://127.0.0.1:8000/api/health) checks database connectivity, and [interactive API documentation](http://127.0.0.1:8000/docs) lists the endpoints.
+You can now explore the [EduNex UI](http://127.0.0.1:5173) using the demo role selector. 
+- **API Health:** [http://127.0.0.1:8000/api/health](http://127.0.0.1:8000/api/health)
+- **API Docs:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-Vite proxies `/api` and `/ws` to `http://127.0.0.1:8000`. No frontend environment file is needed for this default setup.
+### Configuration Reference
 
-### Configuration reference
+| Environment Variable | Description |
+| :--- | :--- |
+| `DATABASE_URL` | PostgreSQL connection for the API, migrations, and ingestion. |
+| `FRONTEND_ORIGIN` | Comma-separated browser origins explicitly permitted by the backend. |
+| `ENVIRONMENT` | Use `development` locally; other values enforce secure session cookies. |
+| `REDIS_URL` | *(Optional)* Redis connection for distributed caching and events. |
+| `EDUNEX_SESSION_SECRET` | 32+ character cryptographic secret for session signing in hosted environments. |
+| `EDUNEX_MODEL_PATH` | *(Optional)* Absolute path to a trusted v2 ML model artifact. |
+| `VITE_API_BASE_URL` | Public API origin (excluding `/api`). Leave empty for local Vite proxies. |
+| `EDUNEX_API_PROXY_TARGET` | Server-side override for Vite's local API proxy target. |
 
-| Variable | Purpose |
-| --- | --- |
-| `DATABASE_URL` | PostgreSQL connection used by the API, migrations, and ingestion. |
-| `FRONTEND_ORIGIN` | Comma-separated browser origins allowed by the backend. |
-| `ENVIRONMENT` | Keep `development` locally; other values enable secure session cookies. |
-| `REDIS_URL` | Optional Redis connection for cache and event distribution. |
-| `EDUNEX_SESSION_SECRET` | Shared random session-signing value of at least 32 characters for hosted deployments. |
-| `EDUNEX_MODEL_PATH` | Optional path to a trusted local version-2 model artifact. |
-| `VITE_API_BASE_URL` | Public API origin, without `/api`; configure in `frontend/.env` or the frontend build environment. Leave empty for the local proxy. |
-| `EDUNEX_API_PROXY_TARGET` | Server-side environment variable for changing Vite's local API proxy target. |
+---
 
-Backend settings load from the root `.env`. `VITE_` variables are exposed in the browser bundle and must never contain credentials.
+## 🧪 Verification & Testing
 
-## Verification
-
-Run checks from the repository root with the Python environment activated. Backend integration tests require a migrated, seeded **disposable synthetic PostgreSQL database** configured through `DATABASE_URL`.
+Run the test suites from the root directory with the Python environment active. 
+> **Note:** Backend integration tests require a populated, disposable PostgreSQL database specified via `DATABASE_URL`.
 
 ```powershell
+# Backend (Pytest)
 python -m pytest backend/tests -q --basetemp=.phase-work/pytest
+
+# Frontend (Vitest & TS)
 npm test --prefix frontend -- --pool=vmThreads --maxWorkers=1
 npm run typecheck --prefix frontend
 npm run build --prefix frontend
 ```
 
-For the end-to-end demo journey, keep the API and frontend running, then install the test browser and run:
+### End-to-End Demo Journey
+Keep the API and frontend running, install the headless browser, and execute the Playwright suite:
 
 ```powershell
 cd frontend
@@ -313,73 +321,75 @@ npx playwright install chromium
 npm run test:judge
 ```
 
-The [CI workflow](.github/workflows/ci.yml) provisions PostgreSQL, migrates and seeds the database, runs backend and frontend checks, builds the frontend, and collects browser and accessibility evidence. See the [frontend guide](frontend/README.md#verification) for additional browser checks and configuration.
+Our robust [GitHub Actions CI](.github/workflows/ci.yml) provisions the database, handles migrations/seeding, executes full-stack checks, and compiles browser accessibility evidence.
 
-### Reproduce the data and model
+---
 
-- **Generate source CSVs:** `python backend/scripts/generate_demo.py` uses a fixed seed. Re-run ingestion against a fresh demo database when replacing the generated dataset.
-- **Train and evaluate:** `python scripts/train_model.py` reads canonical synthetic CSVs and writes the model artifact and evaluation report. Training does not require a database connection.
-- **Review evidence:** The [model card](MODEL_CARD.md) documents the outcome, held-out student and forward-term evaluation, metrics, fallback behavior, and limitations. Full results are in [model-metrics.json](reports/model-metrics.json).
-
-The shipped model has low recall at its fixed threshold and does not replace the deterministic support queue or staff judgment.
-
-## Repository layout
+## 📁 Repository Structure
 
 ```text
-backend/
-  app/api/           API routes
-  app/core/          Configuration, database, and demo access scopes
-  app/models/        SQLAlchemy persistence models
-  app/schemas/       Request, response, and canonical data schemas
-  app/services/      Analytics, support workflows, cache, and events
-  app/ml/            Feature extraction, inference, and model artifacts
-  alembic/           Database migrations
-  scripts/           Data generation, ingestion, and benchmarks
-  tests/             Backend tests
-frontend/
-  src/               Pages, components, API client, hooks, and styles
-  scripts/           Browser verification and performance checks
-data/
-  demo/              Synthetic source data
-  metadata/          Dataset registry and source mappings
-  processed/         Canonical CSVs, quality report, and provenance
-docs/                Product, domain, and verification documentation
-reports/             Model evaluation evidence
-scripts/             Model training and repository utilities
-render.yaml          Deployment blueprint
-MODEL_CARD.md        Model protocol, results, and limitations
+├── backend/
+│   ├── app/api/           # REST endpoints and WebSocket routes
+│   ├── app/core/          # Global config, DB sessions, and auth scopes
+│   ├── app/models/        # SQLAlchemy ORM definitions
+│   ├── app/schemas/       # Pydantic payloads and validation logic
+│   ├── app/services/      # Business logic: analytics, workflows, caching
+│   ├── app/ml/            # ML feature extraction and inference engine
+│   ├── alembic/           # Relational schema migrations
+│   ├── scripts/           # Ingestion pipelines and synthetic data gen
+│   └── tests/             # Backend unit and integration tests
+├── frontend/
+│   ├── src/               # React UI, API clients, and Tailwind styling
+│   └── scripts/           # Build and verification utilities
+├── data/                  # Source CSVs, canonical records, and provenance
+├── docs/                  # Architectural and domain documentation
+├── reports/               # ML evaluation metrics
+├── scripts/               # ML training utilities
+├── render.yaml            # Render deployment blueprint
+└── MODEL_CARD.md          # Model protocol, limitations, and evidence
 ```
 
-## Deployment
+---
 
-The [Render blueprint](render.yaml) defines a static frontend, Python API, Redis service, and PostgreSQL database. Its API startup command runs Alembic migrations and synthetic ingestion before starting Uvicorn.
+## ☁️ Deployment
 
-Configure `EDUNEX_SESSION_SECRET` as a shared random value of at least 32 characters in the deployment environment. Check the frontend and API origins when using custom domains; hosted sessions require HTTPS. The blueprint provisions demonstration infrastructure, and provider plan limits should be reviewed before relying on it for persistent availability.
+EduNex utilizes a [Render blueprint](render.yaml) that provisions a static frontend, a Python API service, a Redis instance, and a PostgreSQL database. Upon deployment, the API automatically executes Alembic migrations and data ingestion before launching Uvicorn.
 
-## Responsible use
+Ensure `EDUNEX_SESSION_SECRET` is securely configured. Validate CORS origins if using custom domains. This blueprint is intended for demonstration; evaluate provider plan limits before relying on it for high-availability production workloads.
 
-The public role selector is intended for exploring synthetic records. Missing or expired demo sessions currently fall back to the Admin demo identity, so this mechanism must not be treated as a production access boundary.
+---
 
-Before using real institutional records, replace demo identity handling with institutional authentication and authorization, establish data governance and retention controls, and validate the analytical methods prospectively with the institution. Synthetic model performance does not establish real-world validity or fairness. Staff must retain responsibility for support decisions.
+## 🛡️ Responsible Use
 
-## Documentation
+The public demo role selector is intended strictly for exploring synthetic records. Missing sessions gracefully default to a demo Admin identity. **Do not use this authentication mechanism in production environments.**
 
-| Guide | Contents |
-| --- | --- |
-| [Product requirements](docs/PRD.md) | Product context, scope, and requirements. |
-| [Data dictionary](docs/data-dictionary.md) and [validation rules](docs/validation-rules.md) | Canonical fields and ingestion expectations. |
-| [Student 360](docs/student-360.md) and [success scoring](docs/student-success-score.md) | Profile composition, domain weights, and missing-data handling. |
-| [Academic risk](docs/academic-risk.md), [placement risk](docs/placement-risk.md), and [explainability](docs/explainability.md) | Assessment methods and interpretation. |
-| [Segmentation](docs/segmentation.md) and [insights](docs/insights.md) | Cohort grouping and insight logic. |
-| [Model card](MODEL_CARD.md) | Predictive model protocol, evidence, and limitations. |
-| [Demo walkthrough](docs/demo-script.md) | Suggested demonstration flow. |
-| [Frontend guide](frontend/README.md) | UI structure, configuration, and browser verification. |
-| [Performance evidence](docs/performance/README.md) | Recorded measurements and verification notes. |
+Before analyzing real student data:
+1. Implement robust institutional Single Sign-On (SSO) and authorization.
+2. Establish strict data governance and retention policies.
+3. Validate analytical models prospectively against institutional baselines.
 
-## Contributing
+*Synthetic performance does not guarantee real-world fairness or validity. Staff must retain ultimate responsibility for all support and intervention decisions.*
 
-Keep changes focused, update relevant documentation when behavior changes, and run the checks appropriate to the affected components. Use synthetic fixtures and include reproducible steps or verification evidence with a pull request.
+---
 
-## License
+## 📚 Documentation
 
-EduNex is available under the [MIT License](LICENSE). Frontend component attributions are listed in [third-party notices](frontend/THIRD_PARTY_NOTICES.md).
+| Guide | Description |
+| :--- | :--- |
+| [Product Requirements](docs/PRD.md) | Platform context, scope, and technical requirements. |
+| [Data Dictionary](docs/data-dictionary.md) | Field definitions and ingestion constraints. |
+| [Student 360 & Scoring](docs/student-success-score.md) | Profile aggregations, weights, and missing-data handlers. |
+| [Explainability](docs/explainability.md) | Academic and placement risk assessments and interpretability. |
+| [Insights](docs/insights.md) | Cohort segmentation logic and analytical insights. |
+| [Model Card](MODEL_CARD.md) | Predictive model protocol, evidence, and known limitations. |
+| [Demo Walkthrough](docs/demo-script.md) | Recommended pathways for platform demonstration. |
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please keep your PRs focused and ensure you update corresponding documentation. Utilize synthetic fixtures, provide reproducible steps, and include verification evidence with your pull requests.
+
+## 📄 License
+
+EduNex is open-source under the [MIT License](LICENSE). Third-party frontend component attributions are available in [THIRD_PARTY_NOTICES.md](frontend/THIRD_PARTY_NOTICES.md).
