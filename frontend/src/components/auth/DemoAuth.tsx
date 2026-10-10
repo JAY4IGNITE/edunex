@@ -1,6 +1,6 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { get, mutate } from "@/services/api/client";
 import { Button } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/skeletons";
@@ -12,20 +12,15 @@ export const DemoIdentityContext = createContext<DemoUser|null>(null);
 export const useDemoIdentity = () => useContext(DemoIdentityContext);
 
 export function AuthGate({children}:{children:ReactNode}) {
+  const location=useLocation();
   const health=useQuery({queryKey:["backend-health"],queryFn:({signal})=>get<{status:string;database:string}>("/health",undefined,signal),staleTime:30_000});
-  
+  const session=useQuery({queryKey:["demo-session"],queryFn:()=>get<{user:DemoUser|null}>("/auth/session"),staleTime:0});
   if(health.isPending)return <PageSkeleton />;
   if(health.isError)return <ErrorState message="The demo service or database is waking up. Retry in a moment." retry={()=>void health.refetch()} />;
-  
-  const defaultUser: DemoUser = {
-    id: "dean-demo",
-    name: "Demo Dean / Admin",
-    role: "admin",
-    department: null,
-    scope: "All synthetic students and institutional KPIs"
-  };
-  
-  return <DemoIdentityContext value={defaultUser}>{children}</DemoIdentityContext>;
+  if(session.isPending)return <PageSkeleton />;
+  if(session.isError)return <ErrorState message="Unable to connect to the demo server." retry={()=>void session.refetch()} />;
+  if(!session.data.user)return <Navigate to="/login" replace state={{from:location.pathname+location.search}} />;
+  return <DemoIdentityContext value={session.data.user}>{children}</DemoIdentityContext>;
 }
 
 export function DemoRolePicker() {
