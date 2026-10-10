@@ -26,27 +26,22 @@ import {
 import { InsightCard } from "@/components/cards/InsightCard";
 import { SpotlightCard } from "@/components/cards/SpotlightCard";
 import { SegmentDistribution } from "@/components/charts/SegmentDistribution";
+import { CapacityPlanner } from "./CapacityPlanner";
 export default function Dashboard() {
   const { filters, cohortSearch } = useFilters();
   const overview = useQuery({
     queryKey: ["overview", filters],
     queryFn: ({ signal }) => api.overview(filters, signal),
   });
-  const distribution = useQuery({
-    queryKey: ["distribution", filters],
-    queryFn: ({ signal }) => api.distribution(filters, signal),
-    enabled: overview.isSuccess,
-    placeholderData: overview.data,
-  });
+  // Overview already includes all four distributions for this exact cohort.
+  const distribution = overview;
   const trends = useQuery({
     queryKey: ["trends", filters],
     queryFn: ({ signal }) => api.trends(filters, signal),
-    enabled: overview.isSuccess && distribution.isFetched,
   });
   const insights = useQuery({
     queryKey: ["insights", filters],
     queryFn: ({ signal }) => api.insights(filters, signal),
-    enabled: overview.isSuccess && trends.isFetched,
   });
   const ref = useEntrance(overview.data);
   return (
@@ -187,6 +182,9 @@ export default function Dashboard() {
               )}
             </QueryState>
           </div>
+          {trends.isSuccess && (
+            <CapacityPlanner overview={overview.data} trends={trends.data} filters={filters} />
+          )}
           <section className="insight-preview">
             <SectionHeading
               title="Signals worth a closer look"

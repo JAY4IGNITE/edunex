@@ -10,6 +10,9 @@ const page = await browser.newPage({viewport:{width:1440,height:1000}});
 const errors = [];
 page.on("pageerror",error=>errors.push(error.message));
 try {
+  await page.goto(`${base}/login`);
+  await page.getByRole("button",{name:"Continue as Dean / Admin"}).click();
+  await page.getByRole("heading",{name:"Student success overview"}).waitFor({timeout:60000});
   await page.goto(`${base}/priority`);
   await page.getByRole("link",{name:"Review recommendations"}).first().waitFor({timeout:60000});
   await page.screenshot({path:`${output}/priority.png`,fullPage:true});

@@ -1,4 +1,4 @@
-from fastapi.testclient import TestClient
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from backend.app.main import app
 from backend.app.core.academic_risk_config import AcademicRiskConfig
 from backend.app.services.academic_risk import AcademicRiskService

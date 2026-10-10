@@ -2,10 +2,11 @@ import { Component, Suspense, lazy, type ReactNode } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query";
-import Shell from "@/components/layout/Shell";
+import { AuthGate } from "@/components/auth/DemoAuth";
 import { PageSkeleton } from "@/components/skeletons";
 import { EmptyState, ErrorState } from "@/components/states/States";
 const LandingPage = lazy(() => import("@/pages/Landing"));
+const Shell = lazy(() => import("@/components/layout/Shell"));
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
 const Students = lazy(() => import("@/pages/Students"));
 const Risks = lazy(() => import("@/pages/Risks"));
@@ -16,6 +17,7 @@ const DataIntegration = lazy(() => import("@/pages/DataIntegration"));
 const Priority = lazy(() => import("@/pages/Priority"));
 const Interventions = lazy(() => import("@/pages/Interventions"));
 const Model = lazy(() => import("@/pages/Model"));
+const Login = lazy(() => import("@/pages/Login"));
 class ErrorBoundary extends Component<
   { children: ReactNode },
   { failed: boolean }
@@ -49,7 +51,8 @@ export default function App() {
           >
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route element={<Shell />}>
+              <Route path="/login" element={<Login />} />
+              <Route element={<AuthGate><Shell /></AuthGate>}>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="priority" element={<Priority />} />
                 <Route path="interventions" element={<Interventions />} />

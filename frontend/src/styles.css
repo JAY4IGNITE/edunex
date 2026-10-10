@@ -251,6 +251,98 @@ select option {
 .glass-card:focus-within {
   border-color: var(--accent);
 }
+.capacity-planner {
+  margin: 24px 0;
+}
+.capacity-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+.capacity-heading h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+}
+.capacity-heading p,
+.capacity-caveat,
+.capacity-footnote {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.capacity-heading p {
+  margin: 7px 0 0;
+}
+.capacity-caveat {
+  padding: 10px 12px;
+  margin: 16px 0;
+  border-left: 2px solid var(--accent);
+  background: var(--surface-hover);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.capacity-actions,
+.capacity-controls,
+.capacity-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.capacity-controls label {
+  display: grid;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+.capacity-controls input {
+  width: 170px;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 8px 10px;
+  color: var(--text-primary);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.capacity-results {
+  margin-top: 18px;
+}
+.capacity-results > div {
+  flex: 1 1 140px;
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.capacity-results span {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+.capacity-results strong {
+  color: var(--text-primary);
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.capacity-footnote {
+  margin: 12px 0 0;
+  font-size: 11px;
+}
+@media (max-width: 640px) {
+  .capacity-heading { flex-direction: column; }
+  .capacity-actions { width: 100%; }
+  .capacity-actions > button { flex: 1 1 140px; }
+}
+@media print {
+  .workspace-sidebar, .workspace-header, .mobile-nav, .filter-section,
+  .capacity-actions, .demo-role-banner, .skip-link { display: none !important; }
+  .app-main { margin: 0 !important; padding: 0 !important; }
+  .content-wrap, .route-content { max-width: none !important; padding: 0 !important; }
+  .capacity-planner, .panel { break-inside: avoid; box-shadow: none !important; }
+  body { color: #111 !important; background: #fff !important; }
+}
 .glass-highlight {
   background: var(--accent-surface);
   border-color: var(--accent-border);

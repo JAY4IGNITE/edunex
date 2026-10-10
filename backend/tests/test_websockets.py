@@ -1,5 +1,5 @@
 import pytest
-from fastapi.testclient import TestClient
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from fastapi.websockets import WebSocketDisconnect
 from backend.app.main import app
 from backend.app.services.websocket import manager
@@ -84,6 +84,7 @@ def test_pubsub_handle_message_valid():
     def mock_run_coroutine_threadsafe(coro, loop):
         nonlocal called
         called = True
+        coro.close()
         return None
         
     asyncio.run_coroutine_threadsafe = mock_run_coroutine_threadsafe

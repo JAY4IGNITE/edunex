@@ -12,3 +12,4 @@ pytest
 httpx
 redis
 shap
+itsdangerous==2.2.0

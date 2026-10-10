@@ -1,4 +1,4 @@
-from fastapi.testclient import TestClient
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from backend.app.main import app
 from backend.app.core.placement_risk_config import PlacementRiskConfig
 from backend.app.services.placement_risk import PlacementRiskService

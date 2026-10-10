@@ -1,29 +1,49 @@
+import { lazy, Suspense, useEffect, useState } from "react";
 import { ArrowDown, ArrowUpRight, Check, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ProductPreview } from "./ProductPreview";
-import ColorBends from "../../../components/ui/ColorBends";
+const ColorBends = lazy(() => import("../../../components/ui/ColorBends"));
+
+function AmbientBackground() {
+  const [motionEnabled, setMotionEnabled] = useState(false);
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setMotionEnabled(!reducedMotion.matches && "WebGLRenderingContext" in window);
+    update();
+    reducedMotion.addEventListener("change", update);
+    return () => reducedMotion.removeEventListener("change", update);
+  }, []);
+
+  return (
+    <div className="hero-ambient" aria-hidden="true">
+      {motionEnabled && (
+        <Suspense fallback={null}>
+          <ColorBends
+            colors={["#00e5ff", "#a5a8ff", "#0070f3"]}
+            rotation={90}
+            speed={0.2}
+            scale={1}
+            frequency={1}
+            warpStrength={1}
+            mouseInfluence={0.5}
+            noise={0.15}
+            parallax={0.5}
+            iterations={1}
+            intensity={1.5}
+            bandWidth={6}
+            transparent
+            autoRotate={0.05}
+          />
+        </Suspense>
+      )}
+    </div>
+  );
+}
 
 export function HeroSection() {
   return (
     <section className="hero-section" aria-labelledby="hero-title">
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.4, pointerEvents: 'none' }}>
-        <ColorBends
-          colors={["#00e5ff", "#a5a8ff", "#0070f3"]}
-          rotation={90}
-          speed={0.2}
-          scale={1}
-          frequency={1}
-          warpStrength={1}
-          mouseInfluence={0.5}
-          noise={0.15}
-          parallax={0.5}
-          iterations={1}
-          intensity={1.5}
-          bandWidth={6}
-          transparent
-          autoRotate={0.05}
-        />
-      </div>
+      <AmbientBackground />
       <div className="landing-container hero-layout" style={{ position: 'relative', zIndex: 1 }}>
         <div className="hero-copy">
           <div className="hero-eyebrow"><span /> A clearer picture. A stronger campus.</div>

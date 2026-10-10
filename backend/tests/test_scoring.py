@@ -1,4 +1,4 @@
-from fastapi.testclient import TestClient
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from backend.app.main import app
 from backend.app.core.scoring_config import ScoringConfig
 from backend.app.services.scoring import ScoringService

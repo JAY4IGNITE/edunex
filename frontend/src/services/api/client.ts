@@ -11,7 +11,7 @@ export class ApiError extends Error {
 }
 export async function mutate<T>(path: string, method: "POST" | "PATCH" | "DELETE", body?: unknown): Promise<T> {
   const response = await fetch(`${base}/api${path}`, {
-    method, headers: { Accept: "application/json", "Content-Type": "application/json" },
+    method, credentials: "include", headers: { Accept: "application/json", "Content-Type": "application/json", "X-Requested-With": "EduNex" },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   if (!response.ok) {
@@ -28,7 +28,7 @@ export async function get<T>(
   const query = params?.toString();
   const response = await fetch(
     `${base}/api${path}${query ? `?${query}` : ""}`,
-    { signal, headers: { Accept: "application/json" } },
+    { signal, credentials: "include", headers: { Accept: "application/json" } },
   );
   if (!response.ok) throw new ApiError(response.status);
   return response.json() as Promise<T>;

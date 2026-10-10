@@ -49,5 +49,7 @@ def get_student_segment(student_id: str, db: Session = Depends(get_db)):
     """
     Returns the primary and secondary segments for an individual student.
     """
+    from backend.app.services.student_360 import Student360Service
+    Student360Service(db).get_student_360(student_id)
     service = SegmentationService(db)
     return service.classify_student(student_id)

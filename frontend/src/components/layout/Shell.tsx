@@ -30,8 +30,10 @@ import { ThemeToggle } from "./ThemeToggle";
 import { BrandMark } from "./BrandMark";
 import { CommandPalette } from "./CommandPalette";
 import { activeDestination, destinations } from "./navigation";
+import { useDemoIdentity } from "@/components/auth/DemoAuth";
 
 export default function Shell() {
+  const identity = useDemoIdentity();
   const location = useLocation();
   const { cohortSearch } = useFilters();
   const realtimeStatus = useRealtimeUpdates();
@@ -158,6 +160,7 @@ export default function Shell() {
       </header>
       <main className="app-main" id="main-content" tabIndex={-1}>
         <div className="content-wrap">
+          {identity && <div className="demo-role-banner"><strong>{identity.name}</strong><p>{identity.scope} · Synthetic demo</p><Link className="text-link" to="/login">Switch role</Link></div>}
           <FilterBar
             key={cohortSearch}
             scope={

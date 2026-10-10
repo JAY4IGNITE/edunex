@@ -9,8 +9,8 @@ services:
     env: python
     plan: free
     buildCommand: "pip install -r backend/requirements.txt"
-    preDeployCommand: "alembic -c backend/alembic.ini upgrade head"
-    startCommand: "uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    # Free web services do not support pre-deploy commands; migrate and seed before serving.
+    startCommand: "alembic -c backend/alembic.ini upgrade head && python -m backend.scripts.run_ingestion && uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
     healthCheckPath: "/api/health"
     envVars:
       - key: DATABASE_URL
@@ -27,11 +27,15 @@ services:
           type: web
           name: edunex
           envVarKey: RENDER_EXTERNAL_URL
+      - key: ENVIRONMENT
+        value: production
+      - key: EDUNEX_SESSION_SECRET
+        sync: false
 
   - type: web
     name: edunex
     env: static
-    buildCommand: "cd frontend && npm install && npm run build"
+    buildCommand: "cd frontend && npm ci && npm run build"
     staticPublishPath: "./frontend/dist"
     envVars:
       - key: VITE_API_BASE_URL
@@ -45,6 +49,7 @@ services:
         destination: /index.html
 
 databases:
+  # Free Postgres expires 30 days after creation and has no backups; use paid for durability.
   - name: edunex-db
     databaseName: edunex
     user: edunex

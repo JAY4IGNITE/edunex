@@ -6,7 +6,9 @@
   --landing-accent: #00e5ff;
   --landing-border: #ffffff14;
   --landing-border-strong: #ffffff38;
-  --landing-header: #07090df5;
+  --landing-header: #07090db8;
+  --landing-glass-highlight: #ffffff0a;
+  --landing-glass-edge: #ffffff12;
   --landing-surface: #0b0f14;
   --landing-elevated: #10151d;
   --landing-hover: #ffffff10;
@@ -29,6 +31,7 @@
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  padding-top: 16px;
 }
 [data-theme="light"] .landing-page {
   --landing-bg: var(--background);
@@ -37,7 +40,9 @@
   --landing-accent: #006e87;
   --landing-border: var(--border);
   --landing-border-strong: var(--border-hover);
-  --landing-header: var(--header-background);
+  --landing-header: #ffffffb8;
+  --landing-glass-highlight: #ffffff80;
+  --landing-glass-edge: #ffffffb3;
   --landing-surface: var(--surface-elevated);
   --landing-elevated: var(--surface-hover);
   --landing-hover: var(--surface-hover);
@@ -67,22 +72,50 @@
 .landing-page section[id] { scroll-margin-top: 110px; }
 .landing-container { width: min(1280px, calc(100% - 96px)); margin-inline: auto; }
 .landing-section { padding-block: 96px; }
-.landing-nav { position: sticky; top: 0; z-index: 30; background: var(--landing-header); color: var(--landing-text); border-bottom: 1px solid var(--landing-border); backdrop-filter: blur(16px); }
-.landing-nav-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.landing-nav {
+  position: sticky;
+  top: 16px;
+  z-index: 30;
+  width: min(1328px, calc(100% - 48px));
+  margin-inline: auto;
+  background: linear-gradient(180deg, var(--landing-glass-highlight), transparent), var(--landing-header);
+  color: var(--landing-text);
+  border: 1px solid var(--landing-border);
+  border-radius: 24px;
+  box-shadow: inset 0 1px 0 var(--landing-glass-edge), 0 12px 32px -12px var(--landing-shadow);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .landing-nav { background: var(--landing-surface); }
+}
+.landing-nav .landing-nav-inner { width: 100%; padding-inline: 24px; }
+.landing-nav-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .landing-logo .edunex-mark { width: 36px; height: 36px; color: inherit; }
 .landing-nav-actions { display: flex; align-items: center; gap: 12px; }
-.landing-nav-actions .theme-toggle { width: 40px; height: 40px; color: var(--landing-text); border: 1px solid var(--landing-border-strong); }
+.landing-nav-actions .theme-toggle { width: 40px; height: 40px; border-radius: 50%; color: var(--landing-text); border: 1px solid var(--landing-border-strong); }
 .landing-nav-actions .theme-toggle:hover { background: var(--landing-hover); }
 .landing-nav-actions .theme-toggle:focus-visible { outline: 3px solid var(--landing-accent); outline-offset: 4px; }
 .landing-logo { display: inline-flex; align-items: center; gap: 8px; color: inherit; font-size: 26px; font-weight: 650; letter-spacing: -1.4px; line-height: 1; }
 .landing-nav-links { display: flex; gap: 36px; font-size: 14px; color: var(--landing-muted); }
-.landing-nav-links a { padding-block: 12px; }
+.landing-nav-links a { padding-block: 12px; position: relative; }
+.landing-nav-links a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 6px;
+  height: 1px;
+  background: var(--landing-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.landing-nav-links a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
 .landing-nav-links a:hover { color: var(--landing-text); }
-.landing-nav-cta { display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 1px solid var(--landing-border-strong); border-radius: 6px; padding: 10px 18px; font-size: 14px; font-weight: 500; }
+.landing-nav-cta { display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 1px solid var(--landing-border-strong); border-radius: 24px; padding: 10px 18px; font-size: 14px; font-weight: 500; }
 .landing-nav-cta:hover { background: var(--landing-hover); }
 .landing-skip { position: absolute; left: 16px; top: -100px; padding: 12px 20px; color: var(--landing-bg); background: var(--landing-text); border-radius: 4px; }
 .landing-skip:focus { top: 12px; z-index: 40; }
 .hero-section { background: var(--landing-bg); color: var(--landing-text); position: relative; overflow: hidden; }
+.hero-ambient { position: absolute; inset: 0; z-index: 0; opacity: .4; pointer-events: none; background: radial-gradient(ellipse at 64% 46%, #0070f328 0%, #00e5ff12 45%, transparent 74%); }
 .hero-layout { display: grid; grid-template-columns: 1fr 1.08fr; gap: 64px; align-items: center; padding-block: 88px 72px; }
 .hero-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 500; color: var(--landing-muted); letter-spacing: .025em; margin-bottom: 28px; }
 .hero-eyebrow > span, .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--landing-accent); flex-shrink: 0; }
@@ -266,6 +299,9 @@
   .footer-inner { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 640px) {
+  .landing-page { padding-top: 8px; }
+  .landing-nav { top: 8px; width: calc(100% - 16px); border-radius: 20px; }
+  .landing-nav .landing-nav-inner { padding-inline: 12px; column-gap: 12px; }
   .landing-logo .edunex-mark { width: 30px; height: 30px; }
   .landing-nav-actions { gap: 8px; }
   .landing-container { width: calc(100% - 40px); }
@@ -354,7 +390,19 @@
   .signal-status { font-size: 9px; }
   .landing-cta { padding: 24px; }
 }
+@media (prefers-reduced-motion: no-preference) {
+  /* Apply native anchor scrolling only while the landing route is mounted. */
+  html:has(.landing-page) { scroll-behavior: smooth; }
+  .landing-page :is(a, button), .landing-nav-links a::after {
+    transition: color 240ms ease, background-color 240ms ease, border-color 240ms ease,
+      box-shadow 240ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1);
+  }
+  .landing-nav, .landing-page, .landing-page :is(section, footer, .product-preview, .capability-card, .signal-card) {
+    transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
+  html:has(.landing-page) { scroll-behavior: auto; }
   .landing-page *, .landing-page *::before, .landing-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .landing-page a:hover { transform: none; }
 }

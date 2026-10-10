@@ -12,7 +12,8 @@
     "test:browser": "node scripts/verify-interactions.mjs",
     "test:browser:charts": "node scripts/verify-charts.mjs",
     "test:browser:redesign": "node scripts/verify-redesign.mjs",
-    "test:browser:live": "node scripts/verify-browser.mjs"
+    "test:browser:live": "node scripts/verify-browser.mjs",
+    "test:judge": "node scripts/verify-judge-journey.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.104.1",

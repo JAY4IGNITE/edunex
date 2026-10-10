@@ -1,6 +1,9 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { readFilters, filterParams, trendRows } from "@/utils/data";
+import { estimateCapacity, toCsv } from "@/utils/capacity";
 import { get, ApiError } from "@/services/api/client";
+import { api } from "@/services/api";
+import { queryClient } from "@/lib/query";
 
 afterEach(() => vi.unstubAllGlobals());
 describe("cohort URLs", () => {
@@ -34,7 +37,45 @@ describe("descriptive trends", () => {
     ]);
   });
 });
+
+describe("capacity planning assumptions", () => {
+  it("uses the larger risk count to avoid double-counting unknown overlap", () => {
+    expect(estimateCapacity(12, 8, 2, 3, 2)).toEqual({
+      estimatedHighRiskCases: 12,
+      availableCapacity: 12,
+      uncoveredCases: 0,
+      coveragePercent: 100,
+    });
+  });
+
+  it("reports uncovered capacity and safely quotes exported CSV values", () => {
+    expect(estimateCapacity(7, 10, 1, 2, 2).uncoveredCases).toBe(6);
+    expect(toCsv([["note", 'review "soon"']])).toBe('"note","review ""soon"""');
+    expect(toCsv([["=2+2"]])).toBe('"\'=2+2"');
+  });
+});
 describe("API boundary", () => {
+  it("uses the database health route as a readiness probe", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response('{"status":"ok","database":"ready"}', { status: 200 }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(api.health()).resolves.toEqual({ status: "ok", database: "ready" });
+    expect(fetchMock.mock.calls[0][0]).toBe("/api/health");
+  });
+
+  it("retries transient failures twice with a short backoff, never 4xx responses", () => {
+    const retry = queryClient.getDefaultOptions().queries?.retry;
+    expect(typeof retry).toBe("function");
+    if (typeof retry === "function") {
+      expect(retry(0, new Error("network"))).toBe(true);
+      expect(retry(1, new Error("network"))).toBe(true);
+      expect(retry(2, new Error("network"))).toBe(false);
+      expect(retry(0, new ApiError(503))).toBe(true);
+      expect(retry(0, new ApiError(401))).toBe(false);
+    }
+  });
+
   it("sends cohort filters to the backend and propagates cancellation", async () => {
     const fetchMock = vi
       .fn()

@@ -11,7 +11,8 @@ DEFAULT_MODEL_PATH = Path(__file__).parent / "models" / "academic_risk_v2.joblib
 
 
 def model_path():
-    return Path(os.getenv("EDUNEX_MODEL_PATH") or DEFAULT_MODEL_PATH)
+    from backend.app.core.config import settings
+    return Path(os.getenv("EDUNEX_MODEL_PATH") or settings.edunex_model_path or DEFAULT_MODEL_PATH)
 
 
 def _load_model():

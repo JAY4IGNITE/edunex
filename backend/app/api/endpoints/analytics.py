@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Query
-from typing import Optional, List, Dict, Any
+from typing import Optional, Dict, Any
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from backend.app.core.database import get_db
@@ -152,5 +152,5 @@ def get_analytics_distribution(
         placement_risk_distribution=place_dist,
         segment_distribution=seg_dist
     )
-    CacheService.set(cache_key, result, ttl=300)
+    CacheService.set(cache_key, result, ttl=300, tags=["analytics"])
     return result

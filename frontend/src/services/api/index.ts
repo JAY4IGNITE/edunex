@@ -23,6 +23,8 @@ import type {
 } from "@/types/api";
 const studentPath = (id: string) => `/students/${encodeURIComponent(id)}`;
 export const api = {
+  health: (signal?: AbortSignal) =>
+    get<{ status: string; database: string }>("/health", undefined, signal),
   overview: (filters: Filters, signal?: AbortSignal) =>
     get<Overview>("/analytics/overview", filterParams(filters), signal),
   distribution: (filters: Filters, signal?: AbortSignal) =>

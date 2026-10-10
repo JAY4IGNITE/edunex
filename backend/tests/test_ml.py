@@ -121,7 +121,7 @@ def test_ml_shap_direction(temporal_df):
             assert c["contribution"] < 0
             
 def test_api_prediction_endpoint(db_session):
-    from fastapi.testclient import TestClient
+    from backend.tests.test_client import AuthenticatedTestClient as TestClient
     from backend.app.main import app
     client = TestClient(app)
     

@@ -1,6 +1,5 @@
 from typing import Optional
 from datetime import datetime, UTC
-from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from backend.app.core.insight_config import InsightConfig
 from backend.app.schemas.insight import Insight, InsightMetric, InsightResponse, TrendPoint
@@ -19,6 +18,25 @@ class InsightService:
         self.academic_risk_service = AcademicRiskService(db)
         self.placement_risk_service = PlacementRiskService(db)
         self.segmentation_service = SegmentationService(db)
+
+    def _comparison_scores(self):
+        """Calculate current evidence in bounded batches without writing on a GET.
+
+        Keep ORM scope criteria on both the ID query and bulk profile reads. Using
+        saved scores here would change the old behavior when evidence has changed.
+        """
+        from backend.app.core.scoring_config import ScoringConfig
+        student_ids = [row[0] for row in self.db.query(Student.student_id).order_by(Student.student_id).all()]
+        scores = []
+        for offset in range(0, len(student_ids), 250):
+            profiles = self.student_360_service.get_students_360_bulk(student_ids[offset:offset + 250])
+            for profile in profiles:
+                domains = self.scoring_service.calculate_domain_scores(profile)
+                weight = sum(ScoringConfig.DEFAULT_WEIGHTS[d] for d in domains)
+                if weight > 0:
+                    scores.append(round(sum(value * (ScoringConfig.DEFAULT_WEIGHTS[d] / weight)
+                                            for d, value in domains.items()), 2))
+        return scores
 
     def _gather_metrics(self, department: Optional[str] = None, year: Optional[int] = None, semester: Optional[int] = None):
         query = self.db.query(Student.student_id)
@@ -253,12 +271,7 @@ class InsightService:
             desc = f"The average success score for this cohort is {round(avg_score, 1)}."
             if applied_filters:
                 # Get institution average
-                all_sids = [r[0] for r in self.db.query(Student.student_id).all()]
-                all_scores = []
-                for s in all_sids:
-                    try:
-                        all_scores.append(self.scoring_service.get_or_calculate_success_score(s).success_score)
-                    except HTTPException: pass
+                all_scores = self._comparison_scores()
                 if all_scores:
                     inst_avg = sum(all_scores) / len(all_scores)
                     comparison_val = round(inst_avg, 1)

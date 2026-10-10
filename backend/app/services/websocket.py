@@ -31,7 +31,7 @@ class ConnectionManager:
         disconnected = set()
         for connection in self.active_connections:
             try:
-                await connection.send_json(message)
+                await connection.send_json({"event_type":message.get("event_type","analytics_updated")})
             except Exception as e:
                 logger.warning(f"Failed to send to WebSocket, marking for removal: {e}")
                 disconnected.add(connection)

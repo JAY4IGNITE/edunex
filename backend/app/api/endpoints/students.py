@@ -33,7 +33,7 @@ def list_students(
     if semester:
         query = query.filter(Student.semester == semester)
         
-    return query.offset(skip).limit(limit).all()
+    return query.order_by(Student.student_id).offset(skip).limit(limit).all()
 
 @router.get("/{student_id}", response_model=Student360Response, summary="Get Student 360 View")
 def get_student_360_endpoint(student_id: str, response: Response, db: Session = Depends(get_db)):

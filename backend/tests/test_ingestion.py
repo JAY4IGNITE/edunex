@@ -1,6 +1,4 @@
-import os
 import json
-import pytest
 from backend.app.services.ingestion import IngestionPipeline
 from backend.app.schemas.canonical import AcademicRecordSchema
 
@@ -38,7 +36,62 @@ def test_orphan_detection():
 
 def test_deterministic_generation():
     # If we run the generator twice with same seed, we get same results
-    import subprocess
-    import sys
     # We can rely on the fact that random.seed(42) was set in the script.
     pass
+
+
+def test_database_seed_uses_natural_key_conflict_guard():
+    from sqlalchemy.dialects import postgresql
+    from backend.app.models.canonical import Student
+    from backend.scripts.run_ingestion import load_into_db
+    import pandas as pd
+
+    class SessionStub:
+        statement = None
+        committed = False
+
+        def execute(self, statement):
+            self.statement = statement
+
+        def commit(self):
+            self.committed = True
+
+    session = SessionStub()
+    rows = pd.DataFrame([{
+        "student_id": "STU0001", "department": "Computer Science", "year": 2,
+        "semester": 4, "section": "A", "academic_year": "2024-2025",
+    }])
+    load_into_db(session, Student, rows, ["student_id"])
+    sql = str(session.statement.compile(dialect=postgresql.dialect()))
+    assert "ON CONFLICT (student_id) DO NOTHING" in sql
+    assert session.committed
+
+
+def test_partial_seed_detection_uses_composite_natural_keys():
+    from sqlalchemy import Column, Integer, String, create_engine
+    from sqlalchemy.orm import declarative_base, sessionmaker
+    from backend.scripts.run_ingestion import missing_natural_keys
+    import pandas as pd
+
+    Base = declarative_base()
+
+    class SampleRecord(Base):
+        __tablename__ = "sample_records"
+        id = Column(Integer, primary_key=True)
+        student_id = Column(String, nullable=False)
+        semester = Column(Integer, nullable=False)
+
+    engine = create_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    session = sessionmaker(bind=engine)()
+    session.add(SampleRecord(student_id="STU0001", semester=1))
+    session.commit()
+    expected = pd.DataFrame([
+        {"student_id": "STU0001", "semester": 1},
+        {"student_id": "STU0001", "semester": 2},
+    ])
+    assert missing_natural_keys(session, SampleRecord, expected, ["student_id", "semester"]) == {
+        ("STU0001", 2)
+    }
+    session.close()
+    engine.dispose()

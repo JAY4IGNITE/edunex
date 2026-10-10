@@ -78,6 +78,8 @@ class PubSubService:
         if PubSubService._subscriber_thread:
             try:
                 PubSubService._subscriber_thread.stop()
+                # Let the reader exit before closing its socket from this thread.
+                PubSubService._subscriber_thread.join(timeout=3)
             except Exception as e:
                 logger.warning(f"Error stopping Redis subscriber thread: {e}")
             PubSubService._subscriber_thread = None

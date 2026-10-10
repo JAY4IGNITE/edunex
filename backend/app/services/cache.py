@@ -13,6 +13,10 @@ class CacheService:
 
     @staticmethod
     def get(key: str) -> Optional[Any]:
+        from backend.app.core.demo_auth import current_identity
+        identity = current_identity.get()
+        if identity and identity["role"] != "admin":
+            return None  # Dynamic caseload revocation must take effect immediately.
         client = CacheService._get_client()
         if not client:
             return None
@@ -32,6 +36,10 @@ class CacheService:
 
     @staticmethod
     def set(key: str, value: Any, ttl: int = 300, tags: Optional[list[str]] = None) -> bool:
+        from backend.app.core.demo_auth import current_identity
+        identity = current_identity.get()
+        if identity and identity["role"] != "admin":
+            return False
         client = CacheService._get_client()
         if not client:
             return False

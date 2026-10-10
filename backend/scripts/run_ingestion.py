@@ -1,10 +1,12 @@
 import os
 import yaml
+from sqlalchemy import tuple_
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import OperationalError
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 import pandas as pd
 
-from backend.app.core.database import engine, Base, SessionLocal
+from backend.app.core.database import SessionLocal
 from backend.app.services.ingestion import IngestionPipeline
 from backend.app.schemas.canonical import (
     StudentSchema, AcademicRecordSchema, AttendanceRecordSchema,
@@ -15,6 +17,7 @@ from backend.app.models.canonical import (
     Student, AcademicRecord, AttendanceRecord, LMSRecord,
     EngagementRecord, PlacementRecord, SkillRecord, FeedbackRecord
 )
+from backend.app.models.demo_assignment import DemoAssignment
 
 # Paths
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
@@ -28,10 +31,30 @@ def load_metadata():
         registry = yaml.safe_load(f)
     return registry["datasets"]["campuspulse_demo"]
 
-def load_into_db(session: Session, model, df: pd.DataFrame):
+def load_into_db(session: Session, model, df: pd.DataFrame, unique_keys: list[str]):
     records = df.to_dict(orient="records")
-    session.bulk_insert_mappings(model, records)
+    if not records:
+        return
+    statement = pg_insert(model).values(records).on_conflict_do_nothing(
+        index_elements=[getattr(model, key) for key in unique_keys]
+    )
+    session.execute(statement)
     session.commit()
+
+
+def missing_natural_keys(session: Session, model, df: pd.DataFrame, unique_keys: list[str]):
+    expected = set(df[unique_keys].drop_duplicates().itertuples(index=False, name=None))
+    columns = [getattr(model, key) for key in unique_keys]
+    found = set()
+    keys = list(expected)
+    for offset in range(0, len(keys), 500):
+        batch = keys[offset : offset + 500]
+        if len(columns) == 1:
+            condition = columns[0].in_([key[0] for key in batch])
+        else:
+            condition = tuple_(*columns).in_(batch)
+        found.update(tuple(row) for row in session.query(*columns).filter(condition).all())
+    return expected - found
 
 def run():
     meta = load_metadata()
@@ -66,10 +89,11 @@ def run():
         print(f"Processing {name}...")
         file_path = os.path.join(DEMO_DIR, filename)
         if not os.path.exists(file_path):
-            print(f"File not found: {file_path}")
-            continue
+            raise FileNotFoundError(f"Required synthetic dataset file is missing: {file_path}")
             
         df = pipeline.process_domain(name, file_path, schema, unique_keys)
+        if df.empty:
+            raise ValueError(f"Required synthetic dataset domain is empty after validation: {name}")
         processed_dfs[(name, model)] = df
         
         # Save canonical
@@ -80,20 +104,48 @@ def run():
     
     print("Ingestion files saved. Attempting database load...")
     
-    # DB Load
+    # DB Load. Schema changes are owned by Alembic, not create_all.
     try:
-        Base.metadata.create_all(bind=engine)
         db = SessionLocal()
-        
-        existing_students = db.query(Student).count()
-        if existing_students > 0:
-            print(f"Database already contains {existing_students} students. Skipping ingestion to preserve production data.")
+
+        unique_keys_by_model = {model: keys for _name, _file, _schema, keys, model in domains}
+        domain_data_complete = all(
+            not missing_natural_keys(db, model, df, unique_keys_by_model[model])
+            for (_name, model), df in processed_dfs.items()
+        )
+        from backend.app.models.scoring import StudentSuccessScore
+        from backend.app.models.academic_risk import AcademicRiskScore
+        from backend.app.models.placement_risk import PlacementRiskScore
+        from backend.app.models.segment import StudentSegmentMembership
+        expected_students = db.query(Student).count()
+        derived_data_complete = expected_students > 0 and all(
+            db.query(model).count() >= expected_students
+            for model in (StudentSuccessScore, AcademicRiskScore, PlacementRiskScore)
+        )
+        complete = domain_data_complete and derived_data_complete
+        if not domain_data_complete:
+            for (name, model), df in processed_dfs.items():
+                print(f"Loading {name} to DB...")
+                load_into_db(db, model, df, unique_keys_by_model[model])
+
+        # On a new database the caseload migration precedes ingestion and sees no students.
+        student_ids = [row[0] for row in db.query(Student.student_id).order_by(Student.student_id).all()]
+        split = len(student_ids) // 2
+        assignments = (
+            [{"user_id": "mentor-demo", "student_id": sid} for sid in student_ids[:split]]
+            + [{"user_id": "counselor-demo", "student_id": sid} for sid in student_ids[split:]]
+        )
+        if assignments:
+            stmt = pg_insert(DemoAssignment).values(assignments).on_conflict_do_nothing(
+                index_elements=[DemoAssignment.user_id, DemoAssignment.student_id]
+            )
+            db.execute(stmt)
+            db.commit()
+
+        if complete:
+            print("Synthetic canonical data is already complete; no records changed.")
             db.close()
             return
-
-        for (name, model), df in processed_dfs.items():
-            print(f"Loading {name} to DB...")
-            load_into_db(db, model, df)
             
         print("Database ingestion successful.")
         
@@ -109,12 +161,7 @@ def run():
         seg_svc = SegmentationService(db)
         
         # Clear existing calculations
-        from backend.app.models.scoring import StudentSuccessScore
-        from backend.app.models.academic_risk import AcademicRiskScore
-        from backend.app.models.placement_risk import PlacementRiskScore
-        from backend.app.models.segment import StudentSegmentMembership
-        
-        db.query(StudentSegmentMembership).delete()
+        db.query(StudentSegmentMembership).delete(synchronize_session=False)
         db.query(PlacementRiskScore).delete()
         db.query(AcademicRiskScore).delete()
         db.query(StudentSuccessScore).delete()
@@ -153,10 +200,12 @@ def run():
         PubSubService.publish("analytics_updated")
         
         print("Caches invalidated and events published successfully.")
-    except OperationalError as e:
+    except OperationalError:
         print("Database connection failed. Ensure PostgreSQL is running. Data saved to processed directory.")
+        raise
     except Exception as e:
         print(f"Database error: {e}")
+        raise
 
 if __name__ == "__main__":
     run()

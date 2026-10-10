@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from fastapi.testclient import TestClient
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from backend.app.main import app
 from backend.app.services.insight import InsightService
 from backend.app.core.insight_config import InsightConfig
@@ -124,6 +124,9 @@ def test_get_insights_insufficient_sample(monkeypatch):
     assert data["insights"][0]["insufficient_sample"] is True
 
 def test_get_insights_filtered_comparative(monkeypatch):
+    # This endpoint-contract test isolates the institutional comparison. Real ORM
+    # calculation, query bounds and role scoping are covered by performance regressions.
+    monkeypatch.setattr("backend.app.services.insight.InsightService._comparison_scores", lambda self: [85.0] * 25)
     def _mock_query(self, *args):
         class MockRow:
             def __init__(self, cols, vals, j=0):

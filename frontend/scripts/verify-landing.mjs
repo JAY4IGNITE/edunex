@@ -4,10 +4,10 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-const output = join(tmpdir(), "edunex-landing-review");
+const output = process.env.EDUNEX_TEST_OUTPUT ?? join(tmpdir(), "edunex-landing-review");
 const base = process.env.EDUNEX_TEST_BASE_URL ?? "http://127.0.0.1:5173";
 await mkdir(output, {recursive:true});
-const browser = await chromium.launch({channel:"chrome",headless:true});
+const browser = await chromium.launch({headless:true});
 const context = await browser.newContext({viewport:{width:1440,height:1000}, reducedMotion:"reduce", colorScheme:"dark"});
 const page = await context.newPage();
 const errors = [];
@@ -58,8 +58,19 @@ try {
     const rect = await page.locator("#"+id).boundingBox();
     assert.ok(rect.y >= 80 && rect.y < 180, id+" position "+rect.y);
   }
+  await page.emulateMedia({reducedMotion:"no-preference"});
+  assert.equal(await page.locator("html").evaluate(el => getComputedStyle(el).scrollBehavior),"smooth");
+  await page.getByRole("navigation",{name:"Main navigation"}).getByRole("link",{name:"Platform",exact:true}).click();
+  await page.waitForFunction(() => {
+    const target = document.querySelector("#intelligence").getBoundingClientRect();
+    const header = document.querySelector(".landing-nav").getBoundingClientRect();
+    return target.top >= header.bottom && Math.abs(target.top - 110) < 2;
+  });
+  await page.screenshot({path:join(output,"glass-header-scrolled.png")});
+  await page.emulateMedia({reducedMotion:"reduce"});
+  assert.equal(await page.locator("html").evaluate(el => getComputedStyle(el).scrollBehavior),"auto");
   const links=await page.locator('a[href^="/"]').evaluateAll(els=>els.map(el=>el.getAttribute("href")));
-  assert.ok(links.every(h=>["/","/dashboard","/students","/risks","/segments","/insights","/data"].includes(h)));
+  assert.ok(links.every(h=>["/","/login","/dashboard","/students","/risks","/segments","/insights","/data"].includes(h)));
   assert.deepEqual(errors,[]);
   await writeFile(join(output,"report.json"),JSON.stringify({checks,errors,links},null,2));
   console.log(JSON.stringify({output,errors,results:checks.map(c=>({theme:c.theme,width:c.width,height:c.geometry.height,violations:c.violations}))},null,2));

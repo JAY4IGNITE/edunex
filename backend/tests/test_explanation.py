@@ -1,4 +1,4 @@
-from fastapi.testclient import TestClient
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from backend.app.main import app
 from backend.app.services.explanation import ExplanationService
 from backend.app.schemas.student_360 import Student360Response

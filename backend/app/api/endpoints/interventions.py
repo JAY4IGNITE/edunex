@@ -1,5 +1,5 @@
 from typing import Literal
-from fastapi import APIRouter, Depends, Query, Response
+from fastapi import APIRouter, Depends, Query, Response, HTTPException
 from sqlalchemy.orm import Session
 
 from backend.app.core.database import get_db
@@ -35,7 +35,9 @@ def list_interventions(student_id: str | None = None, status: Status | None = No
 
 @router.post("/interventions", status_code=201)
 def create_intervention(payload: InterventionCreate, db: Session = Depends(get_db)):
-    return InterventionService(db).create(payload)
+    if db.info["identity"]["role"] not in ("admin","faculty"):
+        raise HTTPException(403,"Only Admin or Faculty can assign new support work")
+    return InterventionService(db).create(payload,actor=db.info["identity"]["id"])
 
 
 @router.get("/interventions/{intervention_id}")
@@ -45,12 +47,17 @@ def get_intervention(intervention_id: int, db: Session = Depends(get_db)):
 
 @router.patch("/interventions/{intervention_id}")
 def update_intervention(intervention_id: int, payload: InterventionUpdate, db: Session = Depends(get_db)):
-    return InterventionService(db).update(intervention_id, payload)
+    identity = db.info["identity"]
+    if identity["role"] in ("mentor","counselor") and (payload.model_fields_set & {"assignee","due_date"} or payload.status in ("Recommended","Assigned")):
+        raise HTTPException(403,"Assigned staff can start, complete or dismiss their own tasks; assignment changes require Admin or Faculty")
+    return InterventionService(db).update(intervention_id, payload,actor=identity["id"])
 
 
 @router.delete("/interventions/{intervention_id}", status_code=204)
 def delete_intervention(intervention_id: int, version: int = Query(..., ge=1), db: Session = Depends(get_db)):
-    InterventionService(db).delete(intervention_id, version)
+    if db.info["identity"]["role"] not in ("admin","faculty"):
+        raise HTTPException(403,"Only Admin or Faculty can remove unassigned recommendations")
+    InterventionService(db).delete(intervention_id, version,actor=db.info["identity"]["id"])
     return Response(status_code=204)
 
 

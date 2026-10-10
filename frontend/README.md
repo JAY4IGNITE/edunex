@@ -28,7 +28,7 @@ The desktop sidebar collapses from 256px to 80px and remembers the preference wh
 
 ## Appearance
 
-The public landing page at `/` uses the shared EduNex brand mark and theme toggle. Dark mode preserves the original near-black background and cyan/blue accents; light mode uses the workspace light palette. The saved theme is shared across landing and workspace routes. Its dashboard metrics and early-warning example are explicitly illustrative; live analytics remain in `/dashboard` and the other workspace routes. Landing styles live in `src/pages/Landing/landing.css` and do not override workspace theme tokens.
+The public landing page at `/` uses the shared EduNex brand mark and theme toggle. Dark mode preserves the original near-black background and cyan/blue accents; light mode uses the workspace light palette. The saved theme is shared across landing and workspace routes. The sticky glass header uses backdrop blur with an opaque fallback. Section links scroll smoothly below the header; reduced-motion preferences disable scrolling animation and transitions. Its dashboard metrics and early-warning example are explicitly illustrative; live analytics remain in `/dashboard` and the other workspace routes. Landing styles live in `src/pages/Landing/landing.css` and do not override workspace theme tokens.
 
 The sun/moon button in the header switches light and dark themes at every screen size. On first use the interface follows the system appearance; an explicit choice is stored under `edunex-theme`, survives reloads, and synchronizes between tabs. Storage restrictions do not prevent switching. `public/theme.js` applies the choice before the application paints; `useTheme` maintains the browser color and system preference listener. All visual colors, including chart and dialog colors, are semantic tokens.
 
@@ -46,12 +46,12 @@ No new dependency was installed for the redesign. The existing fonts fall back f
 
 ## Verification
 
-For the landing page, run `node scripts/verify-landing.mjs` with Vite running (no backend required). It checks both themes at seven viewport widths, saved-theme persistence after reload and system appearance changes, section links, keyboard access, console errors, and WCAG A/AA rules with axe. Screenshots and the JSON report are saved under the system temporary directory in `edunex-landing-review`. Set `EDUNEX_TEST_BASE_URL` to test a different local preview.
+For the landing page, run `node scripts/verify-landing.mjs` with Vite running (no backend required). It checks both themes at seven viewport widths, saved-theme persistence after reload and system appearance changes, section links, keyboard access, console errors, and WCAG A/AA rules with axe. Screenshots and the JSON report are saved under the system temporary directory in `edunex-landing-review`; set `EDUNEX_TEST_OUTPUT` to choose another path and `EDUNEX_TEST_BASE_URL` to use a different local preview.
 
 With the frontend and backend running:
 
 ```powershell
-npm test
+npm test -- --pool=vmThreads --maxWorkers=1
 npm run typecheck
 npm run build
 npm run test:browser
@@ -60,6 +60,7 @@ npm run test:browser:redesign
 npm run test:browser:redesign -- --light
 node scripts/verify-realtime.mjs
 npm run test:browser:live
+npm run test:judge
 ```
 
 - Unit and interaction tests are scoped to `src/test` so archived source snapshots are never picked up as duplicate tests.

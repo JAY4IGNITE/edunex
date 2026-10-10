@@ -1,4 +1,6 @@
 import redis
+from redis.backoff import NoBackoff
+from redis.retry import Retry
 import logging
 from backend.app.core.config import settings
 
@@ -15,8 +17,10 @@ class RedisManager:
                 self.pool = redis.ConnectionPool.from_url(
                     settings.redis_url,
                     decode_responses=True,
-                    socket_connect_timeout=2,
-                    socket_timeout=2,
+                    # Redis is optional: bound each attempt and fall back to SQL.
+                    socket_connect_timeout=0.5,
+                    socket_timeout=0.5,
+                    retry=Retry(NoBackoff(), 0),
                     max_connections=50
                 )
                 self.client = redis.Redis(connection_pool=self.pool)

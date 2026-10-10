@@ -53,4 +53,5 @@ def test_subscriber_lifecycle():
         assert PubSubService._pubsub is None
         assert PubSubService._subscriber_thread is None
         mock_thread.stop.assert_called_once()
+        mock_thread.join.assert_called_once_with(timeout=3)
         mock_pubsub.close.assert_called_once()

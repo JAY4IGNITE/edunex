@@ -1,28 +1,16 @@
 # Phase Gate
 
-## Authorized now
+The user authorized sequential execution of Phases 0–7 from the attached project brief. This file records verification gates; it does not pause work for approval.
 
-- Phase 0: repository inspection and architecture
-- Phase 1: requirements/data contracts/foundation
+| Phase | Gate |
+|---|---|
+| 0 — Audit | Repository inventory, baseline, and unknowns documented. |
+| 1 — Support actions | Recommendation rules, persistent action lifecycle, audit trail, and browser flow verified. |
+| 2 — Model | Temporal split, reproducible report, fallback, and limitations documented. |
+| 3 — Roles | Signed demo session, server-enforced scopes, and role-boundary tests. |
+| 4 — Analytics | Filtered KPIs/trends and scenario/export checks. |
+| 5 — Reliability | Readiness, idempotent deployment seed, Render limits, and performance evidence. |
+| 6 — Evidence | Commands, model card, responsible-use mapping, demo script, and pitch outline. |
+| 7 — Release gates | Backend/frontend tests, full browser journey, typecheck/build, and CI. |
 
-## Not authorized yet
-
-- Phase 2: dataset generation/download/integration
-- Phase 3+: ingestion through deployment
-
-The IDE agent must stop after Phase 1 and report:
-
-1. repository structure
-2. files created
-3. files modified
-4. canonical schema
-5. dataset registry
-6. provenance design
-7. source mappings
-8. validation rules
-9. database design
-10. tests created
-11. tests executed
-12. blockers
-13. assumptions
-14. all UNKNOWN — REQUIRES VERIFICATION items
+Current status lives in [`tasks/todo.md`](../tasks/todo.md); evidence and remaining validation gaps are in the phase documents under `docs/`.
