@@ -45,7 +45,7 @@ flowchart TB
     classDef appLayer fill:#f0fdfa,stroke:#0d9488,stroke-width:2px,color:#134e4a,rx:10,ry:10
     classDef uiLayer fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#2e1065,rx:10,ry:10
     classDef optionalLayer fill:#ffffff,stroke:#cbd5e1,stroke-width:2px,stroke-dasharray: 5 5,color:#475569,rx:10,ry:10
-    classDef db fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    classDef dbLayer fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
 
     subgraph DATA ["Data & Pipeline Layer"]
         direction LR
@@ -59,36 +59,36 @@ flowchart TB
         direction LR
         db[("PostgreSQL")]
         services{{"Domain Services"}}
-        model(["ML Inference"] )
+        model(["ML Inference"])
         api[["FastAPI REST API"]]
         support{{"Intervention Engine"}}
 
-        db <==>|Read/Write| services
+        db <-->|Read/Write| services
         services -->|Predict| model
-        services <==> api
+        services <--> api
         model --> api
-        api <==> support
-        support <==>|Audit Trail| db
+        api <--> support
+        support <-->|Audit Trail| db
     end
 
     subgraph UI ["Experience Layer"]
         direction LR
         client(("React UI Workspace"))
-        staff([Staff Review Workflow])
-        client <==> staff
+        staff(["Staff Review Workflow"])
+        client <--> staff
     end
 
     subgraph ASYNC ["Real-Time & Caching Layer (Optional)"]
         direction LR
         redis[("Redis Cache/PubSub")]
-        ws>WebSocket Gateway]
+        ws[["WebSocket Gateway"]]
         redis -.->|Publish| ws
     end
 
     %% Cross-layer integrations
     ingest -->|Idempotent Load| db
     evidence -->|Provenance Data| api
-    api <==>|JSON / HTTP| client
+    api <-->|JSON / HTTP| client
     services -.->|Cache Data| redis
     support -.->|Invalidate & Notify| redis
     ws -.->|Live Updates| client
@@ -98,7 +98,7 @@ flowchart TB
     class CORE appLayer
     class UI uiLayer
     class ASYNC optionalLayer
-    class db,redis db
+    class db,redis dbLayer
 ```
 
 *Solid arrows represent synchronous primary data flow and REST paths. Dashed arrows represent asynchronous cache operations and real-time WebSocket notifications.*
