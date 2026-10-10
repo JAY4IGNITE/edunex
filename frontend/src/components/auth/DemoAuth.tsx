@@ -1,6 +1,6 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { get, mutate } from "@/services/api/client";
 import { Button } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/skeletons";
