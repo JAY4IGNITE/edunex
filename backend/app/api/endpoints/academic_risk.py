@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.schemas.academic_risk import AcademicRiskResponse
 from backend.app.services.academic_risk import AcademicRiskService

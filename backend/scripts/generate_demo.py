@@ -1,9 +1,9 @@
 import os
-import json
 import random
+from datetime import date
+
 import numpy as np
 import pandas as pd
-from datetime import date, timedelta
 
 # Set fixed seed
 np.random.seed(42)

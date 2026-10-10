@@ -1,6 +1,7 @@
 """Synthetic staff caseload assignments."""
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
+
 revision = "5b8302"
 down_revision = "4a7201"
 branch_labels = None

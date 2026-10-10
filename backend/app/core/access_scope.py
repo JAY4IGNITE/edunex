@@ -1,10 +1,11 @@
 """Request sessions scope ORM reads before pagination, joins and aggregates."""
 from sqlalchemy import event, select, union
 from sqlalchemy.orm import with_loader_criteria
+
 from backend.app.core.database import Base
 from backend.app.models.canonical import Student
-from backend.app.models.intervention import Intervention, InterventionAudit
 from backend.app.models.demo_assignment import DemoAssignment
+from backend.app.models.intervention import Intervention, InterventionAudit
 
 
 def apply_scope(db,user):

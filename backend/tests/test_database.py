@@ -1,8 +1,9 @@
 import pytest
-from sqlalchemy.orm import Session
-from backend.app.core.database import engine, Base, SessionLocal
-from backend.app.models.canonical import Student, AcademicRecord
+
+from backend.app.core.database import SessionLocal, engine
+from backend.app.models.canonical import AcademicRecord, Student
 from backend.app.repositories.student_360 import Student360Repository
+
 
 def test_postgresql_connection():
     try:

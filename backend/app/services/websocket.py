@@ -1,12 +1,13 @@
 import logging
-from typing import Set, Dict, Any
+from typing import Any
+
 from fastapi import WebSocket
 
 logger = logging.getLogger(__name__)
 
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: Set[WebSocket] = set()
+        self.active_connections: set[WebSocket] = set()
         
     async def connect(self, websocket: WebSocket):
         """Accepts a WebSocket connection and registers the client."""
@@ -20,7 +21,7 @@ class ConnectionManager:
             self.active_connections.remove(websocket)
             logger.info(f"WebSocket client disconnected. Total clients: {len(self.active_connections)}")
 
-    async def broadcast(self, message: Dict[str, Any]):
+    async def broadcast(self, message: dict[str, Any]):
         """
         Broadcast a JSON message to all connected clients.
         If sending to a specific client fails, it is removed immediately without breaking the loop.

@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from backend.app.ml.inference import _load_model
 
 router = APIRouter()

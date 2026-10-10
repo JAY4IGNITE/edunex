@@ -1,9 +1,8 @@
-from fastapi import HTTPException
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
-from backend.app.main import app
-from backend.app.services.insight import InsightService
-from backend.app.core.insight_config import InsightConfig
 import pytest
+
+from backend.app.core.insight_config import InsightConfig
+from backend.app.main import app
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 
 client = TestClient(app)
 

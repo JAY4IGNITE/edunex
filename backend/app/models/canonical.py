@@ -1,7 +1,20 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, Date, JSON, ForeignKey, UniqueConstraint, Index
+from sqlalchemy import (
+    JSON,
+    Boolean,
+    Column,
+    Date,
+    Float,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import relationship
+
 from backend.app.core.database import Base
 from backend.app.models.base import TimestampMixin
+
 
 class Student(Base, TimestampMixin):
     __tablename__ = "students"

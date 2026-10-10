@@ -1,21 +1,39 @@
+import asyncio
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api.endpoints import students, scoring, academic_risk, placement_risk, explanation, segments, insights, data, analytics, websockets
-from backend.app.core.config import settings
-from backend.app.core.redis import redis_manager
-
-from backend.app.services.pubsub import PubSubService
-from backend.app.api.endpoints import interventions
-from backend.app.api.endpoints import model
-from backend.app.api.endpoints import auth
-from backend.app.core.demo_auth import authenticate_request, SESSION_SECRET, SESSION_SECONDS, COOKIE_SECURE
-from starlette.middleware.sessions import SessionMiddleware
-import asyncio
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
+from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import JSONResponse
+
+from backend.app.api.endpoints import (
+    academic_risk,
+    analytics,
+    auth,
+    data,
+    explanation,
+    insights,
+    interventions,
+    model,
+    placement_risk,
+    scoring,
+    segments,
+    students,
+    websockets,
+)
+from backend.app.core.config import settings
 from backend.app.core.database import engine
+from backend.app.core.demo_auth import (
+    COOKIE_SECURE,
+    SESSION_SECONDS,
+    SESSION_SECRET,
+    authenticate_request,
+)
+from backend.app.core.redis import redis_manager
+from backend.app.services.pubsub import PubSubService
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

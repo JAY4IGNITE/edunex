@@ -1,6 +1,6 @@
 """Seed deterministic synthetic mentor and counselor caseloads."""
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 revision = "6c9403"

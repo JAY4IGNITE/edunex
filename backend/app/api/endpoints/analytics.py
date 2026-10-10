@@ -1,35 +1,37 @@
+from typing import Any
+
 from fastapi import APIRouter, Depends, Query
-from typing import Optional, Dict, Any
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
-from backend.app.services.insight import InsightService
 from backend.app.core.scoring_config import ScoringConfig
 from backend.app.services.cache import CacheService
+from backend.app.services.insight import InsightService
 
 router = APIRouter()
 
 class AnalyticsDistribution(BaseModel):
-    success_score_distribution: Dict[str, int]
-    academic_risk_distribution: Dict[str, int]
-    placement_risk_distribution: Dict[str, int]
-    segment_distribution: Dict[str, int]
+    success_score_distribution: dict[str, int]
+    academic_risk_distribution: dict[str, int]
+    placement_risk_distribution: dict[str, int]
+    segment_distribution: dict[str, int]
 
 class AnalyticsOverview(BaseModel):
     total_students: int
-    average_success_score: Optional[float]
-    average_attendance: Optional[float]
-    average_engagement_index: Optional[float]
-    success_score_distribution: Dict[str, int]
-    academic_risk_distribution: Dict[str, int]
-    placement_risk_distribution: Dict[str, int]
-    segment_distribution: Dict[str, int]
-    applied_filters: Dict[str, Any]
+    average_success_score: float | None
+    average_attendance: float | None
+    average_engagement_index: float | None
+    success_score_distribution: dict[str, int]
+    academic_risk_distribution: dict[str, int]
+    placement_risk_distribution: dict[str, int]
+    segment_distribution: dict[str, int]
+    applied_filters: dict[str, Any]
 
 class AnalyticsTrends(BaseModel):
-    success_score_trends: Dict[str, float]
-    attendance_trends: Dict[str, float]
-    engagement_trends: Dict[str, float]
+    success_score_trends: dict[str, float]
+    attendance_trends: dict[str, float]
+    engagement_trends: dict[str, float]
 
 def _calculate_distributions(metrics):
     ss_dist = {}
@@ -49,9 +51,9 @@ def _calculate_distributions(metrics):
 
 @router.get("/overview", response_model=AnalyticsOverview, summary="Get Analytics Overview")
 def get_analytics_overview(
-    department: Optional[str] = Query(None),
-    year: Optional[int] = Query(None),
-    semester: Optional[int] = Query(None),
+    department: str | None = Query(None),
+    year: int | None = Query(None),
+    semester: int | None = Query(None),
     db: Session = Depends(get_db)
 ):
     cache_key = f"edunex:v1:analytics:overview:dept={department}:yr={year}:sem={semester}"
@@ -93,9 +95,9 @@ def get_analytics_overview(
 
 @router.get("/trends", response_model=AnalyticsTrends, summary="Get Analytics Trends")
 def get_analytics_trends(
-    department: Optional[str] = Query(None),
-    year: Optional[int] = Query(None),
-    semester: Optional[int] = Query(None),
+    department: str | None = Query(None),
+    year: int | None = Query(None),
+    semester: int | None = Query(None),
     db: Session = Depends(get_db)
 ):
     cache_key = f"edunex:v1:analytics:trends:dept={department}:yr={year}:sem={semester}"
@@ -131,9 +133,9 @@ def get_analytics_trends(
 
 @router.get("/distribution", response_model=AnalyticsDistribution, summary="Get Analytics Distribution")
 def get_analytics_distribution(
-    department: Optional[str] = Query(None),
-    year: Optional[int] = Query(None),
-    semester: Optional[int] = Query(None),
+    department: str | None = Query(None),
+    year: int | None = Query(None),
+    semester: int | None = Query(None),
     db: Session = Depends(get_db)
 ):
     cache_key = f"edunex:v1:analytics:distribution:dept={department}:yr={year}:sem={semester}"

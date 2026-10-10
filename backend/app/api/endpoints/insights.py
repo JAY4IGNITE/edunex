@@ -1,19 +1,20 @@
-from typing import Optional
+
 from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.schemas.insight import InsightResponse
-from backend.app.services.insight import InsightService
 from backend.app.services.cache import CacheService
+from backend.app.services.insight import InsightService
 
 router = APIRouter()
 
 @router.get("", response_model=InsightResponse, summary="Get Student Insights")
 def get_insights(
     response: Response,
-    department: Optional[str] = None,
-    year: Optional[int] = None,
-    semester: Optional[int] = None,
+    department: str | None = None,
+    year: int | None = None,
+    semester: int | None = None,
     db: Session = Depends(get_db)
 ):
     """

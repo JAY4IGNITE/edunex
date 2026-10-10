@@ -1,11 +1,13 @@
-import pytest
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
-from fastapi.websockets import WebSocketDisconnect
-from backend.app.main import app
-from backend.app.services.websocket import manager
-from backend.app.services.pubsub import PubSubService
 import asyncio
 import json
+
+import pytest
+
+from backend.app.main import app
+from backend.app.services.pubsub import PubSubService
+from backend.app.services.websocket import manager
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
+
 
 def test_websocket_connection_and_ping():
     with TestClient(app) as client:
@@ -77,7 +79,6 @@ def test_pubsub_handle_message_valid():
     }
     
     # We mock asyncio.run_coroutine_threadsafe to ensure it gets called
-    import asyncio
     original = asyncio.run_coroutine_threadsafe
     called = False
     
@@ -85,7 +86,6 @@ def test_pubsub_handle_message_valid():
         nonlocal called
         called = True
         coro.close()
-        return None
         
     asyncio.run_coroutine_threadsafe = mock_run_coroutine_threadsafe
     try:
@@ -107,14 +107,12 @@ def test_pubsub_handle_message_invalid():
         "data": json.dumps({"event_type": "unknown_event_type"})
     }
     
-    import asyncio
     original = asyncio.run_coroutine_threadsafe
     called = False
     
     def mock_run_coroutine_threadsafe(coro, loop):
         nonlocal called
         called = True
-        return None
         
     asyncio.run_coroutine_threadsafe = mock_run_coroutine_threadsafe
     try:

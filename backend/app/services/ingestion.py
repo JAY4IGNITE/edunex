@@ -1,10 +1,13 @@
-import pandas as pd
-import numpy as np
 import json
 from datetime import datetime
+from typing import Any
+
+import numpy as np
+import pandas as pd
 from pydantic import ValidationError
-from typing import Type, Any, List
+
 from backend.app.schemas.canonical import ProvenanceMetadata
+
 
 class IngestionPipeline:
     def __init__(self, dataset_id: str, provenance_info: dict):
@@ -16,7 +19,7 @@ class IngestionPipeline:
             "domains": {}
         }
 
-    def process_domain(self, domain_name: str, file_path: str, schema_model: Type[Any], unique_keys: List[str]):
+    def process_domain(self, domain_name: str, file_path: str, schema_model: type[Any], unique_keys: list[str]):
         stats = {
             "records_processed": 0,
             "records_accepted": 0,
@@ -56,7 +59,7 @@ class IngestionPipeline:
                     
                     valid_records.append(valid_obj.model_dump())
                     stats["records_accepted"] += 1
-                except ValidationError as e:
+                except ValidationError:
                     stats["schema_errors"] += 1
                     stats["records_rejected"] += 1
                     # Could break down invalid ranges based on error type if needed

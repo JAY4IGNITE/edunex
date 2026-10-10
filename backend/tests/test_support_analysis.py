@@ -1,5 +1,9 @@
 from backend.app.schemas.student_360 import Student360Response
-from backend.app.services.support_analysis import analyze_student, priority_score, observed_outcome
+from backend.app.services.support_analysis import (
+    analyze_student,
+    observed_outcome,
+    priority_score,
+)
 
 
 def profile(**changes):

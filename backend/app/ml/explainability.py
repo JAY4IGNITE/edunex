@@ -4,6 +4,7 @@ The historical function name is retained for callers. No heavyweight SHAP runtim
 is needed: centered linear-model contributions reconstruct the same prediction.
 """
 import numpy as np
+
 from backend.app.ml.inference import _load_model, validated_features
 
 

@@ -1,19 +1,26 @@
-from typing import List
+
 from pydantic import BaseModel
+
 from backend.app.schemas.canonical import (
-    StudentSchema, AcademicRecordSchema, AttendanceRecordSchema,
-    LMSRecordSchema, EngagementRecordSchema, PlacementRecordSchema,
-    SkillRecordSchema, FeedbackRecordSchema
+    AcademicRecordSchema,
+    AttendanceRecordSchema,
+    EngagementRecordSchema,
+    FeedbackRecordSchema,
+    LMSRecordSchema,
+    PlacementRecordSchema,
+    SkillRecordSchema,
+    StudentSchema,
 )
+
 
 class Student360Response(BaseModel):
     student: StudentSchema
-    academic_history: List[AcademicRecordSchema] = []
-    attendance_history: List[AttendanceRecordSchema] = []
-    lms_history: List[LMSRecordSchema] = []
-    engagement_history: List[EngagementRecordSchema] = []
-    placement_information: List[PlacementRecordSchema] = []
-    skills_information: List[SkillRecordSchema] = []
-    feedback_history: List[FeedbackRecordSchema] = []
+    academic_history: list[AcademicRecordSchema] = []
+    attendance_history: list[AttendanceRecordSchema] = []
+    lms_history: list[LMSRecordSchema] = []
+    engagement_history: list[EngagementRecordSchema] = []
+    placement_information: list[PlacementRecordSchema] = []
+    skills_information: list[SkillRecordSchema] = []
+    feedback_history: list[FeedbackRecordSchema] = []
 
     model_config = {"from_attributes": True}

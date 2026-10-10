@@ -1,6 +1,8 @@
 import time
-from fastapi import APIRouter, Request, HTTPException
+
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field
+
 from backend.app.core.demo_auth import DEMO_USERS, SESSION_SECONDS, session_user
 
 router = APIRouter()

@@ -1,9 +1,11 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+
 from backend.app.core.academic_risk_config import AcademicRiskConfig
 from backend.app.models.academic_risk import AcademicRiskScore
-from backend.app.services.student_360 import Student360Service
 from backend.app.schemas.academic_risk import AcademicRiskResponse, AssessmentPeriod
+from backend.app.services.student_360 import Student360Service
+
 
 class AcademicRiskService:
     def __init__(self, db: Session):

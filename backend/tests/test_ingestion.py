@@ -1,6 +1,8 @@
 import json
-from backend.app.services.ingestion import IngestionPipeline
+
 from backend.app.schemas.canonical import AcademicRecordSchema
+from backend.app.services.ingestion import IngestionPipeline
+
 
 def test_ingestion_duplicate_detection(tmp_path):
     # Create dummy csv
@@ -41,10 +43,11 @@ def test_deterministic_generation():
 
 
 def test_database_seed_uses_natural_key_conflict_guard():
+    import pandas as pd
     from sqlalchemy.dialects import postgresql
+
     from backend.app.models.canonical import Student
     from backend.scripts.run_ingestion import load_into_db
-    import pandas as pd
 
     class SessionStub:
         statement = None
@@ -68,10 +71,11 @@ def test_database_seed_uses_natural_key_conflict_guard():
 
 
 def test_partial_seed_detection_uses_composite_natural_keys():
+    import pandas as pd
     from sqlalchemy import Column, Integer, String, create_engine
     from sqlalchemy.orm import declarative_base, sessionmaker
+
     from backend.scripts.run_ingestion import missing_natural_keys
-    import pandas as pd
 
     Base = declarative_base()
 

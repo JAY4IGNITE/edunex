@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session, selectinload
+
 from backend.app.models.canonical import Student
+
 
 class Student360Repository:
     """

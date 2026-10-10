@@ -1,10 +1,12 @@
-from fastapi import APIRouter, HTTPException, Depends
+import json
+from pathlib import Path
+
+import yaml
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.models.canonical import Student
-import json
-import yaml
-from pathlib import Path
 
 router = APIRouter()
 

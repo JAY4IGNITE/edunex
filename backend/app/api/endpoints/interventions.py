@@ -1,11 +1,20 @@
 from typing import Literal
-from fastapi import APIRouter, Depends, Query, Response, HTTPException
+
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from sqlalchemy.orm import Session
 
 from backend.app.core.database import get_db
 from backend.app.models.intervention import InterventionAudit
-from backend.app.schemas.intervention import InterventionCreate, InterventionUpdate, Status
-from backend.app.services.interventions import InterventionService, DEMO_ASSIGNEES, serialize
+from backend.app.schemas.intervention import (
+    InterventionCreate,
+    InterventionUpdate,
+    Status,
+)
+from backend.app.services.interventions import (
+    DEMO_ASSIGNEES,
+    InterventionService,
+    serialize,
+)
 
 router = APIRouter()
 

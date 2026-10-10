@@ -1,5 +1,7 @@
 from contextlib import nullcontext
+
 from sqlalchemy.exc import SQLAlchemyError
+
 from backend.app.main import engine, health
 
 

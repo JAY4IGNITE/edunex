@@ -1,17 +1,17 @@
-from backend.app.models.base import TimestampMixin, Base
+from backend.app.models.academic_risk import AcademicRiskScore
+from backend.app.models.base import Base, TimestampMixin
 from backend.app.models.canonical import (
-    Student,
     AcademicRecord,
     AttendanceRecord,
-    LMSRecord,
     EngagementRecord,
+    FeedbackRecord,
+    LMSRecord,
     PlacementRecord,
     SkillRecord,
-    FeedbackRecord
+    Student,
 )
-from backend.app.models.scoring import StudentSuccessScore
-from backend.app.models.academic_risk import AcademicRiskScore
-from backend.app.models.placement_risk import PlacementRiskScore
-from backend.app.models.segment import StudentSegmentMembership
-from backend.app.models.intervention import Intervention, InterventionAudit
 from backend.app.models.demo_assignment import DemoAssignment
+from backend.app.models.intervention import Intervention, InterventionAudit
+from backend.app.models.placement_risk import PlacementRiskScore
+from backend.app.models.scoring import StudentSuccessScore
+from backend.app.models.segment import StudentSegmentMembership

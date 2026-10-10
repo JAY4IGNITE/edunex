@@ -1,7 +1,7 @@
 """Read-only support planning built on the existing deterministic explanations."""
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import HTTPException
 
@@ -118,7 +118,7 @@ def analyze_student(profile):
     for name in ("placement_information", "skills_information"):
         observations[name] = max((r.assessment_date.isoformat() for r in getattr(profile, name)), default=None)
     raw = profile.model_dump(mode="json")
-    snapshot = dict(captured_at=datetime.now(timezone.utc).isoformat(),
+    snapshot = dict(captured_at=datetime.now(UTC).isoformat(),
                     success_score=success["score"] if success else None,
                     academic_risk=academic["score"] if academic else None,
                     placement_risk=placement["score"] if placement else None,

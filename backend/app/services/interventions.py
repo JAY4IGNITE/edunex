@@ -1,4 +1,4 @@
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
@@ -6,9 +6,16 @@ from sqlalchemy.orm.exc import StaleDataError
 
 from backend.app.models.canonical import Student
 from backend.app.models.intervention import Intervention, InterventionAudit
-from backend.app.services.student_360 import Student360Service
-from backend.app.services.support_analysis import analyze_student, priority_score, observed_outcome, ACTIVE_STATUSES, PRIORITY_FORMULA, PROVENANCE
 from backend.app.services.cache import CacheService
+from backend.app.services.student_360 import Student360Service
+from backend.app.services.support_analysis import (
+    ACTIVE_STATUSES,
+    PRIORITY_FORMULA,
+    PROVENANCE,
+    analyze_student,
+    observed_outcome,
+    priority_score,
+)
 
 DEMO_ASSIGNEES = {"faculty-demo": "Faculty", "mentor-demo": "Mentor", "counselor-demo": "Counselor", "placement-demo": "Placement Officer"}
 TRANSITIONS = {"Recommended": {"Assigned", "Dismissed"}, "Assigned": {"In Progress", "Dismissed"},
@@ -120,7 +127,7 @@ class InterventionService:
         if target == "Completed" and old_status != "Completed":
             record.after_snapshot = self.analysis(record.student_id)["snapshot"]
             record.outcome = observed_outcome(record.before_snapshot, record.after_snapshot)
-            record.completed_at = datetime.now(timezone.utc)
+            record.completed_at = datetime.now(UTC)
         for field in ("assignee", "due_date", "notes", "dismissal_reason"):
             if field in payload.model_fields_set:
                 if field == "notes" and payload.notes is None:
@@ -131,7 +138,7 @@ class InterventionService:
             record.active_key = None
         self._audit(record, actor, target if old_status != target else "Updated", {"from_status": old_status, "changes": changes})
         # Force a version increment even for a no-op edit, preserving audit ordering.
-        record.updated_at = datetime.now(timezone.utc)
+        record.updated_at = datetime.now(UTC)
         self._commit()
         return serialize(record)
 
@@ -141,7 +148,7 @@ class InterventionService:
             raise HTTPException(409, "This intervention changed. Refresh and try again.")
         if record.status != "Recommended":
             raise HTTPException(422, "Only unassigned recommendations can be deleted; dismiss active work with a reason.")
-        record.deleted_at = datetime.now(timezone.utc)
+        record.deleted_at = datetime.now(UTC)
         record.active_key = None
         self._audit(record, actor, "Deleted", {"reason": "Removed unassigned recommendation"})
         self._commit()

@@ -2,9 +2,14 @@
 import argparse
 import sys
 from pathlib import Path
+
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from backend.app.ml.train_academic_risk import train_and_evaluate, MODEL_PATH, REPORT_PATH
 from backend.app.ml.features.temporal_aggregator import build_csv_dataset
+from backend.app.ml.train_academic_risk import (
+    MODEL_PATH,
+    REPORT_PATH,
+    train_and_evaluate,
+)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

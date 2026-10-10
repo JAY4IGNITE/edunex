@@ -2,10 +2,18 @@
 import json
 import re
 from pathlib import Path
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 from sqlalchemy import select
-from backend.app.models.canonical import AcademicRecord, AttendanceRecord, LMSRecord, EngagementRecord, FeedbackRecord
+
+from backend.app.models.canonical import (
+    AcademicRecord,
+    AttendanceRecord,
+    EngagementRecord,
+    FeedbackRecord,
+    LMSRecord,
+)
 
 KEYS = ["student_id", "academic_year", "semester"]
 TABLES = {"academic": AcademicRecord, "attendance": AttendanceRecord, "lms": LMSRecord,

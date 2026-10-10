@@ -1,18 +1,20 @@
 import json
 import logging
-from typing import Any, Optional
+from typing import Any
+
 import redis
+
 from backend.app.core.redis import redis_manager
 
 logger = logging.getLogger(__name__)
 
 class CacheService:
     @staticmethod
-    def _get_client() -> Optional[redis.Redis]:
+    def _get_client() -> redis.Redis | None:
         return redis_manager.get_client()
 
     @staticmethod
-    def get(key: str) -> Optional[Any]:
+    def get(key: str) -> Any | None:
         from backend.app.core.demo_auth import current_identity
         identity = current_identity.get()
         if identity and identity["role"] != "admin":
@@ -35,7 +37,7 @@ class CacheService:
             return None
 
     @staticmethod
-    def set(key: str, value: Any, ttl: int = 300, tags: Optional[list[str]] = None) -> bool:
+    def set(key: str, value: Any, ttl: int = 300, tags: list[str] | None = None) -> bool:
         from backend.app.core.demo_auth import current_identity
         identity = current_identity.get()
         if identity and identity["role"] != "admin":

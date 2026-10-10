@@ -1,11 +1,19 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+
+from backend.app.core.segmentation_config import SegmentationConfig
 from backend.app.models.canonical import Student
-from backend.app.services.student_360 import Student360Service
+from backend.app.schemas.segment import (
+    SegmentCharacteristics,
+    SegmentDetailResponse,
+    SegmentListResponse,
+    SegmentMembershipResponse,
+    SegmentSummary,
+)
 from backend.app.services.academic_risk import AcademicRiskService
 from backend.app.services.placement_risk import PlacementRiskService
-from backend.app.core.segmentation_config import SegmentationConfig
-from backend.app.schemas.segment import SegmentMembershipResponse, SegmentSummary, SegmentDetailResponse, SegmentListResponse, SegmentCharacteristics
+from backend.app.services.student_360 import Student360Service
+
 
 class SegmentationService:
     def __init__(self, db: Session):

@@ -1,8 +1,10 @@
-import logging
 import asyncio
+import logging
 import time
-from backend.app.core.demo_auth import session_user, origin_allowed
+
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+
+from backend.app.core.demo_auth import origin_allowed, session_user
 from backend.app.services.websocket import manager
 
 router = APIRouter()
@@ -28,7 +30,7 @@ async def websocket_updates(websocket: WebSocket):
                 break
             try:
                 data = await asyncio.wait_for(websocket.receive_text(),timeout=30)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 continue
             if data and data.lower() == "ping":
                 await websocket.send_text("pong")

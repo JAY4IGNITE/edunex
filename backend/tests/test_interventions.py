@@ -1,10 +1,12 @@
 from datetime import date, timedelta
+
 import pytest
 from fastapi import HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import Base
-from backend.app.models.canonical import Student, AcademicRecord, AttendanceRecord
+from backend.app.models.canonical import AcademicRecord, AttendanceRecord, Student
 from backend.app.models.intervention import InterventionAudit
 from backend.app.schemas.intervention import InterventionCreate, InterventionUpdate
 from backend.app.services.interventions import InterventionService

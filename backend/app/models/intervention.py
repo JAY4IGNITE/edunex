@@ -1,5 +1,17 @@
-from sqlalchemy import Column, Integer, String, Text, Date, DateTime, JSON, ForeignKey, CheckConstraint, Index
+from sqlalchemy import (
+    JSON,
+    CheckConstraint,
+    Column,
+    Date,
+    DateTime,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+)
 from sqlalchemy.sql import func
+
 from backend.app.core.database import Base
 
 

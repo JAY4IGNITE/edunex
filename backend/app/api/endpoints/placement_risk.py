@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.schemas.placement_risk import PlacementRiskResponse
-from backend.app.services.placement_risk import PlacementRiskService
 from backend.app.services.cache import CacheService
+from backend.app.services.placement_risk import PlacementRiskService
 
 router = APIRouter()
 

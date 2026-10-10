@@ -1,19 +1,20 @@
 """Bounded analytics reads and cache freshness, using isolated real ORM data."""
 import pytest
+import redis
+from fastapi import Response
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
-from backend.app.core.database import Base
-from backend.app.core.access_scope import apply_scope
-from backend.app.models.canonical import Student, AcademicRecord
-from backend.app.models.scoring import StudentSuccessScore
-from backend.app.services.insight import InsightService
-from backend.app.services.scoring import ScoringService
-from backend.app.services.cache import CacheService
+
 from backend.app.api.endpoints.analytics import get_analytics_distribution
 from backend.app.api.endpoints.students import list_students
-from fastapi import Response
+from backend.app.core.access_scope import apply_scope
+from backend.app.core.database import Base
 from backend.app.core.demo_auth import current_identity
-import redis
+from backend.app.models.canonical import AcademicRecord, Student
+from backend.app.models.scoring import StudentSuccessScore
+from backend.app.services.cache import CacheService
+from backend.app.services.insight import InsightService
+from backend.app.services.scoring import ScoringService
 
 
 @pytest.fixture

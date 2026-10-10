@@ -1,9 +1,11 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+
 from backend.app.core.scoring_config import ScoringConfig
 from backend.app.models.scoring import StudentSuccessScore
-from backend.app.services.student_360 import Student360Service
 from backend.app.schemas.scoring import StudentSuccessScoreResponse
+from backend.app.services.student_360 import Student360Service
+
 
 class ScoringService:
     def __init__(self, db: Session):

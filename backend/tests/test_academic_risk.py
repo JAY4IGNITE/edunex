@@ -1,9 +1,8 @@
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
-from backend.app.main import app
-from backend.app.core.academic_risk_config import AcademicRiskConfig
-from backend.app.services.academic_risk import AcademicRiskService
-from backend.app.schemas.student_360 import Student360Response
 import pytest
+
+from backend.app.main import app
+from backend.app.services.academic_risk import AcademicRiskService
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 
 client = TestClient(app)
 

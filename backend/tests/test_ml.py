@@ -1,12 +1,15 @@
-import pytest
-import pandas as pd
 import os
+
 import joblib
+import pandas as pd
+import pytest
+
 from backend.app.core.database import SessionLocal
 from backend.app.ml.features.temporal_aggregator import build_temporal_dataset
+from backend.app.ml.inference import predict_academic_risk
 from backend.app.ml.train_academic_risk import train_and_evaluate
-from backend.app.ml.inference import predict_academic_risk, _load_model, _MODEL_ARTIFACT
 from backend.app.services.ml_prediction_service import MLPredictionService
+
 
 @pytest.fixture(scope="module")
 def db_session():
@@ -69,7 +72,7 @@ def test_training_and_serialization(tmp_path):
 
 def test_inference_valid_prediction(temporal_df):
     # Ensure module reloads artifact
-    import backend.app.ml.inference as inference
+    from backend.app.ml import inference
     inference._MODEL_ARTIFACT = None 
     
     sample = temporal_df.iloc[[0]].copy()
@@ -121,8 +124,8 @@ def test_ml_shap_direction(temporal_df):
             assert c["contribution"] < 0
             
 def test_api_prediction_endpoint(db_session):
-    from backend.tests.test_client import AuthenticatedTestClient as TestClient
     from backend.app.main import app
+    from backend.tests.test_client import AuthenticatedTestClient as TestClient
     client = TestClient(app)
     
     response = client.get("/api/students/STU0001/ai-prediction")

@@ -1,18 +1,23 @@
-from typing import Optional
+
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
-from backend.app.schemas.segment import SegmentListResponse, SegmentDetailResponse, SegmentMembershipResponse
-from backend.app.services.segmentation import SegmentationService
+from backend.app.schemas.segment import (
+    SegmentDetailResponse,
+    SegmentListResponse,
+    SegmentMembershipResponse,
+)
 from backend.app.services.cache import CacheService
+from backend.app.services.segmentation import SegmentationService
 
 router = APIRouter()
 
 @router.get("", response_model=SegmentListResponse, summary="Get All Segments")
 def get_all_segments(
-    department: Optional[str] = Query(None),
-    year: Optional[int] = Query(None),
-    semester: Optional[int] = Query(None),
+    department: str | None = Query(None),
+    year: int | None = Query(None),
+    semester: int | None = Query(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -32,9 +37,9 @@ def get_all_segments(
 @router.get("/{segment_id}", response_model=SegmentDetailResponse, summary="Get Segment Detail")
 def get_segment_detail(
     segment_id: str, 
-    department: Optional[str] = Query(None),
-    year: Optional[int] = Query(None),
-    semester: Optional[int] = Query(None),
+    department: str | None = Query(None),
+    year: int | None = Query(None),
+    semester: int | None = Query(None),
     db: Session = Depends(get_db)
 ):
     """

@@ -1,8 +1,10 @@
 import json
-import pytest
-from unittest.mock import patch, MagicMock
-from backend.app.services.pubsub import PubSubService
+from unittest.mock import MagicMock, patch
+
 import redis
+
+from backend.app.services.pubsub import PubSubService
+
 
 def test_pubsub_publish_success():
     mock_redis = MagicMock()

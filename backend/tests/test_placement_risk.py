@@ -1,10 +1,10 @@
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
-from backend.app.main import app
-from backend.app.core.placement_risk_config import PlacementRiskConfig
-from backend.app.services.placement_risk import PlacementRiskService
-from backend.app.schemas.student_360 import Student360Response
 from datetime import date
+
 import pytest
+
+from backend.app.main import app
+from backend.app.services.placement_risk import PlacementRiskService
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 
 client = TestClient(app)
 

@@ -1,6 +1,8 @@
-from sqlalchemy import Column, String, Float, JSON, ForeignKey, DateTime
+from sqlalchemy import JSON, Column, DateTime, Float, ForeignKey, String
 from sqlalchemy.sql import func
+
 from backend.app.models.base import Base
+
 
 class StudentSuccessScore(Base):
     __tablename__ = "student_success_scores"

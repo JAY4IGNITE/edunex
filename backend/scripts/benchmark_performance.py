@@ -9,8 +9,9 @@ import statistics
 import time
 from pathlib import Path
 
-from sqlalchemy import event
 from fastapi.testclient import TestClient
+from sqlalchemy import event
+
 from backend.app.core.database import engine
 from backend.app.main import app
 

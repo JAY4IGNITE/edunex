@@ -1,9 +1,8 @@
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
+from datetime import date
+
 from backend.app.main import app
 from backend.app.services.explanation import ExplanationService
-from backend.app.schemas.student_360 import Student360Response
-from datetime import date
-import pytest
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 
 client = TestClient(app)
 

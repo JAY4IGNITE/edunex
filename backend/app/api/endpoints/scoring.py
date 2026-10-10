@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.schemas.scoring import StudentSuccessScoreResponse
-from backend.app.services.scoring import ScoringService
 from backend.app.services.cache import CacheService
+from backend.app.services.scoring import ScoringService
 
 router = APIRouter()
 

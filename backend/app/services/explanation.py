@@ -1,23 +1,22 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from backend.app.services.student_360 import Student360Service
-from backend.app.services.scoring import ScoringService
-from backend.app.services.academic_risk import AcademicRiskService
-from backend.app.services.placement_risk import PlacementRiskService
-
-from backend.app.core.scoring_config import ScoringConfig
 from backend.app.core.academic_risk_config import AcademicRiskConfig
 from backend.app.core.placement_risk_config import PlacementRiskConfig
-
+from backend.app.core.scoring_config import ScoringConfig
 from backend.app.schemas.explanation import (
-    ExplanationResponse,
-    SuccessScoreExplanation,
     AcademicRiskExplanation,
-    PlacementRiskExplanation,
     DomainContributor,
-    RiskDriver
+    ExplanationResponse,
+    PlacementRiskExplanation,
+    RiskDriver,
+    SuccessScoreExplanation,
 )
+from backend.app.services.academic_risk import AcademicRiskService
+from backend.app.services.placement_risk import PlacementRiskService
+from backend.app.services.scoring import ScoringService
+from backend.app.services.student_360 import Student360Service
+
 
 class ExplanationService:
     def __init__(self, db: Session):

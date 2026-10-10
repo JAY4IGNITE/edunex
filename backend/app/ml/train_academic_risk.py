@@ -1,20 +1,28 @@
 """Reproducible synthetic evaluation; the test partition never selects a model."""
 import hashlib
 import json
-import platform
 import os
+import platform
 import tempfile
 from pathlib import Path
 from types import SimpleNamespace
+
 import joblib
 import numpy as np
 import pandas as pd
 import sklearn
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    brier_score_loss,
+    f1_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
+)
+from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score, brier_score_loss
+
 from backend.app.ml.features.temporal_aggregator import FEATURE_COLS, build_csv_dataset
 from backend.app.services.explanation import ExplanationService
 

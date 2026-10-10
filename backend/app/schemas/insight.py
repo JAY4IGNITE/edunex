@@ -1,11 +1,13 @@
-from typing import List, Optional, Dict, Any
-from pydantic import BaseModel
 from datetime import datetime
+from typing import Any
+
+from pydantic import BaseModel
+
 
 class InsightMetric(BaseModel):
     name: str
     value: Any
-    unit: Optional[str] = None
+    unit: str | None = None
 
 class TrendPoint(BaseModel):
     period: str
@@ -18,15 +20,15 @@ class Insight(BaseModel):
     priority: str
     title: str
     description: str
-    metric_value: Optional[float] = None
-    comparison_value: Optional[float] = None
-    unit: Optional[str] = None
-    supporting_metrics: List[InsightMetric] = []
-    trend_data: List[TrendPoint] = []
+    metric_value: float | None = None
+    comparison_value: float | None = None
+    unit: str | None = None
+    supporting_metrics: list[InsightMetric] = []
+    trend_data: list[TrendPoint] = []
     insufficient_sample: bool = False
 
 class InsightResponse(BaseModel):
     generated_at: datetime
-    applied_filters: Dict[str, Any]
+    applied_filters: dict[str, Any]
     population_size: int
-    insights: List[Insight]
+    insights: list[Insight]

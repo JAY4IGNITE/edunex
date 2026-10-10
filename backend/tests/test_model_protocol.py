@@ -1,12 +1,25 @@
 import json
 from types import SimpleNamespace
+
 import numpy as np
 import pandas as pd
 import pytest
-from backend.app.ml.features.temporal_aggregator import build_csv_dataset, assemble_temporal_dataset, TABLES, FEATURE_COLS, extract_student_features
-from backend.app.ml.train_academic_risk import ROOT, split_dataset, train_and_evaluate, metrics, baseline_scores
-from backend.app.ml.inference import predict_academic_risk
+
 from backend.app.ml.explainability import generate_shap_explanation
+from backend.app.ml.features.temporal_aggregator import (
+    FEATURE_COLS,
+    TABLES,
+    assemble_temporal_dataset,
+    build_csv_dataset,
+)
+from backend.app.ml.inference import predict_academic_risk
+from backend.app.ml.train_academic_risk import (
+    ROOT,
+    baseline_scores,
+    metrics,
+    split_dataset,
+    train_and_evaluate,
+)
 from backend.app.schemas.student_360 import Student360Response
 from backend.app.services.ml_prediction_service import MLPredictionService
 

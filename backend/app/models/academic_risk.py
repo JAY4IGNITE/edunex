@@ -1,6 +1,8 @@
-from sqlalchemy import Column, String, Float, JSON, ForeignKey, DateTime
+from sqlalchemy import JSON, Column, DateTime, Float, ForeignKey, String
 from sqlalchemy.sql import func
+
 from backend.app.models.base import Base
+
 
 class AcademicRiskScore(Base):
     __tablename__ = "academic_risk_scores"

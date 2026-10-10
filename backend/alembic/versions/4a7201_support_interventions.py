@@ -1,6 +1,6 @@
 """Add audited intervention workflow without changing existing scoring tables."""
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
 revision = "4a7201"
 down_revision = "3ec038198807"

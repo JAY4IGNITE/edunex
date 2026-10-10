@@ -1,15 +1,17 @@
 """Real Redis HIT/MISS/invalidation/outage checks on disposable local services."""
 import json
-import time
 import sys
+import time
 from pathlib import Path
 from unittest.mock import patch
+
 import redis
 from fastapi.testclient import TestClient
 from sqlalchemy import event
+
+from backend.app.core.config import settings
 from backend.app.core.database import engine
 from backend.app.core.redis import redis_manager
-from backend.app.core.config import settings
 from backend.app.main import app
 from backend.app.services.cache import CacheService
 

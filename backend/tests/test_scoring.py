@@ -1,11 +1,8 @@
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
-from backend.app.main import app
+
 from backend.app.core.scoring_config import ScoringConfig
+from backend.app.main import app
 from backend.app.services.scoring import ScoringService
-from backend.app.schemas.student_360 import Student360Response
-from backend.app.schemas.canonical import StudentSchema, AcademicRecordSchema
-from pydantic import BaseModel
-import pytest
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 
 client = TestClient(app)
 

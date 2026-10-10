@@ -1,5 +1,5 @@
-from backend.tests.test_client import AuthenticatedTestClient as TestClient
 from backend.app.main import app
+from backend.tests.test_client import AuthenticatedTestClient as TestClient
 
 client = TestClient(app)
 

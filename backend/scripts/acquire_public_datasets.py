@@ -1,4 +1,3 @@
-import os
 
 def acquire_oulad():
     print("--- OULAD ACQUISITION ---")

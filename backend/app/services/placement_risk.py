@@ -1,9 +1,11 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+
 from backend.app.core.placement_risk_config import PlacementRiskConfig
 from backend.app.models.placement_risk import PlacementRiskScore
+from backend.app.schemas.placement_risk import AssessmentMetadata, PlacementRiskResponse
 from backend.app.services.student_360 import Student360Service
-from backend.app.schemas.placement_risk import PlacementRiskResponse, AssessmentMetadata
+
 
 class PlacementRiskService:
     def __init__(self, db: Session):

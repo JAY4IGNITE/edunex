@@ -3,8 +3,10 @@ import secrets
 import time
 from contextvars import ContextVar
 from urllib.parse import urlparse
+
 from fastapi import HTTPException
 from starlette.responses import JSONResponse
+
 from backend.app.core.config import settings
 
 DEMO_USERS = {

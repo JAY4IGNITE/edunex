@@ -1,10 +1,12 @@
 import logging
+
 from fastapi import HTTPException
-from backend.app.services.student_360 import Student360Service
+
+from backend.app.ml.explainability import generate_shap_explanation
 from backend.app.ml.features.temporal_aggregator import extract_student_features
 from backend.app.ml.inference import predict_academic_risk
-from backend.app.ml.explainability import generate_shap_explanation
 from backend.app.services.explanation import ExplanationService
+from backend.app.services.student_360 import Student360Service
 
 logger = logging.getLogger(__name__)
 

@@ -1,23 +1,35 @@
 import os
+
+import pandas as pd
 import yaml
 from sqlalchemy import tuple_
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import OperationalError
 from sqlalchemy.dialects.postgresql import insert as pg_insert
-import pandas as pd
+from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm import Session
 
 from backend.app.core.database import SessionLocal
-from backend.app.services.ingestion import IngestionPipeline
-from backend.app.schemas.canonical import (
-    StudentSchema, AcademicRecordSchema, AttendanceRecordSchema,
-    LMSRecordSchema, EngagementRecordSchema, PlacementRecordSchema,
-    SkillRecordSchema, FeedbackRecordSchema
-)
 from backend.app.models.canonical import (
-    Student, AcademicRecord, AttendanceRecord, LMSRecord,
-    EngagementRecord, PlacementRecord, SkillRecord, FeedbackRecord
+    AcademicRecord,
+    AttendanceRecord,
+    EngagementRecord,
+    FeedbackRecord,
+    LMSRecord,
+    PlacementRecord,
+    SkillRecord,
+    Student,
 )
 from backend.app.models.demo_assignment import DemoAssignment
+from backend.app.schemas.canonical import (
+    AcademicRecordSchema,
+    AttendanceRecordSchema,
+    EngagementRecordSchema,
+    FeedbackRecordSchema,
+    LMSRecordSchema,
+    PlacementRecordSchema,
+    SkillRecordSchema,
+    StudentSchema,
+)
+from backend.app.services.ingestion import IngestionPipeline
 
 # Paths
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
@@ -113,9 +125,9 @@ def run():
             not missing_natural_keys(db, model, df, unique_keys_by_model[model])
             for (_name, model), df in processed_dfs.items()
         )
-        from backend.app.models.scoring import StudentSuccessScore
         from backend.app.models.academic_risk import AcademicRiskScore
         from backend.app.models.placement_risk import PlacementRiskScore
+        from backend.app.models.scoring import StudentSuccessScore
         from backend.app.models.segment import StudentSegmentMembership
         expected_students = db.query(Student).count()
         derived_data_complete = expected_students > 0 and all(
@@ -150,9 +162,9 @@ def run():
         print("Database ingestion successful.")
         
         print("Calculating initial scores and segments...")
-        from backend.app.services.scoring import ScoringService
         from backend.app.services.academic_risk import AcademicRiskService
         from backend.app.services.placement_risk import PlacementRiskService
+        from backend.app.services.scoring import ScoringService
         from backend.app.services.segmentation import SegmentationService
         
         scoring_svc = ScoringService(db)

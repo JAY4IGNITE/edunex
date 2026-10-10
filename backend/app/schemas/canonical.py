@@ -1,7 +1,9 @@
-from pydantic import BaseModel, Field, field_validator
-from typing import Optional, Dict, Any
-from datetime import date
 import re
+from datetime import date
+from typing import Any
+
+from pydantic import BaseModel, Field, field_validator
+
 
 # Reusable validators
 def validate_academic_year(v: str) -> str:
@@ -29,7 +31,7 @@ class AcademicRecordSchema(ORMBaseModel):
     cgpa: float = Field(..., ge=0.0, le=10.0)
     internal_marks: float = Field(..., ge=0.0)
     backlogs: int = Field(..., ge=0)
-    subject_performance: Optional[Dict[str, Any]] = None
+    subject_performance: dict[str, Any] | None = None
 
     _validate_year = field_validator("academic_year")(validate_academic_year)
 
@@ -38,7 +40,7 @@ class AttendanceRecordSchema(ORMBaseModel):
     semester: int = Field(..., ge=1, le=10)
     academic_year: str
     overall_attendance: float = Field(..., ge=0.0, le=100.0)
-    subject_attendance: Optional[Dict[str, Any]] = None
+    subject_attendance: dict[str, Any] | None = None
 
     _validate_year = field_validator("academic_year")(validate_academic_year)
 
@@ -81,7 +83,7 @@ class FeedbackRecordSchema(ORMBaseModel):
     semester: int = Field(..., ge=1, le=10)
     academic_year: str
     student_satisfaction: float = Field(..., ge=0.0, le=5.0)
-    faculty_feedback: Optional[Any] = None
+    faculty_feedback: Any | None = None
 
     _validate_year = field_validator("academic_year")(validate_academic_year)
 

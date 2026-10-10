@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.schemas.explanation import ExplanationResponse
-from backend.app.services.explanation import ExplanationService
 from backend.app.services.cache import CacheService
+from backend.app.services.explanation import ExplanationService
 
 router = APIRouter()
 

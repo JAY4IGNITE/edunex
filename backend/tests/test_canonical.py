@@ -1,7 +1,13 @@
 import pytest
-from pydantic import ValidationError
-from backend.app.schemas.canonical import StudentSchema, AcademicRecordSchema, ProvenanceMetadata
 import yaml
+from pydantic import ValidationError
+
+from backend.app.schemas.canonical import (
+    AcademicRecordSchema,
+    ProvenanceMetadata,
+    StudentSchema,
+)
+
 
 def test_student_schema_valid():
     student = StudentSchema(

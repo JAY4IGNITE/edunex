@@ -1,16 +1,17 @@
-from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
+
 from backend.app.schemas.canonical import ORMBaseModel
 
+
 class SegmentCharacteristics(BaseModel):
-    average_success_score: Optional[float] = None
-    average_academic_risk: Optional[float] = None
-    average_placement_risk: Optional[float] = None
-    average_cgpa: Optional[float] = None
-    average_attendance: Optional[float] = None
-    average_lms_activity: Optional[float] = None
-    average_aptitude_score: Optional[float] = None
-    average_coding_score: Optional[float] = None
+    average_success_score: float | None = None
+    average_academic_risk: float | None = None
+    average_placement_risk: float | None = None
+    average_cgpa: float | None = None
+    average_attendance: float | None = None
+    average_lms_activity: float | None = None
+    average_aptitude_score: float | None = None
+    average_coding_score: float | None = None
 
 class SegmentSummary(BaseModel):
     segment_id: str
@@ -22,13 +23,13 @@ class SegmentSummary(BaseModel):
 
 class SegmentDetailResponse(SegmentSummary):
     characteristics: SegmentCharacteristics
-    students: List[str] # List of student IDs
+    students: list[str] # List of student IDs
 
 class SegmentListResponse(BaseModel):
     total_students: int
-    segments: List[SegmentSummary]
+    segments: list[SegmentSummary]
 
 class SegmentMembershipResponse(ORMBaseModel):
     student_id: str
-    primary_segment: Optional[str] = None
-    secondary_segments: List[str] = []
+    primary_segment: str | None = None
+    secondary_segments: list[str] = []

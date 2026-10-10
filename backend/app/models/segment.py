@@ -1,6 +1,8 @@
-from sqlalchemy import Column, String, ForeignKey, DateTime
+from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy.sql import func
+
 from backend.app.models.base import Base
+
 
 class StudentSegmentMembership(Base):
     __tablename__ = "student_segment_memberships"

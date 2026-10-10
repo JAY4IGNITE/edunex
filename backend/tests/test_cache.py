@@ -1,7 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
-from backend.app.services.cache import CacheService
+from unittest.mock import MagicMock, patch
+
 import redis
+
+from backend.app.services.cache import CacheService
+
 
 def test_cache_set_and_invalidate_tags():
     # We use a mock to verify behavior without a real Redis server

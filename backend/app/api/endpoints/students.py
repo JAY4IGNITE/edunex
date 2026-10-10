@@ -1,21 +1,22 @@
+
 from fastapi import APIRouter, Depends, Query, Response
-from typing import List, Optional
 from sqlalchemy.orm import Session
+
 from backend.app.core.database import get_db
 from backend.app.models.canonical import Student
 from backend.app.schemas.canonical import StudentSchema
 from backend.app.schemas.student_360 import Student360Response
-from backend.app.services.student_360 import Student360Service
 from backend.app.services.ml_prediction_service import MLPredictionService
+from backend.app.services.student_360 import Student360Service
 
 router = APIRouter()
 
-@router.get("", response_model=List[StudentSchema], summary="List Students")
+@router.get("", response_model=list[StudentSchema], summary="List Students")
 def list_students(
     response: Response,
-    department: Optional[str] = Query(None, description="Filter by department"),
-    year: Optional[int] = Query(None, description="Filter by academic year"),
-    semester: Optional[int] = Query(None, description="Filter by semester"),
+    department: str | None = Query(None, description="Filter by department"),
+    year: int | None = Query(None, description="Filter by academic year"),
+    semester: int | None = Query(None, description="Filter by semester"),
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=1000),
     db: Session = Depends(get_db)

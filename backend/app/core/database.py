@@ -1,6 +1,7 @@
 from fastapi import Request
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
+
 from backend.app.core.config import settings
 
 engine = create_engine(
@@ -18,8 +19,8 @@ Base = declarative_base()
 
 
 def get_db(request: Request):
-    from backend.app.core.demo_auth import require_user
     from backend.app.core.access_scope import apply_scope
+    from backend.app.core.demo_auth import require_user
     user = require_user(request)
     db = SessionLocal()
     apply_scope(db,user)

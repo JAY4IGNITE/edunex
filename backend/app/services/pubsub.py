@@ -1,7 +1,9 @@
 import json
 import logging
-from typing import Optional, Dict, Any
+from typing import Any
+
 import redis
+
 from backend.app.core.redis import redis_manager
 
 logger = logging.getLogger(__name__)
@@ -10,12 +12,12 @@ CHANNEL_NAME = "edunex:v1:events"
 
 class PubSubService:
     _subscriber_thread = None
-    _pubsub: Optional[redis.client.PubSub] = None
+    _pubsub: redis.client.PubSub | None = None
 
     _loop = None
 
     @staticmethod
-    def publish(event_type: str, payload: Optional[Dict[str, Any]] = None) -> bool:
+    def publish(event_type: str, payload: dict[str, Any] | None = None) -> bool:
         """Publish a tiny event to the versioned channel."""
         client = redis_manager.get_client()
         if not client:
@@ -66,8 +68,9 @@ class PubSubService:
                 
                 # Dispatch to WebSocket manager if loop is available
                 if PubSubService._loop and not PubSubService._loop.is_closed():
-                    from backend.app.services.websocket import manager
                     import asyncio
+
+                    from backend.app.services.websocket import manager
                     asyncio.run_coroutine_threadsafe(manager.broadcast(data), PubSubService._loop)
             except json.JSONDecodeError:
                 logger.warning("Received malformed JSON in Pub/Sub event.")

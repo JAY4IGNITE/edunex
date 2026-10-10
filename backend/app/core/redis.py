@@ -1,7 +1,9 @@
+import logging
+
 import redis
 from redis.backoff import NoBackoff
 from redis.retry import Retry
-import logging
+
 from backend.app.core.config import settings
 
 logger = logging.getLogger(__name__)

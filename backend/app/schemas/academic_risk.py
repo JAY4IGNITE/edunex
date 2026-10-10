@@ -1,5 +1,5 @@
-from typing import List, Optional, Dict, Any
 from backend.app.schemas.canonical import ORMBaseModel
+
 
 class AssessmentPeriod(ORMBaseModel):
     semester: int
@@ -9,6 +9,6 @@ class AcademicRiskResponse(ORMBaseModel):
     student_id: str
     academic_risk_score: float
     risk_level: str
-    available_signals: List[str]
-    missing_signals: List[str]
-    assessment_period: Optional[AssessmentPeriod] = None
+    available_signals: list[str]
+    missing_signals: list[str]
+    assessment_period: AssessmentPeriod | None = None

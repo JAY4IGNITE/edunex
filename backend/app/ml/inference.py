@@ -1,8 +1,10 @@
 import os
 import pickle
 from pathlib import Path
+
 import joblib
 import numpy as np
+
 from backend.app.ml.features.temporal_aggregator import FEATURE_COLS
 
 _MODEL_ARTIFACT = None

@@ -1,8 +1,9 @@
-from typing import List, Optional
-from pydantic import BaseModel
-from backend.app.schemas.canonical import ORMBaseModel
+
+
 from backend.app.schemas.academic_risk import AssessmentPeriod
+from backend.app.schemas.canonical import ORMBaseModel
 from backend.app.schemas.placement_risk import AssessmentMetadata
+
 
 class ContributorBase(ORMBaseModel):
     name: str
@@ -12,34 +13,34 @@ class ContributorBase(ORMBaseModel):
     effective_weight: float
 
 class DomainContributor(ContributorBase):
-    normalized_value: Optional[float] = None
-    contribution: Optional[float] = None
+    normalized_value: float | None = None
+    contribution: float | None = None
     direction: str = "neutral"
 
 class RiskDriver(ContributorBase):
-    normalized_value: Optional[float] = None
-    risk_contribution: Optional[float] = None
+    normalized_value: float | None = None
+    risk_contribution: float | None = None
 
 class SuccessScoreExplanation(ORMBaseModel):
     score: float
     band: str
-    contributors: List[DomainContributor]
-    missing_domains: List[str]
+    contributors: list[DomainContributor]
+    missing_domains: list[str]
 
 class AcademicRiskExplanation(ORMBaseModel):
     score: float
     risk_level: str
-    drivers: List[RiskDriver]
-    protective_indicators: List[RiskDriver]
-    missing_signals: List[str]
-    assessment_period: Optional[AssessmentPeriod] = None
+    drivers: list[RiskDriver]
+    protective_indicators: list[RiskDriver]
+    missing_signals: list[str]
+    assessment_period: AssessmentPeriod | None = None
 
 class PlacementRiskExplanation(ORMBaseModel):
     score: float
     risk_level: str
-    drivers: List[RiskDriver]
-    protective_indicators: List[RiskDriver]
-    missing_signals: List[str]
+    drivers: list[RiskDriver]
+    protective_indicators: list[RiskDriver]
+    missing_signals: list[str]
     assessment_metadata: AssessmentMetadata
 
 class ExplanationResponse(ORMBaseModel):

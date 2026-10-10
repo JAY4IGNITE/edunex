@@ -1,14 +1,21 @@
-from typing import Optional
-from datetime import datetime, UTC
+from datetime import UTC, datetime
+
 from sqlalchemy.orm import Session
+
 from backend.app.core.insight_config import InsightConfig
-from backend.app.schemas.insight import Insight, InsightMetric, InsightResponse, TrendPoint
-from backend.app.services.student_360 import Student360Service
-from backend.app.services.scoring import ScoringService
+from backend.app.models.canonical import Student
+from backend.app.schemas.insight import (
+    Insight,
+    InsightMetric,
+    InsightResponse,
+    TrendPoint,
+)
 from backend.app.services.academic_risk import AcademicRiskService
 from backend.app.services.placement_risk import PlacementRiskService
+from backend.app.services.scoring import ScoringService
 from backend.app.services.segmentation import SegmentationService
-from backend.app.models.canonical import Student
+from backend.app.services.student_360 import Student360Service
+
 
 class InsightService:
     def __init__(self, db: Session):
@@ -38,7 +45,7 @@ class InsightService:
                                             for d, value in domains.items()), 2))
         return scores
 
-    def _gather_metrics(self, department: Optional[str] = None, year: Optional[int] = None, semester: Optional[int] = None):
+    def _gather_metrics(self, department: str | None = None, year: int | None = None, semester: int | None = None):
         query = self.db.query(Student.student_id)
         
         applied_filters = {}
@@ -88,7 +95,15 @@ class InsightService:
         scores = {row[0]: row[1] for row in self.db.query(StudentSuccessScore.student_id, StudentSuccessScore.score).filter(StudentSuccessScore.student_id.in_(student_ids)).all()}
         segments = {row[0]: row[1] for row in self.db.query(StudentSegmentMembership.student_id, StudentSegmentMembership.segment_id).filter(StudentSegmentMembership.student_id.in_(student_ids), StudentSegmentMembership.membership_type == "PRIMARY").all()}
 
-        from backend.app.models.canonical import AttendanceRecord, EngagementRecord, AcademicRecord, LMSRecord, PlacementRecord, SkillRecord, FeedbackRecord
+        from backend.app.models.canonical import (
+            AcademicRecord,
+            AttendanceRecord,
+            EngagementRecord,
+            FeedbackRecord,
+            LMSRecord,
+            PlacementRecord,
+            SkillRecord,
+        )
         
         # 1. Fetch scalar aggregations efficiently
         att_records = self.db.query(AttendanceRecord.student_id, AttendanceRecord.semester, AttendanceRecord.overall_attendance).filter(AttendanceRecord.student_id.in_(student_ids)).all()
@@ -190,7 +205,7 @@ class InsightService:
 
         return metrics
 
-    def generate_insights(self, department: Optional[str] = None, year: Optional[int] = None, semester: Optional[int] = None) -> InsightResponse:
+    def generate_insights(self, department: str | None = None, year: int | None = None, semester: int | None = None) -> InsightResponse:
         metrics = self._gather_metrics(department, year, semester)
         population_size = metrics["population_size"]
         applied_filters = metrics["applied_filters"]
