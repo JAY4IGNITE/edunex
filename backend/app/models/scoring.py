@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, Column, DateTime, Float, ForeignKey, String
 from sqlalchemy.sql import func
 
-from backend.app.models.base import Base
+from backend.app.core.database import Base
 
 
 class StudentSuccessScore(Base):

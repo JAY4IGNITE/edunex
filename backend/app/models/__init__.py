@@ -1,5 +1,6 @@
 from backend.app.models.academic_risk import AcademicRiskScore
-from backend.app.models.base import Base, TimestampMixin
+from backend.app.core.database import Base
+from backend.app.models.base import TimestampMixin
 from backend.app.models.canonical import (
     AcademicRecord,
     AttendanceRecord,
