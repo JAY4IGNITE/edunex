@@ -1,5 +1,6 @@
 """Public synthetic demo identities; this is not production account enrollment."""
 import secrets
+import time
 import warnings
 from contextvars import ContextVar
 from urllib.parse import urlparse
@@ -28,7 +29,9 @@ PUBLIC_PATHS = {"/api/health","/api/keep-alive","/api/model","/api/auth/users","
 
 
 def session_user(session):
-    return DEMO_USERS.get("dean-demo")
+    if session.get("expires_at",0) <= time.time():
+        return None
+    return DEMO_USERS.get(session.get("user_id"))
 
 
 def origin_allowed(request):
