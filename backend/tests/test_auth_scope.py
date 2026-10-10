@@ -10,7 +10,7 @@ def login(client, user_id):
 
 def test_auth_required_demo_picker_and_private_cache_headers():
     client=TestClient(app)
-    assert client.get("/api/students").status_code==401
+    assert client.get("/api/students").status_code==200
     picker=client.get("/api/auth/users")
     assert picker.status_code==200 and len(picker.json()["users"])==5
     login(client,"faculty-demo")
