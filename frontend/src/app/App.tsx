@@ -17,7 +17,7 @@ const DataIntegration = lazy(() => import("@/pages/DataIntegration"));
 const Priority = lazy(() => import("@/pages/Priority"));
 const Interventions = lazy(() => import("@/pages/Interventions"));
 const Model = lazy(() => import("@/pages/Model"));
-const Login = lazy(() => import("@/pages/Login"));
+
 class ErrorBoundary extends Component<
   { children: ReactNode },
   { failed: boolean }
