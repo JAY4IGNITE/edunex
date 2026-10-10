@@ -1,6 +1,6 @@
 """Public synthetic demo identities; this is not production account enrollment."""
 import secrets
-import time
+import warnings
 from contextvars import ContextVar
 from urllib.parse import urlparse
 
@@ -19,7 +19,6 @@ DEMO_USERS = {
 current_identity = ContextVar("demo_identity",default=None)
 SESSION_SECONDS = 3600
 COOKIE_SECURE = settings.environment != "development"
-import warnings
 SESSION_SECRET = settings.edunex_session_secret or secrets.token_urlsafe(48)
 if COOKIE_SECURE and not settings.edunex_session_secret:
     warnings.warn("EDUNEX_SESSION_SECRET not set; using random ephemeral secret. Sessions will reset on restart.")
