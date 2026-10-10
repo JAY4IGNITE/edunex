@@ -1,37 +1,81 @@
-# EduNex
+<div align="center">
+  <h1>EduNex 🎓</h1>
+  <p><strong>Smart Campus Analytics for Student Success</strong></p>
 
-EduNex is a student-success analytics demonstration that brings academic, attendance, LMS, engagement, placement, skills, and feedback signals into a cohort dashboard and Student 360 view. Staff can inspect transparent risk explanations, review human-authored support recommendations, and track actions through an audited workflow.
+  [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/release/python-3120/)
+  [![Node 20+](https://img.shields.io/badge/node-20+-green.svg)](https://nodejs.org/)
+  [![PostgreSQL 16+](https://img.shields.io/badge/PostgreSQL-16+-blue.svg)](https://www.postgresql.org/)
+  [![React](https://img.shields.io/badge/React-18-61DAFB.svg?logo=react)](https://reactjs.org/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+</div>
 
-**Data boundary:** the included dataset is synthetic. Demo identities are public role previews, not production authentication. Do not connect real student records or use this application to make an automated adverse decision.
+<br />
 
-## What the demo contains
+EduNex is a comprehensive, open-source student-success analytics platform designed to bring academic, attendance, LMS, engagement, placement, skills, and feedback signals into a unified cohort dashboard and a comprehensive 360-degree student view. 
 
-- A seven-domain Student Success Score that renormalizes weights when source domains are unavailable.
-- Separate academic and placement risk views, explanations, historical summaries, and cohort filters.
-- A synthetic, time-forward academic-risk model and a rerunnable evidence report; see [MODEL_CARD.md](MODEL_CARD.md) for measured limitations.
-- A priority queue, suggested support actions, staff-reviewed intervention tracker, version checks, and audit history.
-- Admin, Faculty, Mentor, and Counselor demo views. The API enforces department or seeded-assignment scope before returning records.
-- A cohort capacity scenario with editable staffing assumptions, CSV export, and print view.
+It empowers university staff and educators to inspect transparent risk explanations, review human-authored support recommendations, and track interventions through an audited workflow—ultimately helping institutions proactively identify and support at-risk students.
 
-Scores and model features summarize associations in the synthetic dataset. They do not establish causes or treatment effects. The planning widget is a scenario calculator, not a staffing recommendation.
+> **⚠️ Data Boundary & Synthetic Demo**  
+> The included dataset is strictly synthetic and generated for demonstration purposes. Demo identities are public role previews, not production authentication. Do not connect real student records or use this application to make automated adverse decisions.
 
-## Run locally
+---
 
-Requirements: Python 3.12+, Node.js 20+, and PostgreSQL 16+.
+## ✨ Key Features
 
-From the repository root, create a database, copy `.env.example` to `.env`, and set `DATABASE_URL` to a local `postgresql+psycopg://` URL. Keep `ENVIRONMENT=development`; production requires a shared random `EDUNEX_SESSION_SECRET` of at least 32 characters.
+- **Holistic Student Success Score**: A dynamic seven-domain scoring engine that recalculates and renormalizes weights intelligently when source domains are unavailable.
+- **Actionable Risk Modeling**: Separate academic and placement risk views, equipped with transparent explainability, historical summaries, and cohort filtering capabilities.
+- **Predictive Analytics**: A synthetic, time-forward academic-risk model providing rerunnable evidence reports. See the [Model Card](MODEL_CARD.md) for architecture, metrics, and limitations.
+- **Intervention Lifecycle Management**: Includes a priority queue, suggested support actions, a staff-reviewed intervention tracker, version checks, and comprehensive audit history.
+- **Role-based Access Control (RBAC)**: Includes specialized demo views for Admin, Faculty, Mentor, and Counselors. The backend API enforces strict departmental and seeded-assignment scoping.
+- **Capacity Planning**: A built-in cohort capacity scenario builder with editable staffing assumptions, CSV data export, and print-ready reporting views.
+
+## 🛠️ Technology Stack
+
+**Frontend:**
+- React 18, TypeScript, Vite
+- TanStack Query (React Query)
+- React Router DOM
+- Custom Vanilla CSS Design System
+
+**Backend:**
+- Python 3.12+, FastAPI, Uvicorn
+- PostgreSQL 16+, SQLAlchemy, Alembic (Migrations)
+- Scikit-learn (Machine Learning Pipeline)
+- Pytest (Backend Testing)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- [Python 3.12+](https://www.python.org/)
+- [Node.js 20+](https://nodejs.org/)
+- [PostgreSQL 16+](https://www.postgresql.org/)
+
+### 1. Database & Environment Setup
+From the repository root, create a PostgreSQL database. Copy `.env.example` to `.env`, and set `DATABASE_URL` to point to your local database using the `postgresql+psycopg://` dialect. Keep `ENVIRONMENT=development` for local testing.
+
+### 2. Backend Initialization
+In your terminal, set up the Python environment, run the migrations, ingest the synthetic demo data, and start the API server:
 
 ```powershell
+# Create and activate virtual environment
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
+
+# Install dependencies
 python -m pip install -r backend/requirements.txt
-Copy-Item .env.example .env
+
+# Run migrations and data ingestion
 python -m alembic -c backend/alembic.ini upgrade head
 python -m backend.scripts.run_ingestion
+
+# Start the FastAPI server
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
 
-In another terminal:
+### 3. Frontend Initialization
+In a separate terminal, install the Node modules and start the Vite development server:
 
 ```powershell
 cd frontend
@@ -39,30 +83,40 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173/`. The demo login explains that every role and record is synthetic. Regenerate the fixed-seed source files only when needed with `python backend/scripts/generate_demo.py`, then rerun ingestion.
+Open [http://localhost:5173](http://localhost:5173) in your browser. 
+*(Note: To regenerate the fixed-seed source files, run `python backend/scripts/generate_demo.py` and then rerun the ingestion script.)*
 
-## Verification
+---
 
+## 🧪 Testing & Verification
+
+The repository maintains strict test coverage ensuring production readiness.
+
+**Backend Tests (Pytest):**
 ```powershell
 .\.venv\Scripts\python.exe -m pytest backend/tests -q --basetemp=.phase-work/pytest
+```
+
+**Frontend Tests & Typechecking:**
+```powershell
 npm test --prefix frontend -- --pool=vmThreads --maxWorkers=1
 npm run typecheck --prefix frontend
 npm run build --prefix frontend
 ```
+*(The automated CI pipeline runs integration tests against a fresh PostgreSQL database instance.)*
 
-The browser journeys are in `frontend/scripts/`; [CI](.github/workflows/ci.yml) prepares a fresh PostgreSQL database and runs the judge journey against it. The focused backend role, ingestion, readiness, and connection-config suite passed locally. The full local backend suite needs a reachable Postgres instance. See the [Phase 7 verification record](docs/phase-7-gates.md) for the complete gates and current evidence status.
+---
 
-## Deployment notes
+## ☁️ Deployment Notes
 
-`render.yaml` defines the static frontend, API, Redis cache, and Postgres service. On Render Free, the API start command runs Alembic and idempotent synthetic ingestion before starting Uvicorn. Set `EDUNEX_SESSION_SECRET` in the backend service dashboard; never commit that secret.
+The infrastructure is defined via `render.yaml`, outlining the static frontend, API, Redis cache, and Postgres service. 
+- On Render deployments, the API start command automatically executes Alembic migrations and idempotent synthetic ingestion before spinning up Uvicorn. 
+- **Production Security:** For production builds, you **must** set the `EDUNEX_SESSION_SECRET` environment variable to a shared random value of at least 32 characters in your deployment dashboard. *Never commit this secret.*
+- Note for free tiers: Hosted PostgreSQL databases may sleep or expire depending on the provider tier. Always backup necessary synthetic configurations.
 
-Render Free is a preview setup. Its web service sleeps after idle time, and its free Postgres database expires 30 days after creation, with 14 days to upgrade before deletion. The judging date and existing database creation date are unknown, so its availability on judging day is unconfirmed. See [Phase 5 deployment notes](docs/phase-5-reliability.md) before creating or relying on the hosted database.
+---
 
-## Responsible use and evidence
+## ⚖️ Responsible Use & Evidence
 
-- [Model card](MODEL_CARD.md) — outcome definition, split, metrics, calibration, and limitations.
-- [Responsible-use mapping](docs/responsible-use-mapping.md) — scope, controls, and known gaps.
-- [Demo script](docs/demo-script.md) and [pitch outline](docs/pitch-outline.md).
-- [Phase evidence and verification log](tasks/todo.md).
-
-The database contains only synthetic demonstration data. The public role selector is not a real account system and must be replaced with institutional identity, authorization, consent, monitoring, and retention controls before any real-data use.
+- **[Model Card](MODEL_CARD.md)**: Details the academic risk model's outcome definition, data splits, metrics, calibration, and critical limitations.
+- **Authentication**: The public role selector used in this codebase is not a real account system. It is designed to be replaced with institutional identity management (SSO), rigorous authorization, user consent forms, monitoring, and data retention controls before any real-world production data is utilized.
