@@ -1,14 +1,21 @@
-# EduNex
+# EduNex: Student Success Analytics Platform
 
-**Student success analytics, explainable risk assessment, and coordinated support.**
+[![Build Status](https://img.shields.io/github/actions/workflow/status/JAY4IGNITE/edunex/ci.yml?branch=main&style=for-the-badge)](https://github.com/JAY4IGNITE/edunex/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Python Version](https://img.shields.io/badge/python-3.12-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![React Version](https://img.shields.io/badge/react-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
 
-EduNex brings academic performance, attendance, learning management system (LMS) activity, engagement, placement, skills, and feedback into one campus analytics workspace. Staff can explore cohort trends, review a student's history and risk factors, and coordinate interventions with an auditable record of decisions.
+**EduNex** is a comprehensive campus analytics workspace designed to unify student success metrics, provide explainable risk assessments, and facilitate coordinated institutional support.
 
-Built as a React application backed by a FastAPI modular monolith, the project combines deterministic scoring with a reproducible synthetic academic-risk model. Some repository paths and API metadata retain the original **CampusPulse AI** name.
+By aggregating academic performance, attendance, learning management system (LMS) activity, engagement, placement, skills, and feedback, EduNex empowers staff to seamlessly explore cohort trends, review detailed student histories, and orchestrate targeted interventions backed by an auditable trail of decisions.
 
-> **Demonstration scope:** All included student records are synthetic. Public demo roles are role previews, not institutional authentication. The model is not validated for real students, and its outputs must not drive automated adverse decisions.
+Built as a modern **React** Single-Page Application (SPA) powered by a **FastAPI** modular monolith, the platform leverages deterministic scoring combined with a reproducible, synthetic academic-risk predictive model.
 
-[Capabilities](#capabilities) · [Architecture](#architecture-and-workflow) · [Quick start](#quick-start) · [Verification](#verification) · [Documentation](#documentation)
+> ⚠️ **Demonstration Notice:** All included student records are entirely synthetic. Public demo roles provide role-based UI previews and do not represent actual institutional authentication. The predictive model is strictly for demonstration purposes and is not validated for real students. Model outputs must not drive automated adverse decisions.
+
+---
+
+[Capabilities](#capabilities) · [Architecture & Workflow](#architecture-and-workflow) · [Quick Start](#quick-start) · [Verification](#verification) · [Documentation](#documentation)
 
 ## Capabilities
 
@@ -26,84 +33,96 @@ Built as a React application backed by a FastAPI modular monolith, the project c
 
 ## Architecture and workflow
 
-The backend keeps ingestion, analytics, model inference, and intervention management in separate modules within one application. PostgreSQL stores canonical records and operational state. Redis provides optional caching and event distribution; the browser receives update notifications through WebSockets and refetches relevant queries.
+The EduNex backend employs a modular monolith architecture, segregating data ingestion, analytics, model inference, and intervention management into distinct modules. **PostgreSQL** serves as the canonical system of record, while **Redis** facilitates optional caching and event-driven architecture. The React frontend maintains real-time synchronization via WebSockets.
 
 ```mermaid
+---
+title: EduNex System Architecture
+---
 flowchart TB
-    subgraph DATA["01 · Data preparation"]
+    %% Styling
+    classDef dataLayer fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#0f172a,rx:10,ry:10
+    classDef appLayer fill:#f0fdfa,stroke:#0d9488,stroke-width:2px,color:#134e4a,rx:10,ry:10
+    classDef uiLayer fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#2e1065,rx:10,ry:10
+    classDef optionalLayer fill:#ffffff,stroke:#cbd5e1,stroke-width:2px,stroke-dasharray: 5 5,color:#475569,rx:10,ry:10
+    classDef db fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+
+    subgraph DATA ["Data & Pipeline Layer"]
         direction LR
-        sources["Synthetic source CSVs<br/>Seven student-success domains"]
-        ingestion["Ingestion pipeline<br/>Schema validation · deduplication"]
-        evidence["Canonical CSVs<br/>Quality report · provenance"]
-        sources --> ingestion --> evidence
+        sources[/"Synthetic CSVs"/]
+        ingest[["Ingestion Pipeline"]]
+        evidence[/"Canonical Evidence"/]
+        sources -->|Validate & Deduplicate| ingest -->|Write| evidence
     end
 
-    subgraph CORE["02 · Application and persistence"]
+    subgraph CORE ["Core Application Layer"]
         direction LR
-        db[("PostgreSQL<br/>Student records · scores · interventions · audit")]
-        services["Domain services<br/>Student 360 · scoring · risks · segments · insights"]
-        model["Model inference<br/>Trusted artifact or baseline fallback"]
-        api["FastAPI REST API<br/>Demo session · role and data scoping"]
-        support["Intervention service<br/>Recommendations · assignments · status changes"]
-        db <--> services
-        services --> model
-        services <--> api
+        db[("PostgreSQL")]
+        services{{"Domain Services"}}
+        model(["ML Inference"] )
+        api[["FastAPI REST API"]]
+        support{{"Intervention Engine"}}
+
+        db <==>|Read/Write| services
+        services -->|Predict| model
+        services <==> api
         model --> api
-        api <--> support
-        support <-->|"Persist and audit"| db
+        api <==> support
+        support <==>|Audit Trail| db
     end
 
-    subgraph EXPERIENCE["03 · Staff workspace"]
+    subgraph UI ["Experience Layer"]
         direction LR
-        ui["React + TypeScript<br/>Dashboard · Student 360 · support queue"]
-        review["Staff review<br/>Inspect evidence · assign support · track progress"]
-        ui <--> review
+        client(("React UI Workspace"))
+        staff([Staff Review Workflow])
+        client <==> staff
     end
 
-    subgraph UPDATES["04 · Optional live updates"]
+    subgraph ASYNC ["Real-Time & Caching Layer (Optional)"]
         direction LR
-        redis[("Redis<br/>Cache · Pub/Sub")]
-        ws["WebSocket notifications<br/>Query invalidation and refetch"]
-        redis -.-> ws
+        redis[("Redis Cache/PubSub")]
+        ws>WebSocket Gateway]
+        redis -.->|Publish| ws
     end
 
-    ingestion -->|"Idempotent load"| db
-    evidence -->|"Quality and provenance endpoints"| api
-    api <-->|"JSON over HTTP"| ui
-    services -.->|"Cache reads and writes"| redis
-    support -.->|"Invalidate cache and publish events"| redis
-    ws -.-> ui
+    %% Cross-layer integrations
+    ingest -->|Idempotent Load| db
+    evidence -->|Provenance Data| api
+    api <==>|JSON / HTTP| client
+    services -.->|Cache Data| redis
+    support -.->|Invalidate & Notify| redis
+    ws -.->|Live Updates| client
 
-    classDef data fill:#eff6ff,stroke:#2563eb,color:#172554
-    classDef application fill:#f0fdfa,stroke:#0f766e,color:#134e4a
-    classDef experience fill:#f5f3ff,stroke:#7c3aed,color:#2e1065
-    classDef optional fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-dasharray:5 5
-    class sources,ingestion,evidence,db data
-    class services,model,api,support application
-    class ui,review experience
-    class redis,ws optional
+    %% Class Attachments
+    class DATA dataLayer
+    class CORE appLayer
+    class UI uiLayer
+    class ASYNC optionalLayer
+    class db,redis db
 ```
 
-*Solid arrows show the primary data and request paths. Dashed arrows show optional cache and notification paths. Domain services, inference, intervention handling, and the WebSocket endpoint run within the backend; they are not independently deployed services.*
+*Solid arrows represent synchronous primary data flow and REST paths. Dashed arrows represent asynchronous cache operations and real-time WebSocket notifications.*
 
-1. **Prepare evidence.** Validate and deduplicate synthetic source records, write canonical CSVs and quality/provenance reports, and load records into PostgreSQL.
-2. **Build assessments.** Calculate initial success scores, academic and placement risks, and segment memberships. Student 360 and analytics services expose the evidence through the API.
-3. **Review predictions.** Model inference uses a trusted local artifact. Missing or incompatible artifacts fall back to a deterministic current-assessment score when sufficient inputs exist; that score is not presented as a probability.
-4. **Coordinate support.** Staff inspect the evidence and review suggested actions. Intervention changes persist with version checks and audit events.
-5. **Refresh the workspace.** When Redis is configured and available, published events reach browser clients through `/ws/updates`. The frontend invalidates queries and fetches updated API data. Core database-backed features remain available without Redis.
+### Core Workflow
 
-### Technology stack
+1. **Evidence Preparation:** Validate and deduplicate synthetic source records, generating canonical datasets and quality reports, and hydrating the PostgreSQL database.
+2. **Assessment Generation:** Compute baseline success scores, calculate academic/placement risk levels, and evaluate segment criteria. Domain Services surface this data via the REST API.
+3. **Predictive Analytics:** The Inference Engine leverages a trusted local ML artifact. If missing, the system gracefully falls back to deterministic scoring baselines.
+4. **Intervention Orchestration:** Staff utilize the React UI to inspect evidence and orchestrate support. All status transitions are persisted with strict version concurrency checks and comprehensive audit logging.
+5. **Real-Time Synchronization:** If Redis is provisioned, backend mutations broadcast cache-invalidation events to browser clients via WebSockets, ensuring seamless UI consistency without manual refreshes.
 
-| Layer | Technologies |
-| --- | --- |
-| Web application | React 19, TypeScript, Vite 7, React Router, TanStack Query |
-| Interface and visualization | Tailwind CSS 4, custom CSS, Radix UI, Recharts, Lucide, GSAP |
-| API and validation | Python, FastAPI, Pydantic, Uvicorn |
-| Persistence | PostgreSQL, SQLAlchemy, Alembic |
-| Analytics and modeling | pandas, NumPy, scikit-learn |
-| Cache and notifications | Redis, Pub/Sub, WebSockets |
-| Verification | pytest, Vitest, Testing Library, Playwright, axe |
-| Deployment configuration | Render blueprint for frontend, API, Redis, and PostgreSQL |
+### Technology Stack
+
+| Layer | Primary Technologies |
+| :--- | :--- |
+| **Frontend UI** | React 19, TypeScript, Vite 7, React Router, TanStack Query |
+| **Design System** | Tailwind CSS 4, Radix UI, Recharts, Lucide Icons, GSAP |
+| **Backend API** | Python 3.12, FastAPI, Pydantic, Uvicorn |
+| **Data Persistence** | PostgreSQL 16, SQLAlchemy 2.0, Alembic |
+| **Data Science** | pandas, NumPy, scikit-learn |
+| **Eventing** | Redis (Cache & Pub/Sub), WebSockets |
+| **Quality Assurance** | pytest, Vitest, Playwright, axe-core |
+| **Infrastructure** | Render Blueprint (Web Service, Background Workers, PostgreSQL, Redis) |
 
 ## Quick start
 
