@@ -8,6 +8,14 @@ def login(client, user_id):
     assert response.status_code==200,response.text
 
 
+def test_demo_session_starts_empty_and_reflects_selected_identity():
+    client=TestClient(app)
+    assert client.get("/api/auth/session").json()["user"] is None
+    assert client.get("/api/students").status_code==401
+    login(client,"mentor-demo")
+    assert client.get("/api/auth/session").json()["user"]["id"]=="mentor-demo"
+
+
 def test_auth_required_demo_picker_and_private_cache_headers():
     client=TestClient(app)
     assert client.get("/api/students").status_code==401
