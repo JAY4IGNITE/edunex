@@ -99,3 +99,23 @@ def test_partial_seed_detection_uses_composite_natural_keys():
     }
     session.close()
     engine.dispose()
+
+
+def test_is_database_complete_returns_false_on_empty_db():
+    from unittest.mock import MagicMock
+    from backend.scripts.run_ingestion import is_database_complete
+
+    mock_session = MagicMock()
+    mock_session.query.return_value.count.return_value = 0
+    assert is_database_complete(mock_session) is False
+
+
+def test_is_database_complete_safe_on_exception():
+    from unittest.mock import MagicMock
+    from backend.scripts.run_ingestion import is_database_complete
+
+    mock_session = MagicMock()
+    mock_session.query.side_effect = Exception("DB Connection Timeout")
+    # Must return False gracefully without raising exception
+    assert is_database_complete(mock_session) is False
+
